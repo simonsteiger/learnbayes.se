@@ -26,7 +26,7 @@ export default defineConfig({
 				},
 			],
 			customCss: [
-				'./src/styles/katex.min.css',
+				'./src/assets/katex/katex.min.css',
 			]
 		}),
 	],
