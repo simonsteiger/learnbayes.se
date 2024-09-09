@@ -8,9 +8,9 @@ import rehypeKatex from 'rehype-katex';
 export default defineConfig({
 	integrations: [
 		starlight({
-			title: 'My Docs',
+			title: 'Learn Bayes',
 			social: {
-				github: 'https://github.com/withastro/starlight',
+				gitlab: 'https://gitlab.com/alping/learn-bayes',
 			},
 			sidebar: [
 				{
@@ -32,6 +32,7 @@ export default defineConfig({
 	],
 	markdown: {
 		remarkPlugins: [remarkMath],
-		rehypePlugins: [[rehypeKatex, {trust: true}]]
+		rehypePlugins: [rehypeKatex],
+		// rehypePlugins: [[rehypeKatex, {trust: true}]]
 	},
 });
