@@ -1,0 +1,20 @@
+pages:
+  # The Docker image that will be used to build the app
+  image: node:lts
+
+  # Clean install the project
+  before_script:
+    - npm ci
+
+  # The steps involved to build the app
+  script:
+    - npm run build
+
+  # The folder that contains the files to be published. Must be called "public"
+  artifacts:
+    paths:
+      - public
+
+  # Trigger a new build and deploy only when there is a push to the main branch
+  only:
+    - main
