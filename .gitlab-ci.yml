@@ -9,6 +9,9 @@ pages:
   # The steps involved to build the app
   script:
     - npm run build
+    # GitLab pages needs to have the published files in a folder named "public"
+    - mv public PUBLIC-RENAME
+    - mv dist public
 
   # The folder that contains the files to be published. Must be called "public"
   artifacts:
