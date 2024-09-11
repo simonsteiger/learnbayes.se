@@ -1,0 +1,72 @@
+---
+title: Examples
+description: Shows some examples of what can be done in Astro/Starlight.
+draft: true
+sidebar:
+  order: 9999
+---
+
+import { Code } from '@astrojs/starlight/components';
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+## Math
+
+Math can be inline $\delta = \frac{1}{2}$ or as an equation:
+
+```math
+P(A \vert B) = {\frac {P(B \vert A) P(A)}{P(B)}}
+```
+
+## Code block
+
+```python
+a = range(1, 10)
+```
+
+## Tabbed code blocks
+
+<Tabs syncKey="code">
+  <TabItem label="R" icon="seti:R">
+    <Code code="a <- 1:9" lang="r" mark={["1:9"]} />
+  </TabItem>
+
+  <TabItem label="Python" icon="seti:python">
+    <Code code="a = range(1, 10)" lang="python" mark={["1, 10"]} />
+  </TabItem>
+
+  <TabItem label="Julia" icon="seti:julia">
+    <Code code="# ??" lang="julia" />
+  </TabItem>
+
+  <TabItem label="STATA">
+    <Code code="# ??" lang="stata" />
+  </TabItem>
+
+  <TabItem label="SAS">
+    <Code code="# ??" lang="sas" />
+  </TabItem>
+</Tabs>
+
+## That are also synced
+
+<Tabs syncKey="code">
+  <TabItem label="R" icon="seti:R">
+    <Code code="b <- 1:9" lang="r" mark={["1:9"]} />
+  </TabItem>
+
+  <TabItem label="Python" icon="seti:python">
+    <Code code="b = range(1, 10)" lang="python" mark={["1, 10"]} />
+  </TabItem>
+
+  <TabItem label="Julia" icon="seti:julia">
+    <Code code="# ??" lang="julia" />
+  </TabItem>
+
+  <TabItem label="STATA">
+    <Code code="# ??" lang="stata" />
+  </TabItem>
+
+  <TabItem label="SAS">
+    <Code code="# ??" lang="sas" />
+  </TabItem>
+</Tabs>
