@@ -19,6 +19,14 @@ export default defineConfig({
           label: 'Information',
           autogenerate: { directory: 'information' },
         },
+        {
+          label: 'Examples',
+          autogenerate: {directory: 'examples'},
+        },
+        {
+          label: 'Further reading',
+          autogenerate: {directory: 'resources'},
+        },
       ],
       customCss: [
         './src/tailwind.css',
