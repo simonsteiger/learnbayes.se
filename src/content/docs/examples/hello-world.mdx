@@ -1,13 +1,15 @@
 ---
-title: Examples
+title: Hello World
 description: Shows some examples of what can be done in Astro/Starlight.
 draft: true
 sidebar:
-  order: 9999
+  order: 1
 ---
 
 import { Code } from '@astrojs/starlight/components';
 import { Tabs, TabItem } from '@astrojs/starlight/components';
+import juliaExample from '/src/code/helloworld.jl?raw';
+import rExample from '/src/code/helloworld.R?raw';
 
 ## Math
 
@@ -23,11 +25,11 @@ P(A \vert B) = {\frac {P(B \vert A) P(A)}{P(B)}}
 a = range(1, 10)
 ```
 
-## Tabbed code blocks
+## Hello World
 
 <Tabs syncKey="code">
   <TabItem label="R" icon="seti:R">
-    <Code code="a <- 1:9" lang="r" mark={["1:9"]} />
+    <Code code={ rExample } lang="r" mark={["1:9"]} />
   </TabItem>
 
   <TabItem label="Python" icon="seti:python">
@@ -35,7 +37,7 @@ a = range(1, 10)
   </TabItem>
 
   <TabItem label="Julia" icon="seti:julia">
-    <Code code="# ??" lang="julia" />
+    <Code code={ juliaExample } lang="julia" />
   </TabItem>
 
   <TabItem label="STATA">
@@ -47,7 +49,7 @@ a = range(1, 10)
   </TabItem>
 </Tabs>
 
-## That are also synced
+## Another exmple
 
 <Tabs syncKey="code">
   <TabItem label="R" icon="seti:R">
