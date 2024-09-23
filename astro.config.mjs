@@ -24,6 +24,10 @@ export default defineConfig({
           autogenerate: {directory: 'examples'},
         },
         {
+          label: 'Guides',
+          autogenerate: {directory: 'guides'},
+        },
+        {
           label: 'Further reading',
           autogenerate: {directory: 'resources'},
         },
