@@ -3,7 +3,7 @@ title: Hello World
 description: Shows some examples of what can be done in Astro/Starlight.
 draft: true
 sidebar:
-  order: 1
+  order: 3
 ---
 
 import { Code } from '@astrojs/starlight/components';
@@ -11,21 +11,11 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 import juliaExample from '/src/code/helloworld.jl?raw';
 import rExample from '/src/code/helloworld.R?raw';
 
-## Math
+## Logistic regression
 
-Math can be inline $\delta = \frac{1}{2}$ or as an equation:
+These code examples can help you get a feel for different modelling frameworks.
 
-```math
-P(A \vert B) = {\frac {P(B \vert A) P(A)}{P(B)}}
-```
-
-## Code block
-
-```python
-a = range(1, 10)
-```
-
-## Hello World
+Have a look at this most simple logistic regression!
 
 <Tabs syncKey="code">
   <TabItem label="R" icon="seti:R">
@@ -38,30 +28,6 @@ a = range(1, 10)
 
   <TabItem label="Julia" icon="seti:julia">
     <Code code={ juliaExample } lang="julia" />
-  </TabItem>
-
-  <TabItem label="STATA">
-    <Code code="# ??" lang="stata" />
-  </TabItem>
-
-  <TabItem label="SAS">
-    <Code code="# ??" lang="sas" />
-  </TabItem>
-</Tabs>
-
-## Another exmple
-
-<Tabs syncKey="code">
-  <TabItem label="R" icon="seti:R">
-    <Code code="b <- 1:9" lang="r" mark={["1:9"]} />
-  </TabItem>
-
-  <TabItem label="Python" icon="seti:python">
-    <Code code="b = range(1, 10)" lang="python" mark={["1, 10"]} />
-  </TabItem>
-
-  <TabItem label="Julia" icon="seti:julia">
-    <Code code="# ??" lang="julia" />
   </TabItem>
 
   <TabItem label="STATA">
