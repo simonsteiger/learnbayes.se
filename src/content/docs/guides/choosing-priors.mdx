@@ -1,0 +1,24 @@
+---
+title: Choosing a prior
+description: A prior is important but often not that hard to choose.
+draft: true
+sidebar:
+  order: 3
+---
+
+import { Aside } from '@astrojs/starlight/components';
+
+Understanding how prior choices influence Bayesian inference is essential yet daunting at first.
+Poor prior choices may indeed compromise analyses.
+
+As Michael Betancourt explains in his [blog post](https://betanalpha.github.io/assets/case_studies/prior_modeling.html#2_Illicit_Elicitation) on Prior Modeling (sections 2 and 3), 
+we do not have to know the precise effect of a treatment to specify a reasonable prior on its regression coefficient.
+It is enough to understand which effects should be considered extreme (or even outright impossible).
+
+<Aside type="caution" title="Frequentist priors">
+By purely summarizing the data, frequentist methods implicitly place a uniform prior on all coefficients. This is ironically one of the poorer choices in many scenarios. 
+Should we, a priori, really believe that an infinitely large effect is equally as likely as a near-null effect?
+</Aside>
+
+For example, it is not necessary to know if a treatment increases or decreases the relative risk of some adverse event occurring.
+Despite our lack of knowledge, we may still be convinced that anything larger than a five-fold increase or decrease would be extreme.
