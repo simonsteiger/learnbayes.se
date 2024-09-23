@@ -1,0 +1,239 @@
+---
+title: Bayesian inference
+draft: true
+description: Modern software usually hides the inner workings of our analyses from us – time to explore what's going on!
+sidebar:
+  order: 2
+---
+
+import { Code } from '@astrojs/starlight/components';
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+import { Aside } from '@astrojs/starlight/components';
+
+import rExample1 from '/src/code/under-the-hood-1.R?raw';
+import rExample2 from '/src/code/under-the-hood-2.R?raw';
+import rExample3 from '/src/code/under-the-hood-3.R?raw';
+import rExample4 from '/src/code/under-the-hood-4.R?raw';
+import juliaExample1 from '/src/code/under-the-hood-1.jl?raw';
+import juliaExample2 from '/src/code/under-the-hood-2.jl?raw';
+import juliaExample3 from '/src/code/under-the-hood-3.jl?raw';
+import juliaExample4 from '/src/code/under-the-hood-4.jl?raw';
+
+## Introduction
+
+Bayesian inference formalizes how to optimally update knowledge in light of observed data.
+
+In math-speak, we can express this as
+
+```math
+\pi(\theta \vert y) \propto \pi(y \vert \theta) \pi(\theta).
+```
+
+This one's important, so let's take this step by step:
+
++ the probability of a parameter configuration given the data, the **posterior** $\pi(\theta \vert y)$
++ is **proportional to** $\propto$
++ the probability of the data given the parameter configuration, the **likelihood** $\pi(y \vert \theta)$
++ **multiplied by** the probability of the parameter configuration, the **prior** $\pi(\theta)$.
+
+So much for the theory. 
+Let's implement this ourselves to get a better hang of it!
+
+## Probabilistic coins
+
+Let's begin with the all-time classic of inferring the probability of a coin landing heads.
+
+<Aside type="note" title="Steps to Bayesian inference">
+1. define the likelihood function
+2. update the posterior
+3. visualize the results
+</Aside>
+
+Before all that let's begin by simulating some data.
+
+<Tabs syncKey="code">
+  <TabItem label="R" icon="seti:R">
+    <Code code={ rExample1 } lang="r" mark={["1:9"]} />
+  </TabItem>
+
+  <TabItem label="Python" icon="seti:python">
+    <Code code="a = range(1, 10)" lang="python" mark={["1, 10"]} />
+  </TabItem>
+
+  <TabItem label="Julia" icon="seti:julia">
+    <Code code={ juliaExample1 } lang="julia" />
+  </TabItem>
+
+  <TabItem label="STATA">
+    <Code code="# ??" lang="stata" />
+  </TabItem>
+
+  <TabItem label="SAS">
+    <Code code="# ??" lang="sas" />
+  </TabItem>
+</Tabs>
+
+### Likelihood function
+
+For our coin toss, we need to implement a Bernoulli likelihood:
+
+```math
+L(\theta | x_1, ..., x_n) = \theta^h (1-\theta)^{n-h}
+
+\ \text{where } h = \sum_{i=1}^n  x_i.
+```
+
+In practice, it is necessary to work with the log likelihood to prevent numerical underflow when working with very small probabilities.
+
+With the log likelihood calculated, we simply perform Bayesian inference as outlined [above](#bayesian-inference).
+
+<Tabs syncKey="code">
+  <TabItem label="R" icon="seti:R">
+    <Code code={ rExample2 } lang="r" mark={["1:9"]} />
+  </TabItem>
+
+  <TabItem label="Python" icon="seti:python">
+    <Code code="a = range(1, 10)" lang="python" mark={["1, 10"]} />
+  </TabItem>
+
+  <TabItem label="Julia" icon="seti:julia">
+    <Code code={ juliaExample2 } lang="julia" />
+  </TabItem>
+
+  <TabItem label="STATA">
+    <Code code="# ??" lang="stata" />
+  </TabItem>
+
+  <TabItem label="SAS">
+    <Code code="# ??" lang="sas" />
+  </TabItem>
+</Tabs>
+
+### Posterior updating
+
+Updating the posterior is straightforward for a problem as simple as this coin toss.
+
+More complicated problems will force us to resort to more computationally expensive techniques, 
+so-called Markov Chain Mote Carlo sampling.
+
+#### Analytical posterior
+
+Given the conjugate prior 
+
+```math
+\text{prior} \sim Beta(\alpha, \beta)
+```
+
+the posterior distribution is
+
+```math
+\pi(\theta \vert y) \sim Beta(\alpha + \text{heads}, \beta + \text{tails}).
+```
+
+This is straightforward to code, too:
+
+<Tabs syncKey="code">
+  <TabItem label="R" icon="seti:R">
+    <Code code="
+    alpha <- 4
+    beta <- 4
+    analytic_posterior <- rbeta(1000, alpha + sum(y), beta + sum(y == 0))
+    " lang="r" mark={["1:9"]} />
+  </TabItem>
+
+  <TabItem label="Python" icon="seti:python">
+    <Code code="b = range(1, 10)" lang="python" mark={["1, 10"]} />
+  </TabItem>
+
+  <TabItem label="Julia" icon="seti:julia">
+    <Code code="
+        α, β = 4, 4
+        analytic_posterior = Beta(α + sum(y), β + sum(y .== 0))
+    " lang="julia" />
+  </TabItem>
+
+  <TabItem label="STATA">
+    <Code code="# ??" lang="stata" />
+  </TabItem>
+
+  <TabItem label="SAS">
+    <Code code="# ??" lang="sas" />
+  </TabItem>
+</Tabs>
+
+Great! We're done! 🎉 ... Wait, why is there more text below?
+
+The bad news is that analytical solutions as simple as that above are rarely applicable in real-world scenarios.
+
+This mathematical dilemma has meant that Bayesian inference was, until very recently, available to only those with very powerful computers.
+Nowadays, however, the average laptop can run the necessary calculations in reasonable time.
+
+#### MCMC sampling
+
+MCMC (Markov Chain Monte Carlo) sampling is a technique used to estimate probability distributions, particularly when direct calculation is difficult or impossible. 
+
+At its core, MCMC sampling works by 'exploring' the parameter space (the set of all possible parameter values) more or less randomly.
+Having found a 'nice spot' (parameters with high probability density, meaning they're more likely given the observed data and prior beliefs), most samplers will be more likely to hang around and sample a little more. 
+On the contrary, if the current spot is terrible, the sampler will quickly move away to try to sample elsewhere.
+
+Each new sample depends only on the current sample, creating what is called a Markov Chain [^1]. 
+This simple rule allows us – after many, many samples – to learn about the posterior distribution without analytically solving it. 
+Tada! We can now approximate complex probability distributions and make inferences about parameters in statistical models which we cannot solve analytically.
+
+The simplest of these samplers is the so-called Metropolis-Hastings algorithm[^2].
+It is fine if you simply copy this code chunk for the final visualization.
+For the curious, have a look and try to understand what it is doing – it is surprisingly straightforward!
+
+<Tabs syncKey="code">
+  <TabItem label="R" icon="seti:R">
+    <Code code={ rExample3 } lang="r" mark={["1:9"]} />
+  </TabItem>
+
+  <TabItem label="Python" icon="seti:python">
+    <Code code="a = range(1, 10)" lang="python" mark={["1, 10"]} />
+  </TabItem>
+
+  <TabItem label="Julia" icon="seti:julia">
+    <Code code={ juliaExample3 } lang="julia" />
+  </TabItem>
+
+  <TabItem label="STATA">
+    <Code code="# ??" lang="stata" />
+  </TabItem>
+
+  <TabItem label="SAS">
+    <Code code="# ??" lang="sas" />
+  </TabItem>
+</Tabs>
+
+### Visualization
+
+Visualization is a cornerstone to aid interpretation in the Bayesian workflow.
+Typically, we would not only plot prior and posterior predictions, but also check the MCMC sampling for issues.
+We will have a look at that in a separate tutorial.
+
+<Tabs syncKey="code">
+  <TabItem label="R" icon="seti:R">
+    <Code code={ rExample4 } lang="r" mark={["1:9"]} />
+  </TabItem>
+
+  <TabItem label="Python" icon="seti:python">
+    <Code code="a = range(1, 10)" lang="python" mark={["1, 10"]} />
+  </TabItem>
+
+  <TabItem label="Julia" icon="seti:julia">
+    <Code code={ juliaExample4 } lang="julia" />
+  </TabItem>
+
+  <TabItem label="STATA">
+    <Code code="# ??" lang="stata" />
+  </TabItem>
+
+  <TabItem label="SAS">
+    <Code code="# ??" lang="sas" />
+  </TabItem>
+</Tabs>
+
+
+[^1]: The [Markov property](https://en.wikipedia.org/wiki/Markov_property) dictates that each sample may only depend on the value of the previous sample.
+[^2]: Nowadays, the preferred sampling algorithm is typically an extension of the [Hamiltonian Monte Carlo algorithm](https://en.wikipedia.org/wiki/Hamiltonian_Monte_Carlo) (HMC) called No-U-Turn Sampler (NUTS).
