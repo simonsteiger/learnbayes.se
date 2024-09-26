@@ -23,7 +23,7 @@ using LaTeXStrings
 plum, blue, grey = colorant"#870052", colorant"#4DB5BC", colorant"#222222"
 
 # ╔═╡ 6ba02a70-4c56-42d3-848b-291445ceedc9
-c1, c2, c3 = colorant"#4f46e5", colorant"#f5bb3c", grey
+c1, c2, c3 = colorant"#BD54EE", colorant"#f5bb3c", colorant"#C7D2FE"
 
 # ╔═╡ e3d2ee68-742e-4efc-83af-fa2339f5db8f
 p = 0.6
@@ -40,12 +40,18 @@ end
 # ╔═╡ 368c9054-96e8-4059-b8dc-029677ebeef9
 prior = Beta(α, β)
 
+# ╔═╡ da7fb093-6b5e-4ec8-9ec1-fb93f4062b92
+rectangle(w, h, x, y) = Shape(x .+ [0,w,w,0], y .+ [0,0,h,h])
+
+# ╔═╡ 854601e1-96f0-4ef8-b4a4-116dd31f6fc2
+bg = colorant"#5046e5"
+
 # ╔═╡ 1af568fb-05ea-419c-b97c-b95d369ef380
 begin
-	plt = plot(prior, fillrange=0, c=grey, fillalpha=0.6, lw=1, legend=false, axis=false, grid=false, size=(500, 500), xticks=true, yticks=false)
+	plt = plot(prior, fillrange=0, c=bg, fillalpha=0.6, lw=2.4, legend=false, axis=false, grid=false, size=(500, 500), xticks=true, yticks=false, background_color=:transparent)
 	
 	likelihood = Beta(1 + sum(x), 1 + sum(x .== 0))
-	plot!(likelihood, c=c2, fillrange=0, fillalpha=0.6, lw=1)
+	plot!(likelihood, c=c2, fillrange=0, fillalpha=0.6, lw=2.4)
 	
 	for i in eachindex(x)
 		i ∉ [3, 10, 24] && continue
@@ -54,16 +60,18 @@ begin
 		current_posterior = Beta(α + sum(v), β + sum(v .== 0))
 		
 		fillalpha = 0.034 * i / 1.25
-		lw = 0.003 * i^2
+		lw = 0.1 * i
 		
-		plot!(current_posterior, c=c1, fillrange=0, fillalpha=minimum([fillalpha, 0.6]), lw=ifelse(i == 24, 1, fillalpha))
+		plot!(current_posterior, c=c1, fillrange=0, fillalpha=minimum([fillalpha, 0.6]), lw=lw)
 	end
 
-	annotate!(0.42, 5.75, L"\pi(\theta \vert y) \propto \pi(y \vert \theta) \pi(\theta)", 24)
+	annotate!(0.5, 5.75, (L"\pi(\theta \vert y) \propto \pi(y \vert \theta) \pi(\theta)", bg), 24)
 
 	posterior = Beta(α + sum(x), β + sum(x .== 0))
 
 	ylims!(0, 7)
+
+	plot!(rectangle(1,6.9,0,0.015), opacity=0.8, fillalpha=0.08, color=c3, lw=3, linecolor=c3)
 	
 	plt
 end
@@ -1521,6 +1529,8 @@ version = "1.4.1+1"
 # ╠═f8c51669-782d-4136-ac83-64ee1d3f28c6
 # ╠═547a8be7-bc76-425f-937b-a6be3cd6c3f3
 # ╠═368c9054-96e8-4059-b8dc-029677ebeef9
+# ╠═da7fb093-6b5e-4ec8-9ec1-fb93f4062b92
+# ╠═854601e1-96f0-4ef8-b4a4-116dd31f6fc2
 # ╠═1af568fb-05ea-419c-b97c-b95d369ef380
 # ╠═b9d35eea-dd1f-4b48-8f4f-f9eddf02dafa
 # ╟─00000000-0000-0000-0000-000000000001
