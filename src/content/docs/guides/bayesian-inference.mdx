@@ -1,6 +1,5 @@
 ---
 title: Bayesian inference
-draft: true
 description: Modern software usually hides the inner workings of our analyses from us – time to explore what's going on!
 sidebar:
   order: 2
@@ -10,14 +9,20 @@ import { Code } from '@astrojs/starlight/components';
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 import { Aside } from '@astrojs/starlight/components';
 
-import rExample1 from '/src/code/under-the-hood-1.R?raw';
-import rExample2 from '/src/code/under-the-hood-2.R?raw';
-import rExample3 from '/src/code/under-the-hood-3.R?raw';
-import rExample4 from '/src/code/under-the-hood-4.R?raw';
-import juliaExample1 from '/src/code/under-the-hood-1.jl?raw';
-import juliaExample2 from '/src/code/under-the-hood-2.jl?raw';
-import juliaExample3 from '/src/code/under-the-hood-3.jl?raw';
-import juliaExample4 from '/src/code/under-the-hood-4.jl?raw';
+import rExample1 from '/src/code/inference_1.R?raw';
+import rExample2 from '/src/code/inference_2.R?raw';
+import rExample3 from '/src/code/inference_3.R?raw';
+import rExample4 from '/src/code/inference_4.R?raw';
+
+import pythonExample1 from '/src/code/inference_1.py?raw';
+import pythonExample2 from '/src/code/inference_2.py?raw';
+import pythonExample3 from '/src/code/inference_3.py?raw';
+import pythonExample4 from '/src/code/inference_4.py?raw';
+
+import juliaExample1 from '/src/code/inference_1.jl?raw';
+import juliaExample2 from '/src/code/inference_2.jl?raw';
+import juliaExample3 from '/src/code/inference_3.jl?raw';
+import juliaExample4 from '/src/code/inference_4.jl?raw';
 
 ## Introduction
 
@@ -53,23 +58,15 @@ Before all that let's begin by simulating some data.
 
 <Tabs syncKey="code">
   <TabItem label="R" icon="seti:R">
-    <Code code={ rExample1 } lang="r" mark={["1:9"]} />
+    <Code code={ rExample1 } lang="r"/>
   </TabItem>
 
   <TabItem label="Python" icon="seti:python">
-    <Code code="a = range(1, 10)" lang="python" mark={["1, 10"]} />
+    <Code code= { pythonExample1 } lang="python"/>
   </TabItem>
 
   <TabItem label="Julia" icon="seti:julia">
-    <Code code={ juliaExample1 } lang="julia" />
-  </TabItem>
-
-  <TabItem label="STATA">
-    <Code code="# ??" lang="stata" />
-  </TabItem>
-
-  <TabItem label="SAS">
-    <Code code="# ??" lang="sas" />
+    <Code code={ juliaExample1 } lang="julia"/>
   </TabItem>
 </Tabs>
 
@@ -89,23 +86,15 @@ With the log likelihood calculated, we simply perform Bayesian inference as outl
 
 <Tabs syncKey="code">
   <TabItem label="R" icon="seti:R">
-    <Code code={ rExample2 } lang="r" mark={["1:9"]} />
+    <Code code={ rExample2 } lang="r"/>
   </TabItem>
 
   <TabItem label="Python" icon="seti:python">
-    <Code code="a = range(1, 10)" lang="python" mark={["1, 10"]} />
+    <Code code= { pythonExample2 } lang="python"/>
   </TabItem>
 
   <TabItem label="Julia" icon="seti:julia">
-    <Code code={ juliaExample2 } lang="julia" />
-  </TabItem>
-
-  <TabItem label="STATA">
-    <Code code="# ??" lang="stata" />
-  </TabItem>
-
-  <TabItem label="SAS">
-    <Code code="# ??" lang="sas" />
+    <Code code={ juliaExample2 } lang="julia"/>
   </TabItem>
 </Tabs>
 
@@ -138,26 +127,25 @@ This is straightforward to code, too:
     alpha <- 4
     beta <- 4
     analytic_posterior <- rbeta(1000, alpha + sum(y), beta + sum(y == 0))
-    " lang="r" mark={["1:9"]} />
+    " lang="r"/>
   </TabItem>
 
   <TabItem label="Python" icon="seti:python">
-    <Code code="b = range(1, 10)" lang="python" mark={["1, 10"]} />
+    <Code code="
+    from scipy import stats
+
+    alpha, beta = 4, 4
+    prior = stats.beta(alpha, beta)
+    analytic_posterior = stats.beta(alpha + sum(y), beta + sum(yi == 0 for yi in y))
+    " lang="python"/>
   </TabItem>
 
   <TabItem label="Julia" icon="seti:julia">
     <Code code="
         α, β = 4, 4
+        prior = Beta(α, β)
         analytic_posterior = Beta(α + sum(y), β + sum(y .== 0))
-    " lang="julia" />
-  </TabItem>
-
-  <TabItem label="STATA">
-    <Code code="# ??" lang="stata" />
-  </TabItem>
-
-  <TabItem label="SAS">
-    <Code code="# ??" lang="sas" />
+    " lang="julia"/>
   </TabItem>
 </Tabs>
 
@@ -186,23 +174,15 @@ For the curious, have a look and try to understand what it is doing – it is su
 
 <Tabs syncKey="code">
   <TabItem label="R" icon="seti:R">
-    <Code code={ rExample3 } lang="r" mark={["1:9"]} />
+    <Code code={ rExample3 } lang="r"/>
   </TabItem>
 
   <TabItem label="Python" icon="seti:python">
-    <Code code="a = range(1, 10)" lang="python" mark={["1, 10"]} />
+    <Code code= { pythonExample3 } lang="python"/>
   </TabItem>
 
   <TabItem label="Julia" icon="seti:julia">
-    <Code code={ juliaExample3 } lang="julia" />
-  </TabItem>
-
-  <TabItem label="STATA">
-    <Code code="# ??" lang="stata" />
-  </TabItem>
-
-  <TabItem label="SAS">
-    <Code code="# ??" lang="sas" />
+    <Code code={ juliaExample3 } lang="julia"/>
   </TabItem>
 </Tabs>
 
@@ -214,23 +194,15 @@ We will have a look at that in a separate tutorial.
 
 <Tabs syncKey="code">
   <TabItem label="R" icon="seti:R">
-    <Code code={ rExample4 } lang="r" mark={["1:9"]} />
+    <Code code={ rExample4 } lang="r"/>
   </TabItem>
 
   <TabItem label="Python" icon="seti:python">
-    <Code code="a = range(1, 10)" lang="python" mark={["1, 10"]} />
+    <Code code= { pythonExample4 } lang="python"/>
   </TabItem>
 
   <TabItem label="Julia" icon="seti:julia">
-    <Code code={ juliaExample4 } lang="julia" />
-  </TabItem>
-
-  <TabItem label="STATA">
-    <Code code="# ??" lang="stata" />
-  </TabItem>
-
-  <TabItem label="SAS">
-    <Code code="# ??" lang="sas" />
+    <Code code={ juliaExample4 } lang="julia"/>
   </TabItem>
 </Tabs>
 
