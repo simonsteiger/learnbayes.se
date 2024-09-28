@@ -11,6 +11,9 @@ export default defineConfig({
   integrations: [
     starlight({
       title: 'Learn Bayes',
+      logo: {
+        src: './src/assets/logo/mvn_splash.svg',
+      },
       social: {
         gitlab: 'https://gitlab.com/alping/learn-bayes',
       },
