@@ -1,15 +1,15 @@
 ---
-title: Hello World
+title: Quick start
 description: Shows some examples of what can be done in Astro/Starlight.
-draft: true
 sidebar:
-  order: 3
+  order: 1
 ---
 
 import { Code } from '@astrojs/starlight/components';
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 import juliaExample from '/src/code/helloworld.jl?raw';
 import rExample from '/src/code/helloworld.R?raw';
+import pythonExample from '/src/code/helloworld.py?raw';
 
 ## Logistic regression
 
@@ -23,18 +23,10 @@ Have a look at this most simple logistic regression!
   </TabItem>
 
   <TabItem label="Python" icon="seti:python">
-    <Code code="a = range(1, 10)" lang="python" mark={["1, 10"]} />
+    <Code code={ pythonExample } lang="python" mark={["1, 10"]} />
   </TabItem>
 
   <TabItem label="Julia" icon="seti:julia">
     <Code code={ juliaExample } lang="julia" />
-  </TabItem>
-
-  <TabItem label="STATA">
-    <Code code="# ??" lang="stata" />
-  </TabItem>
-
-  <TabItem label="SAS">
-    <Code code="# ??" lang="sas" />
   </TabItem>
 </Tabs>

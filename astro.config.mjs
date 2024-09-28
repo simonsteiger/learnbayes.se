@@ -20,10 +20,6 @@ export default defineConfig({
           autogenerate: { directory: 'information' },
         },
         {
-          label: 'Examples',
-          autogenerate: {directory: 'examples'},
-        },
-        {
           label: 'Guides',
           autogenerate: {directory: 'guides'},
         },
