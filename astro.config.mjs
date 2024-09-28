@@ -35,6 +35,7 @@ export default defineConfig({
       customCss: [
         './src/tailwind.css',
         './src/assets/katex/katex.min.css',
+        './src/styles/custom.css',
       ]
     }),
     tailwind({ applyBaseStyles: false })
