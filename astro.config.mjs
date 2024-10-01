@@ -12,7 +12,7 @@ export default defineConfig({
     starlight({
       title: 'Learn Bayes',
       logo: {
-        src: './src/assets/logo/mvn_splash.svg',
+        src: './src/assets/logo/updating_simple.svg',
       },
       social: {
         gitlab: 'https://gitlab.com/alping/learn-bayes',
