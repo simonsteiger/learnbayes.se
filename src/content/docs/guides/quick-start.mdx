@@ -7,26 +7,52 @@ sidebar:
 
 import { Code } from '@astrojs/starlight/components';
 import { Tabs, TabItem } from '@astrojs/starlight/components';
-import juliaExample from '/src/code/helloworld.jl?raw';
-import rExample from '/src/code/helloworld.R?raw';
-import pythonExample from '/src/code/helloworld.py?raw';
+import { Badge } from '@astrojs/starlight/components';
+
+import juliaLogisticExample from '/src/code/quick-start/logistic/logistic.jl?raw';
+import juliaRandInterExample from '/src/code/quick-start/random-intercept/random-intercept.jl?raw';
+
+import rLogisticExample from '/src/code/quick-start/logistic/logistic.R?raw';
+
+import pythonLogisticExample from '/src/code/quick-start/logistic/logistic.py?raw';
+
+The code examples below introduce different modeling frameworks, or–if you know what you're looking for–get you going right away with a specific model type.
 
 ## Logistic regression
-
-These code examples can help you get a feel for different modelling frameworks.
 
 Have a look at this most simple logistic regression!
 
 <Tabs syncKey="code">
   <TabItem label="R" icon="seti:R">
-    <Code code={ rExample } lang="r" mark={["1:9"]} />
+    <Code code={ rLogisticExample } lang="r"/>
   </TabItem>
 
   <TabItem label="Python" icon="seti:python">
-    <Code code={ pythonExample } lang="python" mark={["1, 10"]} />
+    <Code code={ pythonLogisticExample } lang="python"/>
   </TabItem>
 
   <TabItem label="Julia" icon="seti:julia">
-    <Code code={ juliaExample } lang="julia" />
+    <Code code={ juliaLogisticExample } lang="julia"/>
+  </TabItem>
+</Tabs>
+
+## Multilevel models <Badge text="Work In Progress" variant="caution"/>
+
+Hierarchical modeling comes natural in the Bayesian framework.
+Simply stack distributions!
+
+Let's first have a look at the simplest case: a random intercept-only model.
+
+<Tabs syncKey="code">
+  <TabItem label="R" icon="seti:R">
+    <Code code="#" lang="r"/>
+  </TabItem>
+
+  <TabItem label="Python" icon="seti:python">
+    <Code code="#" lang="python"/>
+  </TabItem>
+
+  <TabItem label="Julia" icon="seti:julia">
+    <Code code={ juliaRandInterExample } lang="julia"/>
   </TabItem>
 </Tabs>
