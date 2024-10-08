@@ -24,11 +24,22 @@ export default defineConfig({
         },
         {
           label: 'Guides',
-          autogenerate: {directory: 'guides'},
+          autogenerate: { directory: 'guides' },
         },
         {
           label: 'Further reading',
-          autogenerate: {directory: 'resources'},
+          autogenerate: { directory: 'resources' },
+        },
+      ],
+      head: [
+        // Add Plausible Analytics script (GDPR compliant analytics)
+        {
+          tag: 'script',
+          attrs: {
+            defer: true,
+            'data-domain': 'learnbayes.se',
+            src: 'https://plausible.io/js/script.outbound-links.js',
+          },
         },
       ],
       customCss: [
@@ -37,7 +48,7 @@ export default defineConfig({
         './src/styles/custom.css',
       ]
     }),
-    tailwind({ applyBaseStyles: false })
+    tailwind({ applyBaseStyles: false }),
   ],
   markdown: {
     remarkPlugins: [remarkMath],
