@@ -38,7 +38,8 @@ export default defineConfig({
           attrs: {
             defer: true,
             'data-domain': 'learnbayes.se',
-            src: 'https://plausible.io/js/script.outbound-links.js',
+            'data-api': '/insight/api/event',
+            src: '/insight/js/script.js',
           },
         },
       ],
