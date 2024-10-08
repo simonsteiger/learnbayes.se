@@ -14,8 +14,6 @@ pages:
     # GitLab pages needs to have the published files in a folder named "public"
     - mv public PUBLIC-RENAME
     - mv dist public
-    # The _redirects file is used to proxy the Plausible script and events
-    - cp _redirects public/
 
   # The folder that contains the files to be published. Must be called "public"
   artifacts:
