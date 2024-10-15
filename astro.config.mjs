@@ -27,8 +27,26 @@ export default defineConfig({
           autogenerate: { directory: 'guides' },
         },
         {
-          label: 'Further reading',
-          autogenerate: { directory: 'resources' },
+          label: 'Resources',
+          items: [
+            {
+              label: 'Reading',
+              collapsed: false,
+              items:[
+                'resources/articles',
+                'resources/books',
+                'resources/websites',
+              ]
+            },
+            {
+              label: 'Programming',
+              collapsed: false,
+              items: [
+                'resources/programming',
+                'resources/examples',
+              ]
+            }
+          ]
         },
       ],
       head: [

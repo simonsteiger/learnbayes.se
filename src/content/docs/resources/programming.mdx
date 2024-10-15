@@ -1,5 +1,5 @@
 ---
-title: Programming
+title: Languages
 description: These resources help you implement Bayesian statistics in your preferred programming language.
 sidebar:
   order: 2
@@ -7,6 +7,10 @@ sidebar:
 
 import { Aside } from '@astrojs/starlight/components';
 import { Badge } from '@astrojs/starlight/components';
+
+Here we provide an overview of the most popular probabilistic modelling frameworks.
+
+Programming is like playing an instrument; everyone has their own favorite, so choose what best suits you! 🌈
 
 ## R
 
@@ -20,11 +24,17 @@ R does not have its own, embedded probabilistic programming language and instead
 Once you have fit a model, the Bayesian workflow heavily relies on visualizations to understand the model and diagnose potential issues.
 Many of the most common techniques for this are implemented in the [`bayesplot`](http://mc-stan.org/bayesplot/) package.
 
+If you would like to write a model in Stan, you can fit it in R using R's interface to Stan, [RStan](https://mc-stan.org/users/interfaces/rstan.html).
+It allows you to fit models written in Stan and continue analyzing the results in R.
+
 ## Python <Badge text="Work In Progress" variant="caution"/>
 
 A dedicated package for Bayesian inference in Python is [PyMC](https://www.pymc.io/welcome.html).
 
 ## Julia
+
+[Julia](https://julialang.org/) is a language designed for scientific computation.
+Julia is fast, so it is possible to do Bayesian inference purely in Julia.
 
 <Aside title="Summary">
 Julia's [`Turing.jl`](https://turinglang.org/docs/tutorials/00-introduction/) is highly flexible and features a math-like syntax.
@@ -37,11 +47,13 @@ For those who enjoy learning by doing, this close correspondence between code an
 With the exception of a few special operators, a Turing model is just normal Julia code.
 Basic diagnostic functions are implemented, but you should not expect the same suite of convenience functions as in R.
 
+Julia also has an interface to Stan, [Stan.jl](https://mc-stan.org/users/interfaces/julia-stan), though it is less mature than the equivalent in R, RStan.
+
 ## Stan
 
 <Aside title="Summary">
 [Stan](https://mc-stan.org/docs/) is a probabilistic programming language which allows you to do _almost_ anything.
 </Aside>
 
-All of the above langauges have interfaces to Stan.
+All of the above langauges have [interfaces](https://mc-stan.org/users/interfaces/) to Stan.
 This makes is possible to write models as `.stan` files, fit them from R, Python or Julia, and continue working with the result in the language of your choice.

@@ -1,0 +1,59 @@
+---
+title: Websites
+---
+
+import { Badge } from '@astrojs/starlight/components';
+import { Aside } from '@astrojs/starlight/components';
+import { Card, CardGrid } from '@astrojs/starlight/components';
+
+<Aside title="Something's missing?">
+This list will forever be a work in progress.
+
+If you would like an entry to be added, feel free to open an issue on <a href="https://gitlab.com/alping/learn-bayes/-/issues" target="_blank">GitLab</a>. We are always happy to grow the list!
+</Aside>
+
+
+## Blogs
+
+<CardGrid>
+  <Card title="Michael Betancourt">
+    <li>Language: Stan, R</li>
+    <li>Level: <Badge text="Intermediate" variant="caution"/></li>
+    <li>Links: <a href="https://betanalpha.github.io/writing/" target="_blank">Website</a></li>
+  </Card>
+  <Card title="Martin Modrák">
+    <li>Language: Stan, R</li>
+    <li>Level: <Badge text="Intermediate" variant="caution"/></li>
+    <li>Links: <a href="https://www.martinmodrak.cz/" target="_blank">Website</a></li>
+  </Card>
+  <Card title="Jose Storopoli">
+    <li>Language: Julia</li>
+    <li>Level: <Badge text="Basic" variant="success"/><Badge text="Intermediate" variant="caution"/></li>
+    <li>Links: <a href="https://storopoli.io/Bayesian-Julia/" target="_blank">Website</a></li>
+  </Card>
+</CardGrid>
+
+## Documentation
+
+<CardGrid>
+  <Card title="brms">
+    <li>Language: R</li>
+    <li>Level: <Badge text="Basic" variant="success"/></li>
+    <li>Links: <a href="https://paulbuerkner.com/brms/" target="_blank">Website</a></li>
+  </Card>
+  <Card title="Stan User's Guide">
+    <li>Language: Stan</li>
+    <li>Level: <Badge text="Advanced" variant="danger"/></li>
+    <li>Links: <a href="https://mc-stan.org/docs/stan-users-guide/" target="_blank">Website</a></li>
+  </Card>
+  <Card title="Turing.jl">
+    <li>Language: Julia</li>
+    <li>Level: <Badge text="Intermediate" variant="caution"/></li>
+    <li>Links: <a href="https://turinglang.org/" target="_blank">Website</a></li>
+  </Card>
+  <Card title="PyMC">
+    <li>Language: Python</li>
+    <li>Level: <Badge text="Intermediate" variant="caution"/></li>
+    <li>Links: <a href="https://www.pymc.io/welcome.html" target="_blank">Website</a></li>
+  </Card>
+</CardGrid>
