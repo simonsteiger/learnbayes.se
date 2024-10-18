@@ -3,17 +3,28 @@ title: Examples
 ---
 
 import { LinkCard } from '@astrojs/starlight/components';
+import { Aside } from '@astrojs/starlight/components';
 
 ## Statistical rethinking: Julia
 
 These are our own attempts at coding after Richard McElreath's examples from his [video lecture](https://www.youtube.com/watch?v=FdnMWdICdRs&list=PLDcUM9US4XdPz-KxHM4XHt7uUVGWWVSus).
 
-Code examples from the book may follow in the future!
+<Aside title="Pluto on binder">
+The links lead to interactive [Pluto](https://plutojl.org) notebooks which are hosted via a service called [binder](https://mybinder.org/).
+This allows you to use buttons and sliders to change models, plots, and even try playing with the code itself!
+</Aside>
+
+More code examples from the book may follow in the future!
 
 <LinkCard
   title="Lecture 2: The Garden of Forking Paths"
   href="https://binder.plutojl.org/v0.19.36/open?url=https%253A%252F%252Fgist.githubusercontent.com%252Fsimonsteiger%252Fa5d55464b30dadba3a2af63d57714a6c%252Fraw%252F733f56f99f7df0c015fe80d30fc7cc8d1c034b36%252Fglobetossing.jl"
   target="_blank"
-  description="Learn the basics of simulating and modelling data."
+  description="Learn to simulate data and think Bayesian."
 />
-
+<LinkCard
+  title="Lecture 3: Geocentric models"
+  href="https://binder.plutojl.org/v0.19.36/open?url=https%253A%252F%252Fgist.githubusercontent.com%252Fsimonsteiger%252F97cf8c608ec151d356041304d90431c5%252Fraw%252F1fb8dbc13e8691e9d873f9b3fdc9dcc615b5c9ab%252Fgeocentric.jl"
+  target="_blank"
+  description="Practice the Bayesian workflow by coding your first linear regression."
+/>
