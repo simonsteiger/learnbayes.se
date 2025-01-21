@@ -1,0 +1,41 @@
+---
+title: Choosing a prior
+description: A prior is important but often not that hard to choose.
+sidebar:
+  order: 3
+---
+
+import { Aside } from '@astrojs/starlight/components';
+
+Understanding how prior choices influence Bayesian inference is essential yet daunting at first.
+Poor prior choices may indeed compromise analyses.
+
+<Aside title="Summary">
+Setting reasonable priors does not require domain knowledge on each variable in your model.
+
+Approach prior specification as a task that rules out the impossible.
+
+Z-standardisation simplifies reasoning about variation and–as a bonus–often speeds up MCMC sampling.
+</Aside>
+
+## Containment, not clairvoyance
+
+As Michael Betancourt explains in his [blog post](https://betanalpha.github.io/assets/case_studies/prior_modeling.html#2_Illicit_Elicitation) on Prior Modeling (sections 2 and 3), 
+we do not have to know the precise effect of a treatment to specify a reasonable prior on its regression coefficient.
+It is enough to understand which effects should be considered extreme (or even outright impossible).
+
+For example, it is not necessary to know if a treatment increases or decreases the relative risk of some adverse event occurring.
+Despite our lack of knowledge, we may still be convinced that anything larger than a five-fold increase or decrease would be extreme.
+
+## Standardization
+
+The variables we work with have all sorts of different scales: on some, a standard deviation of 100 is huge, while on others, it would be tiny.
+Setting priors is much easier if we do not have to wrangle with these units.
+[Z-standardization](https://en.wikipedia.org/wiki/Standard_score) simplifies this task immensely: by construction, we can now assume that–in the absence of an effect–most of the probability density lies within one standard deviaton of the mean (zero).
+
+## Priors and Frequentism
+
+By purely summarizing the data, frequentist methods implicitly place a uniform prior on all coefficients. This is ironically one of the poorer choices in many scenarios. 
+Should we, a priori, really believe that an infinitely large effect is equally as likely as a near-null effect?
+Have a look at [this section](https://betanalpha.github.io/assets/case_studies/prior_modeling.html#423_Too_Ignorant) if you're interested 
+(and never mind the formulas, the important points are made in the text, too!).

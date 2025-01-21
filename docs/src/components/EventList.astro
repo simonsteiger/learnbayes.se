@@ -1,0 +1,39 @@
+---
+import { getCollection } from "astro:content";
+import { LinkCard, Steps } from "@astrojs/starlight/components";
+
+const allEvents = await getCollection("events", ({ data }) => {
+  return import.meta.env.PROD ? data.draft !== true : true;
+});
+const allSpeakers = await getCollection("people", ({ data }) => {
+  return import.meta.env.PROD ? data.draft !== true : true;
+});
+
+const getSpeaker = (speakerID: string) => {
+  return allSpeakers.find((speaker) => speaker.id == speakerID)?.data.name;
+};
+---
+
+<Steps>
+  <ol>
+    {
+      allEvents
+        .sort((a, b) => a.data.date.getTime() - b.data.date.getTime())
+        .map((event) => (
+          <li>
+            <LinkCard
+              title={event.data.title}
+              href={`/events/${event.id}`}
+              description={[
+                event.data.date.toISOString().split("T")[0],
+                event.data.start_time?.slice(0, -3) +
+                  "-" +
+                  event.data.stop_time?.slice(0, -3),
+                getSpeaker(event.data.speaker.id),
+              ].join(" | ")}
+            />
+          </li>
+        ))
+    }
+  </ol>
+</Steps>
