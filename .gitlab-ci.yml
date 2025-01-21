@@ -4,16 +4,13 @@ pages:
   # The Docker image that will be used to build the app
   image: node:lts
 
-  # Clean install the project
-  before_script:
-    - npm ci
-
   # The steps involved to build the app
   script:
+    - cd docs
+    - npm ci
     - npm run build
     # GitLab pages needs to have the published files in a folder named "public"
-    - mv public PUBLIC-RENAME
-    - mv dist public
+    - mv dist ../public
 
   # The folder that contains the files to be published. Must be called "public"
   artifacts:

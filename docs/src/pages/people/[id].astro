@@ -1,0 +1,19 @@
+---
+import { getCollection, render } from "astro:content";
+import StarlightPage from "@astrojs/starlight/components/StarlightPage.astro";
+
+export async function getStaticPaths() {
+  const people = await getCollection("people");
+  return people.map((person) => ({
+    params: { id: person.id },
+    props: { person },
+  }));
+}
+
+const { person } = Astro.props;
+const { Content } = await render(person);
+---
+
+<StarlightPage frontmatter={{ title: person.data.name }}>
+  <Content />
+</StarlightPage>

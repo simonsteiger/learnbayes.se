@@ -1,0 +1,18 @@
+---
+import { getCollection } from "astro:content";
+import { LinkCard } from "@astrojs/starlight/components";
+
+const allOrganizers = await getCollection("people", ({ data }) => {
+  return data.type == "organizer" && (import.meta.env.PROD
+    ? data.draft !== true
+    : true);
+});
+---
+
+{
+  allOrganizers
+    .sort((a, b) => a.data.name.localeCompare(b.data.name))
+    .map((organizer) => (
+      <LinkCard title={organizer.data.name} href={`/people/${organizer.id}`} />
+    ))
+}
