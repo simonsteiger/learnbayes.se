@@ -11,8 +11,8 @@ const allOrganizers = await getCollection("people", ({ data }) => {
 
 {
   allOrganizers
-    .sort((a, b) => a.data.name.localeCompare(b.data.name))
+    .sort((a, b) => a.data.title.localeCompare(b.data.title))
     .map((organizer) => (
-      <LinkCard title={organizer.data.name} href={`/people/${organizer.id}`} />
+      <LinkCard title={organizer.data.title} href={`/people/${organizer.id}`} />
     ))
 }

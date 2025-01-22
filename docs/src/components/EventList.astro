@@ -1,17 +1,6 @@
 ---
-import { getCollection } from "astro:content";
 import { LinkCard, Steps } from "@astrojs/starlight/components";
-
-const allEvents = await getCollection("events", ({ data }) => {
-  return import.meta.env.PROD ? data.draft !== true : true;
-});
-const allSpeakers = await getCollection("people", ({ data }) => {
-  return import.meta.env.PROD ? data.draft !== true : true;
-});
-
-const getSpeaker = (speakerID: string) => {
-  return allSpeakers.find((speaker) => speaker.id == speakerID)?.data.name;
-};
+import { allEvents, getSpeaker } from "src/utils";
 ---
 
 <Steps>
@@ -29,7 +18,7 @@ const getSpeaker = (speakerID: string) => {
                 event.data.start_time?.slice(0, -3) +
                   "-" +
                   event.data.stop_time?.slice(0, -3),
-                getSpeaker(event.data.speaker.id),
+                getSpeaker(event.data.speaker.id)?.data.title,
               ].join(" | ")}
             />
           </li>

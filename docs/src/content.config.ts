@@ -6,9 +6,9 @@ import { docsSchema } from '@astrojs/starlight/schema';
 const docs = defineCollection({ loader: docsLoader(), schema: docsSchema() })
 
 const people = defineCollection({
-	loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/people" }),
+	loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/docs/people" }),
 	schema: z.object({
-		name: z.string(),
+		title: z.string(),
 		organization: z.string(),
 		contact: z.string(),
 		type: z.enum(['speaker', 'organizer']),
@@ -17,7 +17,7 @@ const people = defineCollection({
 });
 
 const events = defineCollection({
-	loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/events" }),
+	loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/docs/events" }),
 	schema: z.object({
 		title: z.string(),
 		speaker: reference('people'),

@@ -24,6 +24,11 @@ export default defineConfig({
           autogenerate: { directory: 'information' },
         },
         {
+          label: 'Events',
+          autogenerate: { directory: 'events' },
+          collapsed: false,
+        },
+        {
           label: 'Guides',
           autogenerate: { directory: 'guides' },
         },
