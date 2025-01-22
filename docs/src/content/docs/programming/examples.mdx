@@ -8,27 +8,44 @@ sidebar:
 import { LinkCard } from '@astrojs/starlight/components';
 import { Aside } from '@astrojs/starlight/components';
 
-## Statistical rethinking: Julia
+## Julia
+
+The links below lead to static versions [Pluto](https://plutojl.org/) notebooks.
+Using the interactive sliders requires [installing Julia](https://julialang.org/downloads/) (it's well worth it! 🌝).
+
+### Statistical rethinking
 
 These are our own attempts at coding after Richard McElreath's examples from his [video lecture](https://www.youtube.com/watch?v=FdnMWdICdRs&list=PLDcUM9US4XdPz-KxHM4XHt7uUVGWWVSus).
 
-More code examples from the book may follow in the future!
+More code examples from the book will follow in the future!
+Older versions of the lectures not featured here yet also available on [GitHub](https://github.com/simonsteiger/strix) as simple `julia` scripts.
 
 <LinkCard
   title="Lecture 2: The Garden of Forking Paths"
-  href="/statistical_rethinking/julia/02_globetossing.html"
+  href="/julia/statistical_rethinking/02_globetossing.html"
   target="_blank"
   description="Learn to simulate data and think Bayesian."
 />
 <LinkCard
   title="Lecture 3: Geocentric models"
-  href="/statistical_rethinking/julia/03_geocentric.html"
+  href="/julia/statistical_rethinking/03_geocentric.html"
   target="_blank"
   description="Practice the Bayesian workflow by coding your first linear regression."
 />
 <LinkCard
   title="Lecture 4: Categories and Curves"
-  href="/statistical_rethinking/julia/04_categories.html"
+  href="/julia/statistical_rethinking/04_categories.html"
   target="_blank"
   description="Work with categorical predictors and learn how to summarize results."
+/>
+
+### Focus topics
+
+These short, interactive, and visualisation-heavy notebooks focus on building intuition for more advanced topics.
+
+<LinkCard
+  title="Gaussian Processes"
+  href="/julia/gps.html"
+  target="_blank"
+  description="Explore GPs and the Squared Exponential Kernel with interactive sliders."
 />
