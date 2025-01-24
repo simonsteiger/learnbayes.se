@@ -1,0 +1,51 @@
+---
+import type { CollectionEntry } from "astro:content";
+import { formatTime, getCalendarEventLink, getSpeaker } from "src/utils";
+
+type Props = {
+  event: CollectionEntry<"events">;
+};
+
+const { event } = Astro.props;
+const { title, date, start_time, stop_time, type } = event.data;
+const speaker = getSpeaker(event.data.speaker.id);
+const isPastDate = date < new Date();
+
+const pastStyle =
+  "bg-gray-100 hover:bg-gray-200 dark:bg-gray-900 dark:hover:bg-gray-800";
+const futureStyle =
+  "bg-white hover:bg-gray-100 dark:bg-gray-800 dark:hover:bg-gray-700";
+---
+
+<div
+  class={`not-content flex ${isPastDate ? pastStyle : futureStyle} dark:text-gray-100 dark:shadow-gray-700 rounded-md overflow-hidden`}
+  style="box-shadow: var(--sl-shadow-sm)"
+>
+  <a
+    href={await getCalendarEventLink(event)}
+    download={`${date.toISOString().slice(0, 10)} - Learn Bayes - ${title}.ics`}
+    class="block flex flex-shrink-0 flex-col items-center justify-center p-3 bg-accent-600 dark:bg-accent-200 text-white dark:text-gray-800 no-underline hover:no-underline"
+  >
+    <div class="text-3xl">
+      {date.toLocaleString("en-US", { day: "2-digit" })}
+    </div>
+    <div class="text-sm">
+      {date.toLocaleString("en-US", { month: "long" })}
+    </div>
+  </a>
+  <a
+    href={`/events/${event.id}`}
+    class="block flex flex-grow py-2 px-4 rounded-r-md border-y border-r border-gray-300 dark:border-gray-500 no-underline hover:no-underline"
+  >
+    <div class="flex-grow">
+      <div class="text-lg font-semibold text-gray-900 dark:text-gray-200">
+        {title}
+      </div>
+      <div class="text-gray-800 dark:text-gray-300">
+        {formatTime(start_time)}-{formatTime(stop_time)} | {type} with {
+          speaker?.data.title
+        }
+      </div>
+    </div>
+  </a>
+</div>
