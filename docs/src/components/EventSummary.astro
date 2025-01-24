@@ -1,8 +1,8 @@
 ---
 import { Aside } from "@astrojs/starlight/components";
-import { getSpeaker } from "src/utils";
+import { formatTime, getSpeaker } from "src/utils";
 
-interface Props {
+type Props = {
   frontmatter: {
     title: string;
     speaker: string;
@@ -13,13 +13,13 @@ interface Props {
     type: string;
     group: string;
   };
-}
+};
 
-const frontmatter = Astro.props.frontmatter
+const { frontmatter } = Astro.props;
 const speaker = getSpeaker(frontmatter.speaker);
 const date = new Date(frontmatter.date);
-const start_time = frontmatter.start_time.slice(0, -3)
-const stop_time = frontmatter.stop_time.slice(0, -3)
+const start_time = formatTime(frontmatter.start_time);
+const stop_time = formatTime(frontmatter.stop_time);
 const { place, type } = frontmatter;
 ---
 

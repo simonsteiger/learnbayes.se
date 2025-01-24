@@ -1,28 +1,18 @@
 ---
-import { LinkCard, Steps } from "@astrojs/starlight/components";
-import { allEvents, getSpeaker } from "src/utils";
+import EventListItem from "./EventListItem.astro";
+import type { CollectionEntry } from "astro:content";
+
+type Props = {
+  events: CollectionEntry<"events">[];
+};
+
+const { events } = Astro.props;
 ---
 
-<Steps>
-  <ol>
-    {
-      allEvents
-        .sort((a, b) => a.data.date.getTime() - b.data.date.getTime())
-        .map((event) => (
-          <li>
-            <LinkCard
-              title={event.data.title}
-              href={`/events/${event.id}`}
-              description={[
-                event.data.date.toISOString().split("T")[0],
-                event.data.start_time?.slice(0, -3) +
-                  "-" +
-                  event.data.stop_time?.slice(0, -3),
-                getSpeaker(event.data.speaker.id)?.data.title,
-              ].join(" | ")}
-            />
-          </li>
-        ))
-    }
-  </ol>
-</Steps>
+{
+  events
+    .sort((a, b) => a.data.date.getTime() - b.data.date.getTime())
+    .map((event) => (
+        <EventListItem event={event} />
+    ))
+}

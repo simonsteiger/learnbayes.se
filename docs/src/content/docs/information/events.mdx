@@ -6,12 +6,30 @@ sidebar:
   badge:
     text: New
     variant: tip
-
 ---
 import EventList from '@components/EventList.astro';
+import { allEvents } from "src/utils";
 
-The program consists of a Teaser Seminar in Fall 2024, followed by a monthly Seminar Series, a Methods Week, and a Networking event in Spring 2025.
+The program consists of a Teaser Seminar in Fall 2024, followed by a monthly Seminar Series, Methods Week, and Networking Event in Spring 2025.
 
----
+**Click on date to add the event to your calendar.**
 
-<EventList />
+<details>
+  <summary>Pre-event (2024)</summary>
+  <EventList events={allEvents.filter(event => event.data.group == 'other')} />
+</details>
+
+<details open>
+  <summary>Seminar Series</summary>
+  <EventList events={allEvents.filter(event => event.data.group == 'seminar-series')} />
+</details>
+
+<details>
+  <summary>Methods Week</summary>
+  More information soon.
+</details>
+
+<details>
+  <summary>Networking Event</summary>
+  More information soon.
+</details>
