@@ -2,7 +2,7 @@
 title: Articles
 ---
 
-import { Aside } from '@astrojs/starlight/components';
+import { Aside, LinkCard } from '@astrojs/starlight/components';
 
 <Aside title="Something's missing?">
 This list will forever be a work in progress.
@@ -12,10 +12,44 @@ If you would like an entry to be added, feel free to open an issue on <a href="h
 
 ## Guidelines
 
-- <a href="https://doi.org/10.1038/s41562-021-01177-7" target="_blank">Bayesian Analysis Reporting Guidelines</a> (Kruschke, 2021)
-- <a href="https://arxiv.org/abs/2011.01808" target="_blank">Bayesian Workflow</a> (Gelman et al., 2020)
+<LinkCard
+  title="Bayesian Analysis Reporting Guidelines"
+  href="https://doi.org/10.1038/s41562-021-01177-7"
+  target="_blank"
+  description="Kruschke (2021), Nature Human Behaviour."
+/>
+
+<LinkCard
+  title="Bayesian Workflow"
+  href="https://doi.org/10.1038/s41562-021-01177-7"
+  target="_blank"
+  description="Gelman et al. (2020), arXiv."
+/>
+
+## Forecasting
+
+<LinkCard
+  title="Bayesian forecasting for the 2025 federal elections in Germany"
+  href="https://zweitstimme.org"
+  target="_blank"
+  description="Stoetzer et al. (2019), Political Analysis. Website in German."
+/>
 
 ## Programming
 
-- <a href="https://www.jstatsoft.org/article/view/v080i01" target="_blank">brms: An R Package for Bayesian Multilevel Models Using Stan</a> (Bürkner, 2017)
-- <a href="https://journal.r-project.org/archive/2018/RJ-2018-017/index.html" target="_blank">Advanced Bayesian Multilevel Modeling with the R Package brms</a> (Bürkner, 2018)
+<LinkCard
+  title="brms: An R Package for Bayesian Multilevel Models Using Stan"
+  href="https://www.jstatsoft.org/article/view/v080i01"
+  target="_blank"
+  description="Bürkner (2017), Journal of Statistical Software."
+/>
+
+<LinkCard
+  title="A Tutorial on Hidden Markov Models using Stan"
+  href="https://luisdamiano.github.io/stancon18/hmm_stan_tutorial.pdf"
+  target="_blank"
+  description="Damiano (2017)."
+/>
+
+
+
