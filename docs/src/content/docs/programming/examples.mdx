@@ -5,12 +5,12 @@ sidebar:
   order: 2
 ---
 
-import { LinkCard } from '@astrojs/starlight/components';
+import { LinkCard, Steps } from '@astrojs/starlight/components';
 import { Aside } from '@astrojs/starlight/components';
 
 ## Julia
 
-The links below lead to static versions [Pluto](https://plutojl.org/) notebooks.
+The links below lead to static versions of [Pluto](https://plutojl.org/) notebooks.
 Using the interactive sliders requires [installing Julia](https://julialang.org/downloads/) (it's well worth it! 🌝).
 
 ### Statistical rethinking
@@ -18,26 +18,44 @@ Using the interactive sliders requires [installing Julia](https://julialang.org/
 These are our own attempts at coding after Richard McElreath's examples from his [video lecture](https://www.youtube.com/watch?v=FdnMWdICdRs&list=PLDcUM9US4XdPz-KxHM4XHt7uUVGWWVSus).
 
 More code examples from the book will follow in the future!
-Older versions of the lectures not featured here yet also available on [GitHub](https://github.com/simonsteiger/strix) as simple `julia` scripts.
+Older versions of the lectures not featured here yet also available on [GitHub](https://github.com/simonsteiger/strix) as simple Julia scripts.
 
-<LinkCard
-  title="Lecture 2: The Garden of Forking Paths"
+<Steps>
+
+<ol>
+<li><LinkCard
+  title="The Golem of Prague"
+  href="https://www.youtube.com/watch?v=FdnMWdICdRs&list=PLDcUM9US4XdPz-KxHM4XHt7uUVGWWVSus"
+  target="_blank"
+  description="A conceptual introduction to Bayesian statistics. No code!"
+/></li>
+<li><LinkCard
+  title="The Garden of Forking Paths"
   href="/julia/statistical_rethinking/02_globetossing.html"
   target="_blank"
   description="Learn to simulate data and think Bayesian."
-/>
-<LinkCard
-  title="Lecture 3: Geocentric models"
+/></li>
+<li><LinkCard
+  title="Geocentric models"
   href="/julia/statistical_rethinking/03_geocentric.html"
   target="_blank"
   description="Practice the Bayesian workflow by coding your first linear regression."
-/>
-<LinkCard
-  title="Lecture 4: Categories and Curves"
+/></li>
+<li><LinkCard
+  title="Categories and Curves"
   href="/julia/statistical_rethinking/04_categories.html"
   target="_blank"
   description="Work with categorical predictors and learn how to summarize results."
-/>
+/></li>
+<li><LinkCard
+  title="Elemental Confounds"
+  href="/julia/statistical_rethinking/05_confounds.html"
+  target="_blank"
+  description="Learn about the basic confounds through simulation and analysis."
+/></li>
+</ol>
+
+</Steps>
 
 ### Focus topics
 
