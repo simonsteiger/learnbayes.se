@@ -7,12 +7,17 @@ sidebar:
     text: New
     variant: tip
 ---
+
+import { Aside } from '@astrojs/starlight/components';
 import EventList from '@components/EventList.astro';
 import { allEvents } from "src/utils";
 
 The program consists of a Teaser Seminar in Fall 2024, followed by a monthly Seminar Series, Methods Week, and Networking Event in Spring 2025.
 
-**Click on date to add the event to your calendar.**
+
+<Aside title="Calendar events">
+Click on the green panel with the date to add the event to your calendar.
+</Aside>
 
 <details>
   <summary>Pre-event (2024)</summary>
