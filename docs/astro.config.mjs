@@ -2,6 +2,7 @@
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
 import tailwind from '@astrojs/tailwind';
+import icon from 'astro-icon';
 import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
 
@@ -59,6 +60,7 @@ export default defineConfig({
       ]
     }),
     tailwind({ applyBaseStyles: false }),
+    icon()
   ],
   markdown: {
     remarkPlugins: [remarkMath],

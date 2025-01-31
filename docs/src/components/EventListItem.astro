@@ -1,5 +1,6 @@
 ---
 import type { CollectionEntry } from "astro:content";
+import { Icon } from "astro-icon/components";
 import { formatTime, getCalendarEventLink, getSpeaker } from "src/utils";
 
 type Props = {
@@ -7,7 +8,7 @@ type Props = {
 };
 
 const { event } = Astro.props;
-const { title, date, start_time, stop_time, type } = event.data;
+const { title, date, start_time, stop_time, place, type } = event.data;
 const speaker = getSpeaker(event.data.speaker.id);
 const isPastDate = date < new Date();
 
@@ -24,7 +25,7 @@ const futureStyle =
   <a
     href={await getCalendarEventLink(event)}
     download={`${date.toISOString().slice(0, 10)} - Learn Bayes - ${title}.ics`}
-    class="block flex flex-shrink-0 flex-col items-center justify-center p-3 bg-accent-600 dark:bg-accent-200 text-white dark:text-gray-800 no-underline hover:no-underline"
+    class="block w-23 flex flex-shrink-0 flex-col items-center justify-center p-3 bg-accent-600 dark:bg-accent-200 text-white dark:text-gray-800 no-underline hover:no-underline"
   >
     <div class="text-3xl">
       {date.toLocaleString("en-US", { day: "2-digit" })}
@@ -38,13 +39,19 @@ const futureStyle =
     class="block flex flex-grow py-2 px-4 rounded-r-md border-y border-r border-gray-300 dark:border-gray-500 no-underline hover:no-underline"
   >
     <div class="flex-grow">
-      <div class="text-lg font-semibold text-gray-900 dark:text-gray-200">
-        {title}
+      <div
+        class="flex gap-3 items-center text-lg font-semibold text-gray-900 dark:text-gray-200"
+      >
+        <div>{title}</div>
       </div>
       <div class="text-gray-800 dark:text-gray-300">
-        {formatTime(start_time)}-{formatTime(stop_time)} | {type} with {
-          speaker?.data.title
-        }
+        <Icon
+          is:inline={true}
+          name={place === "Zoom" ? "mdi:video-chat" : "mdi:lecture"}
+          class="inline-block align-text-bottom"
+        />
+        <span>{formatTime(start_time)}-{formatTime(stop_time)}</span>
+        <span>{type} with {speaker?.data.title}</span>
       </div>
     </div>
   </a>
