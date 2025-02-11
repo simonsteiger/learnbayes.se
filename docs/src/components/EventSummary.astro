@@ -1,6 +1,7 @@
 ---
-import { Aside } from "@astrojs/starlight/components";
 import { formatTime, getSpeaker } from "src/utils";
+import { Image } from "astro:assets";
+type ImageModule = { default: ImageMetadata };
 
 type Props = {
   frontmatter: {
@@ -12,6 +13,7 @@ type Props = {
     place: string;
     type: string;
     group: string;
+    url?: string;
   };
 };
 
@@ -20,16 +22,60 @@ const speaker = getSpeaker(frontmatter.speaker);
 const date = new Date(frontmatter.date);
 const start_time = formatTime(frontmatter.start_time);
 const stop_time = formatTime(frontmatter.stop_time);
-const { place, type } = frontmatter;
+const { place, type, url } = frontmatter;
+
+// Get portrait file paths without loading them
+const portraits = import.meta.glob<ImageModule>(
+  "@assets/portraits/*.{jpeg,jpg,png}",
+);
+const portraitMap = Object.keys(portraits).reduce(
+  (acc, path) => {
+    const filename = path.split("/").pop()?.split(".")[0] ?? "";
+    const key = filename.replace("portrait-", "");
+    acc[key] = path;
+    return acc;
+  },
+  {} as Record<string, string>,
+);
+
+let portrait;
+if (frontmatter.speaker in portraitMap) {
+  const imported = await portraits[portraitMap[frontmatter.speaker]]();
+  portrait = imported.default;
+} else {
+  // Default portrait here
+}
 ---
 
-<Aside title="Summary">
-  <strong>Speaker:</strong>
-  {speaker?.data.title}<br />
-  <strong>Date & time:</strong>
-  {date.toDateString()}, {start_time}-{stop_time}<br />
-  <strong>Place:</strong>
-  {place}<br />
-  <strong>Type:</strong>
-  {type}
-</Aside>
+<div class="not-content flex flex-col sm:flex-row p-4 gap-4 bg-gray-100">
+  {
+    portrait && (
+      <div class="flex md:w-auto items-center justify-center">
+        <Image
+          height="150"
+          src={portrait}
+          alt={`Portrait of ${speaker?.data.title}`}
+        />
+      </div>
+    )
+  }
+  <div class="flex flex-col flex-grow justify-center">
+    <span><strong>Speaker:</strong> {speaker?.data.title}</span>
+    <span
+      ><strong>Date & time:</strong>
+      {date.toDateString()}, {start_time}-{stop_time} (CET)</span
+    >
+    <span><strong>Place:</strong> {place}</span>
+    <span><strong>Type:</strong> {type}</span>
+    {
+      url && (
+        <span>
+          <strong>URL:</strong>
+          <a href={url} target="_blank" rel="noopener noreferrer">
+            {url}
+          </a>
+        </span>
+      )
+    }
+  </div>
+</div>
