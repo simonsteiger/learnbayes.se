@@ -47,7 +47,7 @@ const futureDateStyle =
           <Icon
             class="inline-block align-text-bottom"
             is:inline={true}
-            name={place === "Zoom" ? "mdi:video-chat" : "mdi:lecture"}
+            name={place.toLowerCase().startsWith("zoom") ? "mdi:video-chat" : "mdi:lecture"}
           />
         </div>
       </div>
