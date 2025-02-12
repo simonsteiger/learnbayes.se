@@ -25,7 +25,7 @@ const futureDateStyle =
   <a
     href={await getCalendarEventLink(event)}
     download={`${date.toISOString().slice(0, 10)} - Learn Bayes - ${title}.ics`}
-    class={`block w-23 flex flex-shrink-0 flex-col items-center justify-center p-3 ${isPastDate ? pastDateStyle : futureDateStyle} text-white dark:text-gray-800 no-underline hover:no-underline`}
+    class={`block w-23 min-w-20 flex flex-shrink-0 flex-col items-center justify-center p-3 ${isPastDate ? pastDateStyle : futureDateStyle} text-white dark:text-gray-800 no-underline hover:no-underline`}
   >
     <div class="text-3xl">
       {date.toLocaleString("en-US", { day: "2-digit" })}
