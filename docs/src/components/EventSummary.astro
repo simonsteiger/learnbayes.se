@@ -1,6 +1,7 @@
 ---
 import { formatTime, getSpeaker } from "src/utils";
 import { Image } from "astro:assets";
+import { Icon } from "astro-icon/components";
 type ImageModule = { default: ImageMetadata };
 
 type Props = {
@@ -47,36 +48,52 @@ if (frontmatter.speaker in portraitMap) {
 }
 ---
 
-<div
-  class="not-content flex flex-col sm:flex-row p-4 gap-4 bg-gray-100 dark:bg-gray-800"
->
-  {
-    portrait && (
-      <div class="flex md:w-auto items-center justify-center">
-        <Image
-          height="150"
-          src={portrait}
-          alt={`Portrait of ${speaker?.data.title}`}
-        />
-      </div>
-    )
-  }
-  <div class="flex flex-col flex-grow justify-center">
-    <span><strong>Speaker:</strong> {speaker?.data.title}</span>
-    <span
-      ><strong>Date & time:</strong>
-      {date.toDateString()}, {start_time}-{stop_time} (CET)</span
-    >
-    <span><strong>Place:</strong> {place}</span>
-    <span><strong>Type:</strong> {type}</span>
+<div class="not-content flex flex-col p-4 gap-4 bg-gray-100 dark:bg-gray-800">
+  <div class="flex flex-col sm:flex-row gap-4">
     {
-      url && (
-        <span>
-          <strong>URL:</strong>
-          <a href={url} target="_blank" rel="noopener noreferrer">
-            {url}
-          </a>
-        </span>
+      portrait && (
+        <div class="flex md:w-auto items-center justify-center">
+          <Image
+            height="130"
+            src={portrait}
+            alt={`Portrait of ${speaker?.data.title}`}
+          />
+        </div>
+      )
+    }
+    <div class="flex flex-col flex-grow justify-center">
+      <span><strong>Speaker:</strong> {speaker?.data.title}</span>
+      <span
+        ><strong>Date & time:</strong>
+        {date.toDateString()}, {start_time}-{stop_time} (CET)</span
+      >
+      <span><strong>Place:</strong> {place}</span>
+      <span><strong>Type:</strong> {type}</span>
+      {
+        url && (
+          <span>
+            <strong>URL:</strong>
+            <a href={url} target="_blank" rel="noopener noreferrer">
+              {url}
+            </a>
+          </span>
+        )
+      }
+    </div>
+  </div>
+  <div class="font-bold text-center">
+    {
+      place.toLowerCase().startsWith("zoom") ? (
+        <>
+          <Icon class="align-text-bottom" name="mdi:video-chat" />
+          This is an online event. Zoom link will be provided through the email
+          list.
+        </>
+      ) : (
+        <>
+          <Icon class="align-text-bottom" name="mdi:lecture" />
+          This is an inperson event only. No zoom link will be provided.
+        </>
       )
     }
   </div>
