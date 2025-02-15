@@ -10,11 +10,11 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/starlight": "^0.31.1",
+    "@astrojs/starlight": "^0.32.0",
     "@astrojs/starlight-tailwind": "^3.0.0",
-    "@astrojs/tailwind": "^5.1.5",
+    "@astrojs/tailwind": "^6.0.0",
     "@iconify-json/mdi": "^1.2.3",
-    "astro": "^5.1.8",
+    "astro": "^5.3.0",
     "astro-icon": "^1.1.5",
     "ics": "^3.8.1",
     "rehype-katex": "^7.0.1",
