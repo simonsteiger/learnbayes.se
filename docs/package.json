@@ -16,6 +16,7 @@
     "@iconify-json/mdi": "^1.2.3",
     "astro": "^5.3.0",
     "astro-icon": "^1.1.5",
+    "date-fns-tz": "^3.2.0",
     "ics": "^3.8.1",
     "rehype-katex": "^7.0.1",
     "remark-math": "^6.0.0",

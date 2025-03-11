@@ -1,4 +1,5 @@
 import { getCollection, reference, z, type CollectionEntry } from "astro:content";
+import { fromZonedTime } from 'date-fns-tz';
 import rmMarkdown from 'remove-markdown'
 import ics from "ics"
 
@@ -46,23 +47,24 @@ export const formatTime = (time: string) => {
   return time.slice(0, -3)
 }
 
+export function setTime(date: Date, time: string, timeZone: string = 'Europe/Stockholm'): Date {
+  return fromZonedTime(`${date.toISOString().split('T')[0]}T${time}`, timeZone)
+}
+
 // Functions
 
 export const getCalendarEventLink = async (event: CollectionEntry<'events'>) => {
-  const { title, date, start_time, stop_time, place, type, group } = event.data
+  const { title, start_datetime, stop_datetime, place, type, group } = event.data
 
   const speaker = getSpeaker(event.data.speaker.id)?.data.title
-
-  const start_date = new Date(`${date.toISOString().split('T')[0]}T${start_time}+01:00`)
-  const stop_date = new Date(`${date.toISOString().split('T')[0]}T${stop_time}+01:00`)
 
   const body = rmMarkdown(event.body?.replaceAll(/import .+;/g, '') || '').trim()
 
   const url = `https://learnbayes.se/events/${event.id}`
 
   const eventData = {
-    start: start_date.getTime(),
-    end: stop_date.getTime(),
+    start: start_datetime.getTime(),
+    end: stop_datetime.getTime(),
     title: `Learn Bayes: ${title} with ${speaker}`,
     description: `${type} with ${speaker}\n\n${body}\n\n${url}`,
     location: place,
