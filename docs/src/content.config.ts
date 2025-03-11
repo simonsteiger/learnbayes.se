@@ -2,6 +2,7 @@ import { defineCollection, reference, z } from 'astro:content';
 import { glob } from 'astro/loaders';
 import { docsLoader } from '@astrojs/starlight/loaders';
 import { docsSchema } from '@astrojs/starlight/schema';
+import { setTime } from './utils';
 
 const docs = defineCollection({ loader: docsLoader(), schema: docsSchema() })
 
@@ -29,7 +30,13 @@ const events = defineCollection({
 		group: z.enum(['seminar-series', 'methods-week', 'networking-event', 'other']),
 		url: z.string().url().optional(),
 		draft: z.boolean().optional(),
+	}).transform((data) => {
+		return {
+			...data,
+			start_datetime: setTime(data.date, data.start_time),
+			stop_datetime: setTime(data.date, data.stop_time),
+		};
 	}),
 });
 
-export const collections = { docs, people, events};
+export const collections = { docs, people, events };
