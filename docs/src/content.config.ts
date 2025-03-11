@@ -21,7 +21,9 @@ const events = defineCollection({
 	loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/docs/events" }),
 	schema: z.object({
 		title: z.string(),
-		speaker: reference('people'),
+		speaker: z.union([reference('people'), z.array(reference('people'))]).transform(
+			speaker => Array.isArray(speaker) ? speaker : [speaker]
+		),
 		date: z.date(),
 		start_time: z.string().time(),
 		stop_time: z.string().time(),
@@ -33,8 +35,8 @@ const events = defineCollection({
 	}).transform((data) => {
 		return {
 			...data,
-			start_datetime: setTime(data.date, data.start_time),
-			stop_datetime: setTime(data.date, data.stop_time),
+			startDatetime: setTime(data.date, data.start_time),
+			stopDatetime: setTime(data.date, data.stop_time),
 		};
 	}),
 });

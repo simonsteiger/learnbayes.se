@@ -1,29 +1,31 @@
 ---
-import { formatTime, getSpeaker } from "src/utils";
+import { formatTime } from "src/utils";
 import { Image } from "astro:assets";
 import { Icon } from "astro-icon/components";
+import { getEntry } from "astro:content";
 type ImageModule = { default: ImageMetadata };
 
+import { getSpeakerList } from "src/utils";
+
 type Props = {
-  frontmatter: {
-    title: string;
-    speaker: string;
-    date: string;
-    start_time: string;
-    stop_time: string;
-    place: string;
-    type: string;
-    group: string;
-    url?: string;
-  };
+  eventID: string;
 };
 
-const { frontmatter } = Astro.props;
-const speaker = getSpeaker(frontmatter.speaker);
-const date = new Date(frontmatter.date);
-const start_time = formatTime(frontmatter.start_time);
-const stop_time = formatTime(frontmatter.stop_time);
-const { place, type, url } = frontmatter;
+const { eventID } = Astro.props;
+const event = await getEntry("events", eventID);
+
+if (!event) {
+  return;
+}
+
+const speakers = event?.data.speaker;
+
+const speakerList = await getSpeakerList(event);
+
+const date = new Date(event.data.date);
+const start_time = formatTime(event.data.start_time);
+const stop_time = formatTime(event.data.stop_time);
+const { place, type, url } = event.data;
 
 // Get portrait file paths without loading them
 const portraits = import.meta.glob<ImageModule>(
@@ -40,8 +42,8 @@ const portraitMap = Object.keys(portraits).reduce(
 );
 
 let portrait;
-if (frontmatter.speaker in portraitMap) {
-  const imported = await portraits[portraitMap[frontmatter.speaker]]();
+if (speakers?.length == 1 && speakers[0]["id"] in portraitMap) {
+  const imported = await portraits[portraitMap[speakers[0]["id"]]]();
   portrait = imported.default;
 } else {
   // Default portrait here
@@ -53,16 +55,12 @@ if (frontmatter.speaker in portraitMap) {
     {
       portrait && (
         <div class="flex md:w-auto items-center justify-center">
-          <Image
-            height="130"
-            src={portrait}
-            alt={`Portrait of ${speaker?.data.title}`}
-          />
+          <Image height="130" src={portrait} alt={`Portrait of speaker`} />
         </div>
       )
     }
     <div class="flex flex-col flex-grow justify-center">
-      <span><strong>Speaker:</strong> {speaker?.data.title}</span>
+      <span><strong>Speaker:</strong> {speakerList}</span>
       <span
         ><strong>Date & time:</strong>
         {date.toDateString()}, {start_time}-{stop_time} (CET)</span

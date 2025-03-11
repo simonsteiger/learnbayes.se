@@ -1,29 +1,7 @@
-import { getCollection, reference, z, type CollectionEntry } from "astro:content";
+import { getCollection, getEntries, reference, z, type CollectionEntry } from "astro:content";
 import { fromZonedTime } from 'date-fns-tz';
 import rmMarkdown from 'remove-markdown'
 import ics from "ics"
-
-// Zod Schemas
-
-export const personSchema = z.object({
-  title: z.string(),
-  organization: z.string(),
-  contact: z.string(),
-  type: z.enum(['speaker', 'organizer']),
-  draft: z.boolean().optional(),
-})
-
-export const eventSchema = z.object({
-  title: z.string(),
-  speaker: reference('people'),
-  date: z.date(),
-  start_time: z.string().time().optional(),
-  stop_time: z.string().time().optional(),
-  place: z.string().optional(),
-  type: z.string(),
-  group: z.enum(['seminar-series', 'methods-week', 'networking-event', 'other']),
-  draft: z.boolean().optional(),
-})
 
 // Collections
 
@@ -39,9 +17,10 @@ export const allSpeakers = allPeople.filter(({ data }) => {
   return data.type == "speaker";
 });
 
-export const getSpeaker = (speakerID: string) => {
-  return allSpeakers.find((speaker) => speaker.id == speakerID);
-};
+export const getSpeakerList = async (event: CollectionEntry<'events'>) => {
+  const speakers = await getEntries(event?.data.speaker as CollectionEntry<'people'>[])
+  return new Intl.ListFormat('en').format(speakers.map(d => d.data.title))
+}
 
 export const formatTime = (time: string) => {
   return time.slice(0, -3)
@@ -54,9 +33,9 @@ export function setTime(date: Date, time: string, timeZone: string = 'Europe/Sto
 // Functions
 
 export const getCalendarEventLink = async (event: CollectionEntry<'events'>) => {
-  const { title, start_datetime, stop_datetime, place, type, group } = event.data
+  const { title, startDatetime: start_datetime, stopDatetime: stop_datetime, place, type, group } = event.data
 
-  const speaker = getSpeaker(event.data.speaker.id)?.data.title
+  const speaker = await getSpeakerList(event)
 
   const body = rmMarkdown(event.body?.replaceAll(/import .+;/g, '') || '').trim()
 

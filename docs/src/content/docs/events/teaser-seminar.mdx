@@ -1,5 +1,6 @@
 ---
 title: Teaser Seminar
+slug: events/teaser-seminar
 speaker: mattias-villani
 date: 2024-10-03
 start_time: 11:00:00
@@ -22,7 +23,7 @@ import EventSummary from '@components/EventSummary.astro';
 
 ---
 
-<EventSummary frontmatter={frontmatter} />
+<EventSummary eventID={frontmatter.slug} />
 
 We welcome you to a lecture on Bayesian Statistics,
 designed to introduce you to the fundamentals of this

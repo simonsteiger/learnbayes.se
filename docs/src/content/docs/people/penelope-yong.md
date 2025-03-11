@@ -5,5 +5,3 @@ contact: pyong@turing.ac.uk
 type: speaker
 draft: True
 ---
-
-Penelope is one of the speakers.

@@ -1,5 +1,6 @@
 ---
-title: "Amortized Bayesian Inference"
+title: Amortized Bayesian Inference
+slug: events/bayes-flow
 speaker: stefan-radev
 date: 2025-05-12
 start_time: 13:00:00
@@ -8,13 +9,12 @@ place: Scheelesalen, Scheele-lab Floor 3, Tomtebodavägen 6
 type: Workshop
 group: methods-week
 sidebar:
-  label: Amortized Bayesian Inference
   order: 10
 draft: True
 ---
 import EventSummary from '@components/EventSummary.astro';
 
-<EventSummary frontmatter={frontmatter} />
+<EventSummary eventID={frontmatter.slug} />
 
 Stefan Radev is an assistant professor at Rensselaer Polytechnic Institute and the lead maintainer of the software package BayesFlow.
 

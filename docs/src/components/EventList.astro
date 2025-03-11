@@ -13,7 +13,7 @@ const { events } = Astro.props;
   events
     .sort(
       (a, b) =>
-        a.data.start_datetime.getTime() - b.data.start_datetime.getTime(),
+        a.data.startDatetime.getTime() - b.data.startDatetime.getTime(),
     )
     .map((event) => <EventListItem event={event} />)
 }

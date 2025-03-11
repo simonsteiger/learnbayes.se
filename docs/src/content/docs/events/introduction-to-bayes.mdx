@@ -1,5 +1,6 @@
 ---
 title: Introduction to Bayes
+slug: events/introduction-to-bayes
 speaker: mattias-villani
 date: 2025-02-14
 start_time: 09:00:00
@@ -24,7 +25,7 @@ import EventSummary from '@components/EventSummary.astro';
 
 ---
 
-<EventSummary frontmatter={frontmatter} />
+<EventSummary eventID={frontmatter.slug} />
 
 **The day starts at 09:00 and ends at 16:00**, with a break for lunch 12:00-13:00 (not provided).
 Coffee will be provided in the morning and afternoon.

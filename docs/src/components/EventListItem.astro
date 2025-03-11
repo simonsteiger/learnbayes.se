@@ -1,7 +1,7 @@
 ---
 import type { CollectionEntry } from "astro:content";
 import { Icon } from "astro-icon/components";
-import { formatTime, getCalendarEventLink, getSpeaker } from "src/utils";
+import { formatTime, getCalendarEventLink, getSpeakerList } from "src/utils";
 
 type Props = {
   event: CollectionEntry<"events">;
@@ -9,7 +9,7 @@ type Props = {
 
 const { event } = Astro.props;
 const { title, date, start_time, stop_time, place, type } = event.data;
-const speaker = getSpeaker(event.data.speaker.id);
+const speakerList = await getSpeakerList(event);
 const isPastDate = date < new Date();
 
 const pastDateStyle =
@@ -35,7 +35,7 @@ const futureDateStyle =
     </div>
   </a>
   <a
-    href={`/events/${event.id}`}
+    href={'/' + event.id}
     class="block flex flex-grow py-2 px-4 rounded-r-md border-y border-r border-gray-300 dark:border-gray-500 bg-white group-hover:bg-gray-100 dark:bg-gray-800 dark:group-hover:bg-gray-700 no-underline hover:no-underline"
   >
     <div class="flex-grow flex flex-col text-gray-900 dark:text-gray-200">
@@ -53,7 +53,7 @@ const futureDateStyle =
       </div>
       <div class="text-gray-800 dark:text-gray-300">
         {formatTime(start_time)}-{formatTime(stop_time)} / {type} with {
-          speaker?.data.title
+          speakerList
         }
       </div>
     </div>
