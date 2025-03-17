@@ -8,10 +8,6 @@ const allSpeakers = await getCollection("people", ({ data }) => {
     ? data.draft !== true
     : true);
 });
-
-// const getEvent = (eventID: string) => {
-//   return allEvents.find((event) => event.id == eventID).data.title;
-// };
 ---
 
 {
