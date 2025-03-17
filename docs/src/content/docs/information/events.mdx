@@ -2,7 +2,7 @@
 title: Events
 description: The planned events.
 sidebar:
-  order: 2
+  order: 1
   badge:
     text: New
     variant: tip
@@ -20,22 +20,14 @@ The program consists of a Teaser Seminar in Fall 2024, followed by a monthly Sem
 All times are in Central European Time (CET), GMT/UTC+1.
 </Aside>
 
-<details>
-  <summary>Pre-event (2024)</summary>
+### Pre-event (2024)
   <EventList events={allEvents.filter(event => event.data.group == 'other')} />
-</details>
 
-<details open>
-  <summary>Seminar Series</summary>
+### Seminar Series
   <EventList events={allEvents.filter(event => event.data.group == 'seminar-series')} />
-</details>
 
-<details open>
-  <summary>Methods Week</summary>
+### Methods Week
   <EventList events={allEvents.filter(event => event.data.group == 'methods-week')} />
-</details>
 
-<details>
-  <summary>Networking Event</summary>
+### Networking Event
   More information soon.
-</details>

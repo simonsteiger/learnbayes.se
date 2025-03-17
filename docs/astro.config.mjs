@@ -20,6 +20,7 @@ export default defineConfig({
         email: 'mailto:simon.steiger@ki.se',
       },
       sidebar: [
+        { label: 'Home', link: '/' },
         {
           label: 'Information',
           autogenerate: { directory: 'information' },
