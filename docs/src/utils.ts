@@ -34,11 +34,8 @@ export function setTime(date: Date, time: string, timeZone: string = 'Europe/Sto
 
 export const getCalendarEventLink = async (event: CollectionEntry<'events'>) => {
   const { title, startDatetime: start_datetime, stopDatetime: stop_datetime, place, type, group } = event.data
-
   const speaker = await getSpeakerList(event)
-
   const body = rmMarkdown(event.body?.replaceAll(/import .+;/g, '') || '').trim()
-
   const url = `https://learnbayes.se/${event.id}`
 
   const eventData = {
