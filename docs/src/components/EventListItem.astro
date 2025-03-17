@@ -12,6 +12,8 @@ const { title, date, start_time, stop_time, place, type } = event.data;
 const speakerList = await getSpeakerList(event);
 const isPastDate = date < new Date();
 
+const calendarEventLink = await getCalendarEventLink(event);
+
 const pastDateStyle =
   "bg-gray-600 group-hover:bg-gray-700 dark:bg-gray-300 dark:group-hover:bg-gray-400";
 const futureDateStyle =
@@ -23,7 +25,7 @@ const futureDateStyle =
   style="box-shadow: var(--sl-shadow-sm)"
 >
   <a
-    href={await getCalendarEventLink(event)}
+    href={calendarEventLink}
     download={`${date.toISOString().slice(0, 10)} - Learn Bayes - ${title}.ics`}
     class={`block w-23 min-w-20 flex flex-shrink-0 flex-col items-center justify-center p-3 ${isPastDate ? pastDateStyle : futureDateStyle} text-white dark:text-gray-800 no-underline hover:no-underline`}
   >

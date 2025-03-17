@@ -1,5 +1,5 @@
 ---
-import { formatTime } from "src/utils";
+import { formatTime, getCalendarEventLink } from "src/utils";
 import { Image } from "astro:assets";
 import { Icon } from "astro-icon/components";
 import { getEntry } from "astro:content";
@@ -48,51 +48,68 @@ if (speakers?.length == 1 && speakers[0]["id"] in portraitMap) {
 } else {
   // Default portrait here
 }
+
+const calendarEventLink = await getCalendarEventLink(event);
 ---
 
-<div class="not-content flex flex-col p-4 gap-4 bg-gray-100 dark:bg-gray-800">
-  <div class="flex flex-col sm:flex-row gap-4">
-    {
-      portrait && (
-        <div class="flex md:w-auto items-center justify-center">
-          <Image height="130" src={portrait} alt={`Portrait of speaker`} />
-        </div>
-      )
-    }
-    <div class="flex flex-col flex-grow justify-center">
-      <span><strong>Speaker:</strong> {speakerList}</span>
-      <span
-        ><strong>Date & time:</strong>
-        {date.toDateString()}, {start_time}-{stop_time} (CET)</span
+<>
+  <div class="text-center">
+    📆
+    <a
+      href={calendarEventLink}
+      download={`${date.toISOString().slice(0, 10)} - Learn Bayes - ${event.data.title}.ics`}
+    >
+      <span><strong>Download Calendar Event</strong></span>
+      <span class="hidden md:inline"
+        ><strong>: </strong>Learn Bayes - {event.data.title}</span
       >
-      <span><strong>Place:</strong> {place}</span>
-      <span><strong>Type:</strong> {type}</span>
+    </a>
+  </div>
+
+  <div class="not-content flex flex-col p-4 gap-4 bg-gray-100 dark:bg-gray-800">
+    <div class="flex flex-col sm:flex-row gap-4">
       {
-        url && (
-          <span>
-            <strong>URL:</strong>
-            <a href={url} target="_blank" rel="noopener noreferrer">
-              {url}
-            </a>
-          </span>
+        portrait && (
+          <div class="flex md:w-auto items-center justify-center">
+            <Image height="130" src={portrait} alt={`Portrait of speaker`} />
+          </div>
+        )
+      }
+      <div class="flex flex-col flex-grow justify-center">
+        <span><strong>Speaker:</strong> {speakerList}</span>
+        <span
+          ><strong>Date & time:</strong>
+          {date.toDateString()}, {start_time}-{stop_time} (CET)</span
+        >
+        <span><strong>Place:</strong> {place}</span>
+        <span><strong>Type:</strong> {type}</span>
+        {
+          url && (
+            <span>
+              <strong>URL:</strong>
+              <a href={url} target="_blank" rel="noopener noreferrer">
+                {url}
+              </a>
+            </span>
+          )
+        }
+      </div>
+    </div>
+    <div class="font-bold text-center">
+      {
+        place.toLowerCase().startsWith("zoom") ? (
+          <>
+            <Icon class="align-text-bottom" name="mdi:video-chat" />
+            This is an online event. Zoom link will be provided through the
+            email list.
+          </>
+        ) : (
+          <>
+            <Icon class="align-text-bottom" name="mdi:lecture" />
+            This is an in-person event only. No zoom link will be provided.
+          </>
         )
       }
     </div>
   </div>
-  <div class="font-bold text-center">
-    {
-      place.toLowerCase().startsWith("zoom") ? (
-        <>
-          <Icon class="align-text-bottom" name="mdi:video-chat" />
-          This is an online event. Zoom link will be provided through the email
-          list.
-        </>
-      ) : (
-        <>
-          <Icon class="align-text-bottom" name="mdi:lecture" />
-          This is an in-person event only. No zoom link will be provided.
-        </>
-      )
-    }
-  </div>
-</div>
+</>
