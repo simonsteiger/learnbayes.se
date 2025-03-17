@@ -39,7 +39,7 @@ export const getCalendarEventLink = async (event: CollectionEntry<'events'>) => 
 
   const body = rmMarkdown(event.body?.replaceAll(/import .+;/g, '') || '').trim()
 
-  const url = `https://learnbayes.se/events/${event.id}`
+  const url = `https://learnbayes.se/${event.id}`
 
   const eventData = {
     start: start_datetime.getTime(),
