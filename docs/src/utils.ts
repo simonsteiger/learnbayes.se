@@ -9,16 +9,12 @@ export const allEvents = await getCollection("events", ({ data }) => {
   return import.meta.env.PROD ? data.draft !== true : true;
 });
 
-export const allPeople = await getCollection("people", ({ data }) => {
+export const allSpeakers = await getCollection("speakers", ({ data }) => {
   return import.meta.env.PROD ? data.draft !== true : true;
 });
 
-export const allSpeakers = allPeople.filter(({ data }) => {
-  return data.type == "speaker";
-});
-
 export const getSpeakerList = async (event: CollectionEntry<'events'>) => {
-  const speakers = await getEntries(event?.data.speaker as CollectionEntry<'people'>[])
+  const speakers = await getEntries(event?.data.speaker as CollectionEntry<'speakers'>[])
   return new Intl.ListFormat('en').format(speakers.map(d => d.data.title))
 }
 

@@ -1,19 +1,12 @@
 ---
-import { getCollection } from "astro:content";
 import { LinkCard } from "@astrojs/starlight/components";
-
-// const allEvents = await getCollection("events");
-const allSpeakers = await getCollection("people", ({ data }) => {
-  return data.type == "speaker" && (import.meta.env.PROD
-    ? data.draft !== true
-    : true);
-});
+import { allSpeakers } from "src/utils";
 ---
 
 {
   allSpeakers
     .sort((a, b) => a.data.title.localeCompare(b.data.title))
     .map((speaker) => (
-      <LinkCard title={speaker.data.title} href={`/people/${speaker.id}`} />
+      <LinkCard title={speaker.data.title} href={`/speakers/${speaker.id}`} />
     ))
 }
