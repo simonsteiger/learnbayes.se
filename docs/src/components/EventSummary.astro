@@ -18,7 +18,8 @@ if (!event) {
   return;
 }
 
-const speakers = event?.data.speaker;
+const speakers = event.data.speaker;
+const eventImage = event.data.image;
 
 const speakerList = await getSpeakerList(event);
 
@@ -28,25 +29,23 @@ const stop_time = formatTime(event.data.stop_time);
 const { place, type, url } = event.data;
 
 // Get portrait file paths without loading them
-const portraits = import.meta.glob<ImageModule>(
-  "@assets/portraits/*.{jpeg,jpg,png}",
-);
-const portraitMap = Object.keys(portraits).reduce(
+const images = import.meta.glob<ImageModule>("@assets/img/**/*.{jpeg,jpg,png}");
+
+const imageMap = Object.keys(images).reduce(
   (acc, path) => {
-    const filename = path.split("/").pop()?.split(".")[0] ?? "";
-    const key = filename.replace("portrait-", "");
-    acc[key] = path;
+    const name = path.split("/").slice(-2).join("/").split(".")[0] ?? "";
+    acc[name] = path;
     return acc;
   },
   {} as Record<string, string>,
 );
 
-let portrait;
-if (speakers?.length == 1 && speakers[0]["id"] in portraitMap) {
-  const imported = await portraits[portraitMap[speakers[0]["id"]]]();
-  portrait = imported.default;
+let image;
+if (eventImage in imageMap) {
+  const imported = await images[imageMap[eventImage]]();
+  image = imported.default;
 } else {
-  // Default portrait here
+  // Default image here, currently no image
 }
 
 const calendarEventLink = await getCalendarEventLink(event);
@@ -69,9 +68,14 @@ const calendarEventLink = await getCalendarEventLink(event);
   <div class="not-content flex flex-col p-4 gap-4 bg-gray-100 dark:bg-gray-800">
     <div class="flex flex-col sm:flex-row gap-4">
       {
-        portrait && (
+        image && (
           <div class="flex md:w-auto items-center justify-center">
-            <Image height="130" src={portrait} alt={`Portrait of speaker`} />
+            <Image
+              height="130"
+              src={image}
+              alt={`Portrait of speaker`}
+              class="border-4 border-white rounded-sm"
+            />
           </div>
         )
       }

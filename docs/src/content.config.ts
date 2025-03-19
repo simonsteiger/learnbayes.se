@@ -31,10 +31,12 @@ const events = defineCollection({
 		type: z.string(),
 		group: z.enum(['seminar-series', 'methods-week', 'networking-event', 'other']),
 		url: z.string().url().optional(),
+		image: z.string().optional(),
 		draft: z.boolean().optional(),
 	}).transform((data) => {
 		return {
 			...data,
+			image: data.image || `speakers/${data.speaker[0].id}`,
 			startDatetime: setTime(data.date, data.start_time),
 			stopDatetime: setTime(data.date, data.stop_time),
 		};

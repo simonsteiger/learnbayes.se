@@ -1,5 +1,6 @@
 ---
 title: Generative Modeling
+slug: events/generative-modeling
 speaker: michael-betancourt
 date: 2025-05-14
 start_time: 09:00:00
@@ -13,7 +14,7 @@ draft: True
 ---
 import EventSummary from '@components/EventSummary.astro';
 
-<EventSummary frontmatter={frontmatter} />
+<EventSummary eventID={frontmatter.slug} />
 
 Michael Betancourt is a freelance statistician developing Bayesian analysis methodologies, computational tools, and pedagogical resources to help bridge statistical theory and applied practice.
 His ultimate goal is to help scientists draw more precise, and more principled, insights from their data.
