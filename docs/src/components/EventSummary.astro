@@ -65,7 +65,7 @@ const calendarEventLink = await getCalendarEventLink(event);
     </a>
   </div>
 
-  <div class="not-content flex flex-col p-4 gap-4 bg-gray-100 dark:bg-gray-800">
+  <div class="not-content flex flex-col p-4 gap-4 bg-gray-100 dark:bg-gray-800 rounded-sm">
     <div class="flex flex-col sm:flex-row gap-4">
       {
         image && (
@@ -90,8 +90,8 @@ const calendarEventLink = await getCalendarEventLink(event);
         {
           url && (
             <span>
-              <strong>URL:</strong>
-              <a href={url} target="_blank" rel="noopener noreferrer">
+              <strong>URL: </strong>
+              <a href={url} target="_blank" rel="noopener noreferrer" class="text-accent-600">
                 {url}
               </a>
             </span>

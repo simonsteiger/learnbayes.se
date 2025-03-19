@@ -6,13 +6,12 @@ import { setTime } from './utils';
 
 const docs = defineCollection({ loader: docsLoader(), schema: docsSchema() })
 
-const people = defineCollection({
-	loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/docs/people" }),
+const speakers = defineCollection({
+	loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/docs/speakers" }),
 	schema: z.object({
 		title: z.string(),
 		organization: z.string(),
 		contact: z.string(),
-		type: z.enum(['speaker', 'organizer']),
 		draft: z.boolean().optional(),
 	}),
 });
@@ -21,7 +20,7 @@ const events = defineCollection({
 	loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/docs/events" }),
 	schema: z.object({
 		title: z.string(),
-		speaker: z.union([reference('people'), z.array(reference('people'))]).transform(
+		speaker: z.union([reference('speakers'), z.array(reference('speakers'))]).transform(
 			speaker => Array.isArray(speaker) ? speaker : [speaker]
 		),
 		date: z.date(),
@@ -43,4 +42,4 @@ const events = defineCollection({
 	}),
 });
 
-export const collections = { docs, people, events };
+export const collections = { docs, speakers, events };
