@@ -1,6 +1,8 @@
 ---
 title: Matrin Trapp
-organization: Czech Academy of Sciences
+organization: Aalto University
 contact: martin.trapp@aalto.fi
 draft: True
 ---
+
+Martin is one of the speakers.
