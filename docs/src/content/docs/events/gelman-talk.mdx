@@ -3,8 +3,8 @@ title: It's About Time
 slug: events/gelman-talk
 speaker: andrew-gelman
 date: 2025-04-03
-start_time: 13:00:00
-stop_time: 14:00:00
+start_time: 14:00:00
+stop_time: 15:00:00
 place: Zoom
 type: Seminar
 group: seminar-series
@@ -12,8 +12,15 @@ sidebar:
   order: 6
 ---
 import EventSummary from '@components/EventSummary.astro';
+import { Aside } from '@astrojs/starlight/components';
 
 <EventSummary eventID={frontmatter.slug} />
+
+<Aside type="caution" title="Time change">
+Please note that the time previously listed above was wrong. When scheduling this talk, we unfortunately did not take into account that Europe would be changing to Daylight Time on March 30th.
+
+If you have already downloaded the calendar event for this talk, please make sure to download it again.
+</Aside>
 
 Andrew Gelman is a professor of statistics and political science at Columbia University and a major contributor to statistical philosophy and methods especially in Bayesian statistics.
 He has also been strongly involved in the development of the probabilistic programming language [Stan](https://mc-stan.org).
