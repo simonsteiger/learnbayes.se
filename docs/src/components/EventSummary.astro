@@ -27,6 +27,8 @@ const date = new Date(event.data.date);
 const start_time = formatTime(event.data.start_time);
 const stop_time = formatTime(event.data.stop_time);
 const { place, type, url } = event.data;
+const cestStart = new Date("2025-03-30T00:00:00Z");
+const isCest = date > cestStart;
 
 // Get portrait file paths without loading them
 const images = import.meta.glob<ImageModule>("@assets/img/**/*.{jpeg,jpg,png}");
@@ -83,7 +85,7 @@ const calendarEventLink = await getCalendarEventLink(event);
         <span><strong>Speaker: </strong>{speakerList}</span>
         <span
           ><strong>Date & time: </strong>
-          {date.toDateString()}, {start_time}-{stop_time} (CET)</span
+          {date.toDateString()}, {start_time}-{stop_time} {isCest ? "(CEST)" : "(CET)"}</span
         >
         <span><strong>Place: </strong>{place}</span>
         <span><strong>Type: </strong>{type}</span>
