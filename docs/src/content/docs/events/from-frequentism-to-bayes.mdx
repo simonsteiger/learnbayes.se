@@ -8,10 +8,27 @@ stop_time: 17:00:00
 place: Zoom
 type: Seminar
 group: seminar-series
+url: https://www.fharrell.com/post/journey/index.html
 sidebar:
   order: 5
 ---
 import EventSummary from '@components/EventSummary.astro';
+
+<details open>
+  <summary>Follow-up</summary>
+  
+  You can find the resources mentioned during the seminar here:
+
+  - [My Journey from Frequentist to Bayesian Statistics (article)](https://www.fharrell.com/post/journey/index.html)
+  - [Bayesian Clinical Trial Design Course (resources)](https://hbiostat.org/bayes)
+  - [Introduction to Bayes for Evaluating Treatments (learning material)](https://hbiostat.org/bayes/bet)
+  - The Elements of Graphing Data by William S. Cleveland (book)
+
+  For even more learning resources, also have a look at the topics on this website.
+
+</details>
+
+---
 
 <EventSummary eventID={frontmatter.slug} />
 
