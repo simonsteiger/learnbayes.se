@@ -1,4 +1,4 @@
-import { getCollection, getEntries, reference, z, type CollectionEntry } from "astro:content";
+import { getCollection, getEntries, type CollectionEntry } from "astro:content";
 import { fromZonedTime } from 'date-fns-tz';
 import rmMarkdown from 'remove-markdown'
 import ics from "ics"
