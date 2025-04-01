@@ -1,0 +1,31 @@
+---
+title: Bayes at Red Door Analytics
+slug: events/bayes-at-red-door-analytics
+speaker: [michael-crowther, alessandro-gasparini]
+date: 2025-04-10
+start_time: 14:00:00
+stop_time: 16:00:00
+place: Rockefeller, Nobels väg 9
+type: Seminar
+group: seminar-series
+image: events/bayes-at-red-door-analytics
+sidebar:
+  order: 7
+---
+import EventSummary from '@components/EventSummary.astro';
+
+<EventSummary eventID={frontmatter.slug} />
+
+Alessandro Gasparini and Michael Crowther are statisticians at Red Door Analytics.
+
+In their talk, they will give practical examples of how they integrate Bayesian statistics in their work as statistical consultants at Red Door Analytics.
+Specifically, they will talk about their ongoing projects incorporating Bayesian joint modelling and advanced Bayesian survival analysis using merlin and morgana.
+
+### Abstract
+
+**Bayesian Joint Models for Longitudinal Cluster Randomised Trials with Informative Dropout**
+
+> We recently introduced a frequentist joint modelling approach to account for informative dropout in longitudinal stepped wedge cluster-randomized trials (Gasparini et al., Statistics in Medicine, 2025).
+> This approach combines a linear mixed-effects model for the longitudinal outcome of interest with a survival model for the dropout process, jointly estimating both components.
+> We now extend this methodology to longitudinal cluster-randomized trials (a special case of the stepped wedge design) and adopt a Bayesian framework to enhance the interpretability of trial results and increase statistical power by incorporating prior knowledge or beliefs, when available.
+> We illustrate the Bayesian joint modelling approach in practice using data from the CARING trial, a cluster-randomized controlled trial evaluating an integrated community strategy to promote maternal nutrition and paediatric outcomes in rural eastern India, where undernutrition is highly prevalent.
