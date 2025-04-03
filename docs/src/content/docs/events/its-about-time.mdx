@@ -15,15 +15,14 @@ sidebar:
 import EventSummary from '@components/EventSummary.astro';
 import { Aside } from '@astrojs/starlight/components';
 
+<details open>
+  <summary>Follow-up</summary>
+  
+  - [You can watch original talk from the 2024 New York R Conference on YouTube](https://www.youtube.com/watch?v=wtAeWZ1_RA4)
+
+</details>
+
 <EventSummary eventID={frontmatter.slug} />
-
-<Aside type="note" title="Zoom link">
-https://ki-se.zoom.us/j/63744359191?pwd=R2HIn1gyVFkhaJjAgQStYMooxFEsZJ.1
-</Aside>
-
-<Aside type="caution" title="Time change">
-Please note that the time has changed since the event was initially published.
-</Aside>
 
 Andrew Gelman is a professor of statistics and political science at Columbia University and a major contributor to statistical philosophy and methods, especially in the field of Bayesian statistics.
 He is also heavily involved in the development of the probabilistic programming language [Stan](https://mc-stan.org).
