@@ -26,8 +26,13 @@ export default defineConfig({
           autogenerate: { directory: 'information' },
         },
         {
-          label: 'Events',
-          autogenerate: { directory: 'events' },
+          label: 'Seminar Series',
+          autogenerate: { directory: 'events/seminar-series' },
+          collapsed: false,
+        },
+        {
+          label: 'Methods Week',
+          autogenerate: { directory: 'events/methods-week' },
           collapsed: false,
         },
         {
