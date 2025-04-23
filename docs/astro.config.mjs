@@ -1,7 +1,7 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
-import tailwind from '@astrojs/tailwind';
+import tailwindcss from '@tailwindcss/vite';
 import icon from 'astro-icon';
 import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
@@ -15,10 +15,10 @@ export default defineConfig({
       logo: {
         src: './src/assets/img/learn-bayes-logo.svg',
       },
-      social: {
-        gitlab: 'https://gitlab.com/alping/learn-bayes',
-        email: 'mailto:simon.steiger@ki.se',
-      },
+      social: [
+        { icon: 'gitlab', label: 'GitLab', href: 'https://gitlab.com/alping/learn-bayes' },
+        { icon: 'email', label: 'Email', href: 'mailto:simon.steiger@ki.se' }
+      ],
       sidebar: [
         { label: 'Home', link: '/' },
         {
@@ -55,16 +55,17 @@ export default defineConfig({
         },
       ],
       customCss: [
-        './src/tailwind.css',
         './src/assets/katex/katex.min.css',
-        './src/styles/custom.css',
+        './src/styles/global.css',
       ]
     }),
-    tailwind({ applyBaseStyles: false }),
     icon()
   ],
   markdown: {
     remarkPlugins: [remarkMath],
     rehypePlugins: [rehypeKatex],
   },
+  vite: {
+		plugins: [tailwindcss()],
+	},
 });

@@ -10,18 +10,18 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/starlight": "^0.32.3",
-    "@astrojs/starlight-tailwind": "^3.0.0",
-    "@astrojs/tailwind": "^5.1.5",
+    "@astrojs/starlight": "^0.34.0",
+    "@astrojs/starlight-tailwind": "^4.0.1",
+    "@tailwindcss/vite": "^4.0.7",
     "@iconify-json/mdi": "^1.2.3",
-    "astro": "^5.5.3",
+    "astro": "^5.7.4",
     "astro-icon": "^1.1.5",
     "date-fns-tz": "^3.2.0",
     "ics": "^3.8.1",
     "rehype-katex": "^7.0.1",
     "remark-math": "^6.0.0",
     "remove-markdown": "^0.6.0",
-    "sharp": "^0.33.5",
-    "tailwindcss": "^3.4.17"
+    "sharp": "^0.34.1",
+    "tailwindcss": "^4.1.4"
   }
 }
