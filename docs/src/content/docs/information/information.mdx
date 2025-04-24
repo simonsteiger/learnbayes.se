@@ -5,7 +5,7 @@ sidebar:
 ---
 
 import { Image } from 'astro:assets';
-import { Aside } from '@astrojs/starlight/components';
+import { Aside, LinkCard } from '@astrojs/starlight/components';
 import logo from 'src/assets/img/learn-bayes-logo.svg';
 
 <div class="flex flex-col sm:flex-row items-center gap-3">
@@ -15,12 +15,23 @@ import logo from 'src/assets/img/learn-bayes-logo.svg';
 Join us for an exciting program aimed at expanding your statistical toolbox with Bayesian methods.
 </div>
 
-- **[Monthly Seminars/Workshops](/information/seminar-series) | Feb-May 2025**  
-  In-person at KI campus Solna or online via Zoom
-- **[Methods Week](/information/seminar-series) | 12-15 May 2025**  
-  A week full of daily workshops, seminars, and presentations
-- **[Networking Event](/information/seminar-series) | 15 May 2025**  
-  Keynote speakers and panel debate in Aula Medica
+<LinkCard
+  title="Seminar series | Feb-May 2025"
+  href="/information/seminar-series"
+  description="In-person at KI campus Solna or online via Zoom"
+/>
+
+<LinkCard
+  title="Methods week | 12-15 May 2025"
+  href="/information/methods-week"
+  description="A week full of daily workshops, seminars, and presentations"
+/>
+
+<LinkCard
+  title="Networking event | 15 May 2025"
+  href="/information/networking-event"
+  description="Keynote speakers and panel debate in Aula Medica"
+/>
 
 **The program is tailored towards users of statistics** (but you don't need to be a statistician), that are new to Bayesian methods.
 The focus is on introducing the foundations of Bayesian methods and their unique advantages in the context of medical research.
