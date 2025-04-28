@@ -71,6 +71,6 @@ export default defineConfig({
     rehypePlugins: [rehypeKatex],
   },
   vite: {
-		plugins: [tailwindcss()],
-	},
+    plugins: [tailwindcss()],
+  },
 });
