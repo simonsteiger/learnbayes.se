@@ -12,19 +12,33 @@ sidebar:
   order: 10
 ---
 import EventSummary from '@components/EventSummary.astro';
+import { Aside } from '@astrojs/starlight/components';
 
 <EventSummary eventID={frontmatter.slug} />
 
+Modern Bayesian inference combines computational techniques for estimating, validating, and drawing conclusions from probabilistic models within principled statistical workflows.
+Recently, a suite of simulation-based inference (SBI) methods has emerged as a key catalyst for scaling these workflows to complex Bayesian models and large data sets.
+
+Stefan's workshop **Simulation-Based Inference With Neural Networks: From Theory to Practice** will allow you to get started with this new way of doing Bayesian inference.
+
 Stefan Radev is an assistant professor at Rensselaer Polytechnic Institute and the lead maintainer of the software package [BayesFlow](https://bayesflow.org/main/index.html).
 
-**Simulation-Based Inference With Neural Networks: From Theory to Practice**
+<Aside title="Why attend?">
+**Fast and scalable Bayes**. Simulation-based inferece is a scalable way to fit complex models to large data which would otherwise be extremely difficult with MCMC sampling.
 
-> Modern Bayesian inference combines computational techniques for estimating, validating, and drawing conclusions from probabilistic models within principled statistical workflows.
-> Recently, a suite of simulation-based inference (SBI) methods has emerged as a key catalyst for scaling these workflows to complex Bayesian models and large data sets.
-> 
-> This workshop will introduce participants to the core theory and concepts of SBI with neural networks, using the BayesFlow software for amortized Bayesian inference.
-> BayesFlow supports multiple backends, including `PyTorch`, `TensorFlow`, and `JAX`, and offers flexible generative networks for sampling, full customization, high-level interfaces, and tools for hyperparameter tuning, design optimization, and estimation from long time series.
-> 
-> Attendees will receive a comprehensive overview of the SBI landscape and follow a hands-on path from model building to inference and model-based prediction.
-> The workshop will cover a variety of data types, practical applications, and diagnostic tools.
-> Participants will gain insights into the strengths and limitations of specific SBI techniques, along with the potential synergies between different approaches and existing software libraries.
+**Understand the theory**. This workshop will introduce participants to the core theory and concepts of SBI with neural networks, using the BayesFlow software for amortized Bayesian inference.
+BayesFlow supports multiple backends, including `PyTorch`, `TensorFlow`, and `JAX`, and offers flexible generative networks for sampling, full customization, high-level interfaces, and tools for hyperparameter tuning, design optimization, and estimation from long time series.
+
+**Comprehensive, hands-on practice**. Attendees will receive a comprehensive overview of the SBI landscape and follow a hands-on path from model building to inference and model-based prediction.
+The workshop will cover a variety of data types, practical applications, and diagnostic tools.
+
+**Guidance for future projects**. Participants will gain insights into the strengths and limitations of specific SBI techniques, along with the potential synergies between different approaches and existing software libraries.
+</Aside>
+
+
+
+
+
+
+
+
