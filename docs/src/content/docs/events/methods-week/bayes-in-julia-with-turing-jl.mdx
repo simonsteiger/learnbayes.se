@@ -12,10 +12,31 @@ sidebar:
   order: 13
 ---
 import EventSummary from '@components/EventSummary.astro';
+import { Aside } from '@astrojs/starlight/components';
 
 <EventSummary eventID={frontmatter.slug} />
 
-Xianda Sun is a PhD student working on the probabilistic programming language [Turing.jl]((https://turinglang.org/)) together with [Hong Ge](https://mlg.eng.cam.ac.uk/hong/).
+In this seminar, Xianda will introduce [Turing.jl](https://turinglang.org/), [JuliaBUGS.jl](https://turinglang.org/JuliaBUGS.jl/stable/), and the broader Julia probabilistic programming ecosystem. 
+He will demonstrate how these tools support a wide range of Bayesian models — ranging from basic logistic regression to advanced applications such as hierarchical models, survival models, and time series models.
 
-In his talk Xianda will introduce Turing.jl, [JuliaBUGS.jl](https://turinglang.org/JuliaBUGS.jl/stable/) and the surrounding ecosystem, as well as showing Turing.jl incarnations of common models used in epidemiological studies.
-He will also motivate the use of the Julia programming language for probabilistic programming.
+Turing.jl stands out for its **flexibility**, **composability**, and **performance**, offering a seamless modeling experience powered by Julia’s just-in-time (JIT) compilation. 
+It allows researchers to write models in an intuitive syntax close to mathematical notation while benefiting from high-performance inference engines under the hood.
+
+Xianda Sun is a PhD student working on [Turing.jl](https://turinglang.org/) and [JuliaBUGS.jl](https://turinglang.org/JuliaBUGS.jl/stable/) in [Hong Ge](https://mlg.eng.cam.ac.uk/hong/)'s lab.
+
+<Aside title="Why attend?">
+For epidemiologists and biostatisticians, adopting Turing.jl offers several key advantages:
+
+- **Speed and scalability**: Julia's performance rivals that of C, making Turing.jl well-suited for large-scale simulation and inference tasks.
+
+- **Expressiveness**: Define complex, custom models — including those with non-standard likelihoods or intricate dependencies — without sacrificing clarity or flexibility.
+
+- **Interoperability**: Leverage the rich Julia ecosystem, including [data manipulation](https://dataframes.juliadata.org/stable/), [plotting](https://docs.makie.org/stable/), and [differential equation solvers](https://docs.sciml.ai/DiffEqDocs/stable/).
+
+- **Reproducibility and openness**: As a fully open-source toolchain, Turing.jl encourages transparent, shareable, and extensible science.
+
+For an in-depth look at Turing.jl, its design and applications, check out the recent publication by [Fjelde et al. (2025)](https://doi.org/10.1145/3711897).
+
+</Aside>
+
+**Coming from R or Python?** Julia has great interfaces to these languages with [RCall.jl](https://github.com/JuliaInterop/RCall.jl) and [PythonCall.jl](https://github.com/JuliaPy/PythonCall.jl), allowing you to seemlessly integrate your existing workflows with Julia!

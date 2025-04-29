@@ -13,11 +13,30 @@ sidebar:
   order: 14
 ---
 import EventSummary from '@components/EventSummary.astro';
+import { Aside } from '@astrojs/starlight/components';
 
 <EventSummary eventID={frontmatter.slug} />
 
-[Michael Betancourt](https://betanalpha.github.io/) is a freelance statistician developing Bayesian analysis methodologies, computational tools, and pedagogical resources to help bridge statistical theory and applied practice.
-His ultimate goal is to help scientists draw more precise, and more principled, insights from their data.
+As epidemiologists, we're often tasked with building models that reflect the underlying mechanisms of disease transmission, progression, and reporting. 
+But translating messy real-world processes into tractable statistical models is hard!
 
-In his full-day workshop about generative modeling, Michael will introduce the concept of [narrative generative modeling](https://betanalpha.github.io/assets/case_studies/generative_modeling.html) followed by an interactive exercise allowing attendees to implement these modeling techniques in [Stan](https://mc-stan.org).
-For this exercise Michael will craft a tailored case study to showcase generative modeling in an epidemiological context.
+**Generative modeling offers a principled, transparent framework** for making that process explicit.
+
+[Michael Betancourt](https://betanalpha.github.io/) is a freelance statistician developing Bayesian analysis methodologies, computational tools, and pedagogical resources to help bridge statistical theory and applied practice.
+
+<Aside title="Why attend?">
+In this workshop, you'll learn how generative modeling can bridge the gap between domain knowledge and probabilistic modeling – complete with an epidemiological case study showcasing how to implement Bayesian inference using Stan.
+
+- **Model what matters**: Generative models allow you to encode the full data-generating process, not just conditional outcomes. This enables clearer modeling workflows and communication with stakeholders.
+
+- **Deal with incomplete data**: Generative modeling provides a principled framework for working with missing or partially observed data.
+
+- **Intuitive model critique**: By making the model’s story explicit, you can pinpoint where assumptions may fail and systematically refine your approach. This is essential when modeling complex phenomena like infection dynamics, reporting delays, or multi-state disease progression.
+
+- **Build modular, composable models**: Epidemiological systems are inherently complex. Generative modeling encourages the construction of models from smaller, interpretable subcomponents — just like building a coherent narrative from individual scenes. This aligns naturally with hierarchical structures, latent variables, and time-varying processes common in public health.
+
+- **Boost career versatility**: Understanding generative modeling equips you with tools increasingly in demand across public health, policy, tech, and academia. It complements and extends the frequentist methods most epidemiologists already know, while enhancing your ability to use cutting-edge tools like [Stan](https://mc-stan.org), [Turing.jl](https://turinglang.org/), and [PyMC](https://www.pymc.io/welcome.html).
+
+Most importantly, **generative modeling offers a common language and powerful methodology that integrates well** with the interdisciplinary research environment that epidemiologists work in.
+</Aside>
+

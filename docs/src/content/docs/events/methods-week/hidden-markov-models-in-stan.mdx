@@ -12,10 +12,31 @@ sidebar:
   order: 11
 ---
 import EventSummary from '@components/EventSummary.astro';
+import { Aside } from '@astrojs/starlight/components';
 
 <EventSummary eventID={frontmatter.slug} />
+
+Are you working with longitudinal health data, infectious disease surveillance, or patient pathways through complex clinical states? 
+Do your data have gaps, noise, or latent processes that standard methods struggle to capture?
+
+**Join us for a hands-on workshop on Bayesian Hidden Markov Models (HMMs) in [Stan](https://mc-stan.org)**, tailored specifically for epidemiologists and public health researchers.
 
 Vianey Leos Barajas is an Assistant Professor in Statistical Sciences and affiliated with the School of the Environment at the University of Toronto.
 Her work focuses topics related to Bayesian statistics, time series, Markov-switching and spatio-temporal models.
 
-In her half day workship during the methods week, Vianey will introduce Hidden Markov Models and teach us how to implement them in [Stan](https://mc-stan.org).
+<Aside title="Why attend?">
+**Model disease processes more realistically**.
+HMMs allow you to explicitly model *unobserved* (latent) states — such as infection status, disease stages, or care-seeking behaviors — while accounting for imperfect observations.
+
+**No prior Stan experience required**.
+This workshop is designed to be accessible. 
+Whether you're new to Bayes or Stan, we’ll walk through the basics of HMMs, introduce core Stan concepts, and provide practical examples using real-world epidemiological data.
+
+**Hands-on coding and interpretation**.
+You'll learn not only how to fit HMMs in Stan, but also how to interpret the outputs and assess model fit and identifiability.
+
+**Discover new research opportunities**.
+Understanding and applying HMMs can open doors to more rigorous, publishable, and policy-relevant analyses. 
+The skills you’ll gain are highly transferable: you can apply HMMs in a wide range of public health questions involving latent dynamics, from infectious diseases to chronic care modeling.
+</Aside>
+
