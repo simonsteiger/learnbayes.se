@@ -7,6 +7,10 @@ sidebar:
     variant: tip
 ---
 
+import { Image } from 'astro:assets';
+import scheduleLight from '@assets/img/methods-week-schedule.svg';
+import scheduleDark from '@assets/img/methods-week-schedule-dark.svg';
+
 import EventList from '@components/EventList.astro';
 import { allEvents } from "src/utils";
 
@@ -16,7 +20,9 @@ Feel free to mix and match among the events as you see fit and your schedule all
 
 **You do not have to have attended any previous events in the seminar series and no sign up is required.**
 
-![Methods week schedule](@assets/img/methods-week-schedule.svg)
+<Image src={scheduleLight} alt="Methods week schedule" class="block dark:hidden" />
+<Image src={scheduleDark} alt="Methods week schedule" class="hidden dark:block" />
+
 **Methods week schedule:** Blue events are workshops and green events are seminars. Coffee will be served in the morning and afternoon. Lunch is not provided.
 
 ## Events
