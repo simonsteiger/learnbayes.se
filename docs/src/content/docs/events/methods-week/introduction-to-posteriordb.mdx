@@ -21,3 +21,14 @@ import { Aside } from '@astrojs/starlight/components';
 His primary research interests are Bayesian inference, probabilistic machine learning, and statistical inference from textual data.
 
 His talk will introduce `posteriordb`, which is a set of posteriors, i.e. Bayesian statistical models and data sets, reference implementations in probabilistic programming languages, and reference posterior inferences in the form of posterior samples.
+
+**Abstract**
+
+> The general applicability and robustness of posterior inference algorithms is critical to widely used probabilistic programming languages such as Stan, PyMC, Pyro, and Turing.jl. 
+> When designing a new inference algorithm, whether it involves Monte Carlo sampling or variational approximation, the fundamental problem is evaluating its accuracy and efficiency across a range of representative target posteriors. 
+>
+> To solve this problem, we propose posteriordb, a database of models and data sets defining target densities along with reference Monte Carlo draws. 
+> We further provide a guide to the best practices in using posteriordb for algorithm evaluation and comparison. 
+> To provide a wide range of realistic posteriors, posteriordb currently comprises 120 representative models with data, and has been instrumental in developing several inference algorithms.
+
+You can read more in this [recent article](https://proceedings.mlr.press/v258/magnusson25a.html) on `posteriordb`.
