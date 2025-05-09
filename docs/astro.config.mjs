@@ -28,7 +28,7 @@ export default defineConfig({
         {
           label: 'Seminar Series',
           autogenerate: { directory: 'events/seminar-series' },
-          collapsed: false,
+          collapsed: true,
         },
         {
           label: 'Methods Week',
