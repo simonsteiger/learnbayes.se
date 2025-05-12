@@ -1,0 +1,51 @@
+---
+title: The Design of Turing.jl
+slug: events/design-of-turing-jl
+speaker: penelope-yong
+date: 2025-05-15
+start_time: 13:00:00
+stop_time: 14:00:00
+place: Zoom
+type: Seminar
+group: methods-week
+sidebar:
+  order: 17
+  badge:
+    text: New
+    variant: tip
+---
+import EventSummary from '@components/EventSummary.astro';
+import { Aside } from '@astrojs/starlight/components';
+
+<EventSummary eventID={frontmatter.slug} />
+
+<Aside title="Zoom link">
+The Zoom link will be provided here soon.
+</Aside>
+
+In this seminar, Penelope will talk about the design [Turing.jl](https://turinglang.org/) and compare it to other probabilistic programming frameworks like [Stan](https://mc-stan.org) and PyMC. 
+
+Penelope Yong is a software engineer working on [Turing.jl](https://turinglang.org/) at the Alan Turing Institute.
+
+In her talk, Penelope plans to cover the following points:
+- Modeling the classic 'eight schools' problem using Turing.jl, Stan, and PyMC
+- What Turing.jl brings to the table in Bayesian modeling, with a particular focus on composability with the broader Julia ecosystem
+- A discussion of some factors which might lead a user to gravitate towards one probabilistic programming framework
+- Reflections as a software developer on the challenges that Turing.jl (and open source software in general) face
+
+<Aside title="Why attend?">
+For epidemiologists and biostatisticians, adopting Turing.jl offers several key advantages:
+
+- **Speed and scalability**: Julia's performance rivals that of C, making Turing.jl well-suited for large-scale simulation and inference tasks.
+
+- **Expressiveness**: Define complex, custom models — including those with non-standard likelihoods or intricate dependencies — without sacrificing clarity or flexibility.
+
+- **Interoperability**: Leverage the rich Julia ecosystem, including [data manipulation](https://dataframes.juliadata.org/stable/), [plotting](https://docs.makie.org/stable/), and [differential equation solvers](https://docs.sciml.ai/DiffEqDocs/stable/).
+
+- **Reproducibility and openness**: As a fully open-source toolchain, Turing.jl encourages transparent, shareable, and extensible science.
+
+For an in-depth look at Turing.jl, its design and applications, check out the recent publication by [Fjelde et al. (2025)](https://doi.org/10.1145/3711897).
+
+</Aside>
+
+**Coming from R or Python?** Julia has great interfaces to these languages with [RCall.jl](https://github.com/JuliaInterop/RCall.jl) and [PythonCall.jl](https://github.com/JuliaPy/PythonCall.jl), allowing you to seemlessly integrate your existing workflows with Julia!
