@@ -7,12 +7,16 @@ sidebar:
     variant: success
 ---
 
-import { Image } from 'astro:assets';
-import scheduleLight from '@assets/img/methods-week-schedule.svg';
-import scheduleDark from '@assets/img/methods-week-schedule-dark.svg';
+import { Aside } from '@astrojs/starlight/components';
 
 import EventList from '@components/EventList.astro';
 import { allEvents } from "src/utils";
+
+import { Image } from 'astro:assets';
+import scheduleLight from '@assets/img/methods-week-schedule.svg';
+import scheduleLightHover from '@assets/img/methods-week-schedule-hover.svg';
+import scheduleDark from '@assets/img/methods-week-schedule-dark.svg';
+import scheduleDarkHover from '@assets/img/methods-week-schedule-hover-dark.svg';
 
 **Welcome to the Methods Week!**
 Monday through Thursday (12–15 May) is packed with fantastic seminars and workshops in this all-you-can-eat Bayesian buffet (or smörgåsbord), topped off with a **[Networking Event](/information/networking-event)**, promising exciting keynote speakers and a panel discussion.
@@ -20,8 +24,18 @@ Feel free to mix and match among the events as you see fit and your schedule all
 
 **You do not have to have attended any previous events in the seminar series and no sign up is required.**
 
-<Image src={scheduleLight} alt="Methods week schedule" class="block dark:hidden" />
-<Image src={scheduleDark} alt="Methods week schedule" class="hidden dark:block" />
+<Aside>
+For more information hover over the schedule or click on the individual events below.
+</Aside>
+
+
+<div class="group">
+  <Image src={scheduleLight} alt="Methods week schedule" class="block group-hover:hidden dark:hidden" />
+  <Image src={scheduleLightHover} alt="Detailed methods week schedule" class="hidden group-hover:block dark:group-hover:hidden" />
+
+  <Image src={scheduleDark} alt="Methods week schedule" class="hidden dark:block group-hover:hidden" />
+  <Image src={scheduleDarkHover} alt="Detailed methods week schedule" class="hidden dark:group-hover:block" />
+</div>
 
 **Methods week schedule:** Blue events are workshops and green events are seminars. Coffee will be served in the morning and afternoon. Lunch is not provided.
 
