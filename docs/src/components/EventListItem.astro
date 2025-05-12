@@ -13,7 +13,7 @@ const speakerList = await getSpeakerList(event);
 
 const tomorrow = new Date();
 tomorrow.setDate(tomorrow.getDate() + 1);
-const isPastDate = date < tomorrow;
+const isPastDate = date > tomorrow;
 
 const calendarEventLink = await getCalendarEventLink(event);
 
