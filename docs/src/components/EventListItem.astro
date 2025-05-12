@@ -10,14 +10,20 @@ type Props = {
 const { event } = Astro.props;
 const { title, date, start_time, stop_time, place, type } = event.data;
 const speakerList = await getSpeakerList(event);
-const isPastDate = date < new Date();
-
 const calendarEventLink = await getCalendarEventLink(event);
 
-const pastDateStyle =
-  "bg-gray-600 group-hover:bg-gray-700 dark:bg-gray-300 dark:group-hover:bg-gray-400";
-const futureDateStyle =
-  "bg-accent-600 group-hover:bg-accent-700 dark:bg-accent-200 dark:group-hover:bg-accent-300";
+const todayDate = new Date().toISOString().split('T')[0];
+const eventDate = date.toISOString().split('T')[0];
+
+let dateStyle = ""
+
+if (eventDate < todayDate) {
+  dateStyle = "bg-gray-600 group-hover:bg-gray-700 dark:bg-gray-300 dark:group-hover:bg-gray-400";
+} else if (eventDate > todayDate) {
+  dateStyle = "bg-accent-600 group-hover:bg-accent-700 dark:bg-accent-200 dark:group-hover:bg-accent-300";
+} else {
+  dateStyle = "bg-amber-600 group-hover:bg-amber-700 dark:bg-amber-300 dark:group-hover:bg-amber-400";
+}
 ---
 
 <div
@@ -27,7 +33,7 @@ const futureDateStyle =
   <a
     href={calendarEventLink}
     download={`${date.toISOString().slice(0, 10)} - Learn Bayes - ${title}.ics`}
-    class={`block w-23 min-w-20 flex flex-shrink-0 flex-col items-center justify-center p-3 ${isPastDate ? pastDateStyle : futureDateStyle} text-white dark:text-gray-800 no-underline hover:no-underline`}
+    class={`block w-23 min-w-20 flex flex-shrink-0 flex-col items-center justify-center p-3 ${dateStyle} text-white dark:text-gray-800 no-underline hover:no-underline`}
   >
     <div class="text-3xl">
       {date.toLocaleString("en-US", { day: "2-digit" })}
@@ -37,19 +43,19 @@ const futureDateStyle =
     </div>
   </a>
   <a
-    href={'/' + event.id}
+    href={"/" + event.id}
     class="block flex flex-grow py-2 px-4 rounded-r-md border-y border-r border-gray-300 dark:border-gray-500 bg-white group-hover:bg-gray-100 dark:bg-gray-800 dark:group-hover:bg-gray-700 no-underline hover:no-underline"
   >
     <div class="flex-grow flex flex-col text-gray-900 dark:text-gray-200">
-      <div
-        class="flex items-start gap-3 text-lg font-semibold"
-      >
+      <div class="flex items-start gap-3 text-lg font-semibold">
         <div class="flex-grow">{title}</div>
         <div class="flex-shrink-0">
           <Icon
             class="inline-block align-text-bottom"
             is:inline={true}
-            name={place.toLowerCase().startsWith("zoom") ? "mdi:video-chat" : "mdi:lecture"}
+            name={place.toLowerCase().startsWith("zoom")
+              ? "mdi:video-chat"
+              : "mdi:lecture"}
           />
         </div>
       </div>
