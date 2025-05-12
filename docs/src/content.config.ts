@@ -30,6 +30,7 @@ const events = defineCollection({
 		type: z.string(),
 		group: z.enum(['seminar-series', 'methods-week', 'networking-event', 'other']),
 		url: z.string().url().optional(),
+		place_url: z.string().url().optional(),
 		image: z.string().optional(),
 		draft: z.boolean().optional(),
 	}).transform((data) => {

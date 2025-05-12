@@ -26,7 +26,7 @@ const speakerList = await getSpeakerList(event);
 const date = new Date(event.data.date);
 const start_time = formatTime(event.data.start_time);
 const stop_time = formatTime(event.data.stop_time);
-const { place, type, url } = event.data;
+const { place, type, url, place_url } = event.data;
 const cestStart = new Date("2025-03-30T00:00:00Z");
 const isCest = date > cestStart;
 
@@ -90,14 +90,27 @@ const calendarEventLink = await getCalendarEventLink(event);
         )
       }
       <div class="min-w-0 flex flex-col flex-grow justify-center">
+        <span><strong>Type: </strong>{type}</span>
         <span><strong>Speaker: </strong>{speakerList}</span>
         <span
           ><strong>Date & time: </strong>
           {date.toDateString()}, {start_time}-{stop_time}
           {isCest ? " (CEST)" : " (CET)"}</span
         >
-        <span><strong>Place: </strong>{place}</span>
-        <span><strong>Type: </strong>{type}</span>
+        <span
+          ><strong>Place: </strong>{
+            place_url ? (
+              <a
+                href={place_url}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-accent-600 dark:text-accent-200"
+              >
+                {place}
+              </a>
+            ) : place
+          }</span
+        >
         {
           url && (
             <span class="inline-block truncate">
@@ -106,7 +119,7 @@ const calendarEventLink = await getCalendarEventLink(event);
                 href={url}
                 target="_blank"
                 rel="noopener noreferrer"
-                class="text-accent-600"
+                class="text-accent-600 dark:text-accent-200"
               >
                 {url}
               </a>
