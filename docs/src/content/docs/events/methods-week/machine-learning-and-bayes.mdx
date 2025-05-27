@@ -16,6 +16,13 @@ sidebar:
 import EventSummary from '@components/EventSummary.astro';
 import { Aside } from '@astrojs/starlight/components';
 
+<details open>
+  <summary>Follow-up</summary>
+
+  - Download the slides [here](/slides/Presentation_Martin_Trapp.pdf)
+
+</details>
+
 <EventSummary eventID={frontmatter.slug} />
 
 [Martin Trapp](https://trappmartin.github.io/website/) is a postdoctoral researcher in the Department of Computer Science at Aalto University, Finland.
@@ -27,5 +34,3 @@ The talk will touch on the following topics:
 - Quick primer on deep learning
 - A brief overview of Bayesian deep learning:  promises, challenges, and the reality
 - A brief overview on deep learning for Bayesian inference with focus on amortisation techniques
-
-More details to follow soon.
