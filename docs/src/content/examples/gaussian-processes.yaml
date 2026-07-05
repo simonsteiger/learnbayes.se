@@ -1,0 +1,10 @@
+title: Introduction to Gaussian Processes
+description: An introduction to GPs, ending with PPL implementations.
+topic: gaussian-processes
+level: expert
+tags:
+  - Introduction
+  - Nonparametric
+order: 3
+links:
+  julia: /julia/gps.html

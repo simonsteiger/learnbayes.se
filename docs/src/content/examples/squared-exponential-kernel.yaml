@@ -1,0 +1,11 @@
+title: Squared Exponential Kernel
+description: Learn about hyperparameters and covariograms.
+topic: gaussian-processes
+level: expert
+tags:
+  - Nonparametric
+order: 4
+links:
+  julia: /julia/sekernel.html
+  r: null
+  python: null

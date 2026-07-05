@@ -1,0 +1,11 @@
+title: Introduction to Hidden Markov models
+description: Learn about a powerful technique to model longitudinal data.
+topic: hidden-markov-models
+level: expert
+tags:
+  - Introduction
+  - Multistate
+  - Time series
+order: 3
+links:
+  julia: /julia/hmm.html

@@ -1,0 +1,12 @@
+title: "Statistical Rethinking 2024: Lecture 2"
+description: Figures and models shown during the lecture The Garden of Forking Paths
+topic: statistical-rethinking-2024-l02
+level: beginner
+tags:
+  - Simulation
+  - Probability
+order: 1
+links:
+  julia: /julia/statistical_rethinking/02_globetossing.html
+  r: null
+  python: null

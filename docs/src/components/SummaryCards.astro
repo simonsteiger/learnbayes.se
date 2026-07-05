@@ -1,0 +1,61 @@
+---
+import { getCollection } from 'astro:content';
+import SummaryCard from '@components/SummaryCard.astro';
+import { exampleStats, resourceStats } from '@lib/summaryStats';
+
+const draftFilter = (e: { data: { draft?: boolean } }) =>
+	import.meta.env.PROD ? !e.data.draft : true;
+
+const examples = (await getCollection('examples')).filter(draftFilter);
+const resources = (await getCollection('resources')).filter(draftFilter);
+
+const ex = exampleStats(examples);
+const res = resourceStats(resources);
+
+const langLabels: Record<string, string> = { stan: 'Stan', r: 'R', python: 'Python', julia: 'Julia' };
+const langSvg: Record<string, string> = {
+	stan: 'stan.svg', r: 'r.svg', python: 'python.svg', julia: 'julia.svg',
+};
+const typeLabels: Record<string, string> = { website: 'Websites', article: 'Articles', book: 'Books', code: 'Code' };
+const typePh: Record<string, string> = {
+	website: 'ph:planet-duotone', article: 'ph:scroll-duotone', book: 'ph:book-duotone', code: 'ph:code',
+};
+
+const exampleChips = ex.langs.map((c) => ({ label: langLabels[c.key], count: c.count, svg: langSvg[c.key] })); // intentionally dropped langLabel
+const resourceChips = res.types.map((c) => ({ label: typeLabels[c.key], count: c.count, ph: typePh[c.key] }));
+---
+
+<div class="summary-cards not-content">
+	<SummaryCard
+		title="Examples"
+		href="/learn/examples/"
+		description="Worked Bayesian models across languages."
+		chipLabel="Languages"
+		chips={exampleChips}
+		levels={ex.levels}
+		browseLabel="Browse examples"
+	/>
+	<SummaryCard
+		title="Resources"
+		href="/learn/resources/"
+		description="Books, articles, websites, and code about Bayes."
+		chipLabel="Type"
+		chips={resourceChips}
+		levels={res.levels}
+		browseLabel="Browse resources"
+	/>
+</div>
+
+<style>
+	.summary-cards {
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: 1rem;
+		margin: 1.5rem 0;
+	}
+	@media (max-width: 600px) {
+		.summary-cards {
+			grid-template-columns: 1fr;
+		}
+	}
+</style>

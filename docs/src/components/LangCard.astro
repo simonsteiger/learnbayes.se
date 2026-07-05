@@ -1,0 +1,200 @@
+---
+interface Props {
+	title: string;
+	description: string;
+	level: 'beginner' | 'advanced' | 'expert';
+	tags: string[];
+	links: { r?: string | null; python?: string | null; julia?: string | null; stan?: string | null };
+}
+
+const { title, description, level, tags, links } = Astro.props;
+
+// Resolve icon URLs at build time. Keys look like
+// "/src/assets/img/icons/julia.svg" -> string URL.
+const iconUrls = import.meta.glob<string>('@assets/img/icons/*.svg', {
+	eager: true,
+	query: '?url',
+	import: 'default',
+});
+function icon(name: string): string {
+	const hit = Object.entries(iconUrls).find(([p]) => p.endsWith(`/${name}`));
+	if (!hit) throw new Error(`LangCard: icon not found: ${name}`);
+	return hit[1];
+}
+
+const levelLabel = { beginner: 'Beginner', advanced: 'Advanced', expert: 'Expert' }[level];
+
+const languages = [
+	{ key: 'stan', name: 'Stan', on: 'stan.svg', off: 'stan_grey.svg' },
+	{ key: 'r', name: 'R', on: 'r.svg', off: 'r_grey.svg' },
+	{ key: 'python', name: 'Python', on: 'python.svg', off: 'python_grey.svg' },
+	{ key: 'julia', name: 'Julia', on: 'julia.svg', off: 'julia_grey.svg' },
+] as const;
+---
+
+<article class="lang-card not-content" data-level={level} data-tags={tags.join(',')}>
+	<div class="lang-card__top">
+	    <div>
+			<span class={`lang-card__level lang-card__level--${level}`}>
+				<span class="lang-card__dot" aria-hidden="true"></span>
+				{levelLabel}
+			</span>
+			<h3 class="lang-card__title">{title}</h3>
+			<p class="lang-card__desc">{description}</p>
+		</div>
+		<div class="lang-card__langs">
+			{languages.map(({ key, name, on, off }) => {
+				const href = links[key];
+				return href ? (
+					<a class="lang-chip" href={href} target="_blank" rel="noopener noreferrer" aria-label={`${title} in ${name}`}>
+						<img src={icon(on)} alt={name} width="22" height="22" />
+					</a>
+				) : (
+					<span class="lang-chip lang-chip--disabled" aria-disabled="true" title="Not available yet">
+						<img src={icon(off)} alt="" aria-hidden="true" width="22" height="22" />
+					</span>
+				);
+			})}
+		</div>
+	</div>
+	<div class="lang-card__bottom">
+		<div class="lang-card__tags">
+			{tags.map((tag) => (
+				<button type="button" class="tag" data-facet="tag" data-value={tag} aria-pressed="false">
+					{tag}
+				</button>
+			))}
+		</div>
+	</div>
+</article>
+
+<style>
+	.lang-card {
+		border: 1px solid var(--sl-color-gray-5);
+		border-radius: 0.6rem;
+		padding: 1rem 1.15rem;
+		background: var(--sl-color-black);
+	}
+	.lang-card__top {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		gap: 1rem;
+	}
+	.lang-card__title {
+		margin: 0;
+		padding-bottom: 0.2rem;
+		font-size: 1.15rem;
+	}
+	.lang-card__level {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.4rem;
+		font-size: 0.72rem;
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 0.08em;
+		white-space: nowrap;
+	}
+	.lang-card__dot {
+		width: 0.7rem;
+		height: 0.7rem;
+		border-radius: 50%;
+		background: currentColor;
+	}
+	.lang-card__level--beginner { color: #009E73; }
+	.lang-card__level--advanced { color: #E69100; }
+	.lang-card__level--expert { color: #B84145; }
+	.lang-card__desc {
+		margin: 0rem 0 0.7rem;
+		color: var(--sl-color-gray-3);
+		font-size: 0.9rem;
+	}
+	.lang-card__bottom {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding-top: 0.2rem;
+		gap: 1rem;
+	}
+	.lang-card__tags {
+		display: flex;
+		gap: 0.4rem;
+		flex-wrap: wrap;
+	}
+	.tag {
+		font-size: 0.72rem;
+		color: var(--sl-color-gray-3);
+		background: none;
+		border: 1px solid var(--sl-color-gray-5);
+		border-radius: 0.35rem;
+		padding: 0.12rem 0.55rem;
+		cursor: pointer;
+		transition: background-color 0.15s ease, border-color 0.15s ease;
+	}
+	.tag:hover {
+	    background-color: var(--color-accent-100);
+        border-color: var(--sl-color-accent);
+	}
+	:global([data-theme='dark']) .tag:hover {
+        background-color: var(--color-accent-800);
+        border-color: var(--sl-color-accent);
+	}
+	.tag[aria-pressed='true'] {
+	    color: var(--color-accent-800);
+		background-color: var(--color-accent-200);
+        border-color: var(--color-accent-800);
+	}
+	:global([data-theme='dark']) .tag[aria-pressed='true'] {
+	    color: var(--color-accent-200);
+		background-color: var(--color-accent-800);
+		border-color: var(--color-accent-200);
+	}
+	.lang-card__langs {
+		display: flex;
+		flex-direction: row-reverse;
+		flex-wrap: wrap;
+		width: 100px;
+		gap: 0.5rem;
+	}
+	.lang-chip {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		width: 2.2rem;
+		height: 2.2rem;
+		border: 1px solid var(--sl-color-gray-5);
+		border-radius: 0.4rem;
+		transition: background-color 0.15s ease, border-color 0.15s ease;
+	}
+	.lang-chip--disabled {
+		opacity: 0.35;
+		//cursor: not-allowed;
+	}
+	:global([data-theme='dark']) .lang-chip--disabled {
+		opacity: 0.5;
+		//cursor: not-allowed;
+	}
+	.lang-chip:not(.lang-chip--disabled):hover,
+	.lang-chip.lang-chip--nudge {
+        background-color: var(--color-accent-100);
+        border-color: var(--sl-color-accent);
+	}
+	:global([data-theme='dark']) .lang-chip {
+	    color: var(--color-accent-200);
+	}
+	:global([data-theme='dark']) .lang-chip--disabled {
+	    color: var(--sl-color-gray-5);
+		border: 1px solid var(--sl-color-gray-5);
+	}
+	:global([data-theme='dark']) .lang-chip:not(.lang-chip--disabled):hover,
+	:global([data-theme='dark']) .lang-chip.lang-chip--nudge {
+        background-color: var(--color-accent-800);
+        border-color: var(--sl-color-accent);
+	}
+	@media (max-width: 600px) {
+        .lang-card__langs {
+        width: 150px;
+    }
+}
+</style>
