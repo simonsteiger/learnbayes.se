@@ -1,0 +1,13 @@
+title: Introduction to Meta-analysis
+description: Learn about the Bayesian perspective on meta-analysis.
+topic: hierarchical-models
+level: advanced
+tags:
+  - Introduction
+  - Hierarchical
+  - Meta-analysis
+order: 2
+links:
+  julia: /julia/metaanalysis.html
+  r: null
+  python: null

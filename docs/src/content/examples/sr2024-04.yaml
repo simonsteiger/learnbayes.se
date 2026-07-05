@@ -1,0 +1,13 @@
+title: "Statistical Rethinking 2024: Lecture 4"
+description: Figures and models shown during the lecture Categories and Curves
+topic: statistical-rethinking-2024-l04
+level: beginner
+tags:
+  - Regression
+  - Polynomial
+  - Spline
+order: 1
+links:
+  julia: /julia/statistical_rethinking/03_geocentric.html
+  r: null
+  python: null

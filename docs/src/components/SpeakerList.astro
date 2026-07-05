@@ -1,12 +1,25 @@
 ---
 import { LinkCard } from "@astrojs/starlight/components";
-import { allSpeakers } from "src/utils";
+import { allSpeakers, allEvents } from "src/utils";
+
+// Map each speaker id to the talk they gave. No speaker gave more than one
+// talk; if that ever changes, the first event encountered wins.
+const eventBySpeaker = new Map<string, (typeof allEvents)[number]>();
+for (const event of allEvents) {
+  for (const ref of event.data.speaker) {
+    if (!eventBySpeaker.has(ref.id)) {
+      eventBySpeaker.set(ref.id, event);
+    }
+  }
+}
 ---
 
 {
   allSpeakers
+    .filter((speaker) => eventBySpeaker.has(speaker.id))
     .sort((a, b) => a.data.title.localeCompare(b.data.title))
-    .map((speaker) => (
-      <LinkCard title={speaker.data.title} href={`/speakers/${speaker.id}`} />
-    ))
+    .map((speaker) => {
+      const event = eventBySpeaker.get(speaker.id)!;
+      return <LinkCard title={speaker.data.title} href={"/" + event.id} />;
+    })
 }

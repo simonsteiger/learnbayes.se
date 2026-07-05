@@ -15,6 +15,9 @@
       ],
       "@assets/*": [
         "src/assets/*"
+      ],
+      "@lib/*": [
+        "src/lib/*"
       ]
     }
   }

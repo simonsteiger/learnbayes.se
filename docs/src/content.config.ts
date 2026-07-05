@@ -43,4 +43,40 @@ const events = defineCollection({
 	}),
 });
 
-export const collections = { docs, speakers, events };
+const examples = defineCollection({
+	loader: glob({ pattern: "**/*.{yml,yaml}", base: "./src/content/examples" }),
+	schema: z.object({
+		title: z.string(),
+		description: z.string(),
+		topic: z.string(),
+		level: z.enum(['beginner', 'advanced', 'expert']),
+		tags: z.array(z.string()).default([]),
+		order: z.number().optional(),
+		links: z.object({
+			r: z.string().nullable().optional(),
+			python: z.string().nullable().optional(),
+			julia: z.string().nullable().optional(),
+			stan: z.string().nullable().optional(),
+		}),
+		draft: z.boolean().optional(),
+	}),
+});
+
+const resources = defineCollection({
+	loader: glob({ pattern: "**/*.{yml,yaml}", base: "./src/content/resources" }),
+	schema: z.object({
+		title: z.string(),
+		description: z.string().optional(),
+		level: z.enum(['beginner', 'advanced', 'expert']).optional(),
+		tags: z.array(z.string()).default([]),
+		links: z.object({
+			isbn: z.string().optional(),
+			doi: z.string().optional(),
+			website: z.string().url().optional(),
+			code: z.string().url().optional(),
+		}).default({}),
+		draft: z.boolean().optional(),
+	}),
+});
+
+export const collections = { docs, speakers, events, examples, resources };

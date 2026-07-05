@@ -132,13 +132,13 @@ const calendarEventLink = await getCalendarEventLink(event);
       {
         place.toLowerCase().startsWith("zoom") ? (
           <>
-            <Icon class="align-text-bottom" name="mdi:video-chat" />
+            <Icon class="align-text-bottom" name="ph:video-conference-duotone" />
             This is an online event. Zoom link will be provided here and through
             the email list.
           </>
         ) : (
           <>
-            <Icon class="align-text-bottom" name="mdi:lecture" />
+            <Icon class="align-text-bottom" name="ph:chalkboard-teacher-duotone" />
             This is an in-person event only. No zoom link will be provided.
           </>
         )

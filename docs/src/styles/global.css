@@ -30,3 +30,69 @@
 Add additional Tailwind styles to this file:
 https://tailwindcss.com/docs/adding-custom-styles#using-custom-css
 */
+
+/*
+starlight-sidebar-topics only accepts Starlight's built-in icon names (no raw-svg
+escape hatch like Hero has). Swap its rendered icon for a Phosphor duotone icon by
+hiding the built-in svg and painting a CSS mask instead; mask fill must be non-black
+so both luminance- and alpha-based masking preserve the duotone opacity layers.
+*/
+.starlight-sidebar-topics-icon svg {
+	display: none;
+}
+.starlight-sidebar-topics-icon::after {
+	content: '';
+	display: block;
+	width: 1em;
+	height: 1em;
+	background-color: currentColor;
+	-webkit-mask-image: var(--topic-icon);
+	mask-image: var(--topic-icon);
+	-webkit-mask-repeat: no-repeat;
+	mask-repeat: no-repeat;
+	-webkit-mask-position: center;
+	mask-position: center;
+	-webkit-mask-size: contain;
+	mask-size: contain;
+}
+a[href="/learn/"] .starlight-sidebar-topics-icon {
+	--topic-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 256 256'><g fill='white'><path d='M208 32v160H72a24 24 0 0 0-24 24V56a24 24 0 0 1 24-24Z' opacity='.2'/><path d='M208 24H72a32 32 0 0 0-32 32v168a8 8 0 0 0 8 8h144a8 8 0 0 0 0-16H56a16 16 0 0 1 16-16h136a8 8 0 0 0 8-8V32a8 8 0 0 0-8-8m-8 160H72a31.8 31.8 0 0 0-16 4.29V56a16 16 0 0 1 16-16h128Z'/></g></svg>");
+}
+a[href^="/book-club"] .starlight-sidebar-topics-icon {
+	--topic-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 256 256'><g fill='white'><path d='M224 56v128a8 8 0 0 1-8 8h-65.07l-16 28a8 8 0 0 1-13.9 0l-16-28H40a8 8 0 0 1-8-8V56a8 8 0 0 1 8-8h176a8 8 0 0 1 8 8' opacity='.2'/><path d='M116 120a12 12 0 1 1 12 12a12 12 0 0 1-12-12m-32 12a12 12 0 1 0-12-12a12 12 0 0 0 12 12m88 0a12 12 0 1 0-12-12a12 12 0 0 0 12 12m60-76v128a16 16 0 0 1-16 16h-60.43l-13.68 23.94a16 16 0 0 1-27.78 0L100.43 200H40a16 16 0 0 1-16-16V56a16 16 0 0 1 16-16h176a16 16 0 0 1 16 16m-16 0H40v128h65.07a8 8 0 0 1 7 4l16 28l16-28a8 8 0 0 1 7-4H216Z'/></g></svg>");
+}
+.sl-link-button {
+	transition: background-color 0.15s ease, border-color 0.15s ease, opacity 0.15s ease;
+	border-radius: 12px;
+}
+.sl-link-button.primary {
+    color: #000;
+    background-color: var(--color-accent-100);
+    border-color: #000;
+}
+.sl-link-button.primary:hover {
+    background-color: var(--color-accent-200);
+    border-color: var(--color-accent-600);
+}
+.sl-link-button.secondary:hover {
+	background-color: var(--color-accent-100);
+	border-color: var(--sl-color-accent);
+}
+[data-theme='dark'] .sl-link-button.secondary:hover {
+	background-color: var(--color-accent-800);
+}
+.pagination-links a {
+    transition: background-color 0.15s ease, border-color 0.15s ease, opacity 0.15s ease;
+    box-shadow: none;
+}
+.pagination-links a:hover {
+    background-color: var(--color-accent-200);
+}
+[data-theme='dark'] .pagination-links a:hover {
+    background-color: var(--color-accent-800);
+    border-color: var(--sl-color-accent);
+}
+
+a[href^="/information/information"] .starlight-sidebar-topics-icon {
+	--topic-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 256 256'><g fill='white'><path d='M224 128a96 96 0 1 1-96-96a96 96 0 0 1 96 96' opacity='.2'/><path d='M144 176a8 8 0 0 1-8 8a16 16 0 0 1-16-16v-40a8 8 0 0 1 0-16a16 16 0 0 1 16 16v40a8 8 0 0 1 8 8m88-48A104 104 0 1 1 128 24a104.11 104.11 0 0 1 104 104m-16 0a88 88 0 1 0-88 88a88.1 88.1 0 0 0 88-88m-92-32a12 12 0 1 0-12-12a12 12 0 0 0 12 12'/></g></svg>");
+}
