@@ -5,6 +5,7 @@
 @import 'tailwindcss/utilities.css' layer(utilities);
 
 @theme {
+        --color-accent-25: #F1F9F9;
 		--color-accent-50: #e6f4f4;
 		--color-accent-100: #cce9ea;
 		--color-accent-200: #99d3d5;
@@ -14,7 +15,13 @@
 		--color-accent-600: #007377;
 		--color-accent-700: #005659;
 		--color-accent-800: #003a3c;
-		--color-accent-900: #001d1e;
+		--color-accent-900: #003033;
+		--color-accent-950: #002629;
+
+		--color-secondary-lightest: #FFE7E3;
+		--color-secondary-light: #FFD0C6;
+		--color-secondary-medium: #FF9F8C;
+		--color-secondary-dark: #FF876F;
 
 		--color-gray-100: #f6f6f6;
 		--color-gray-200: #eeeeee;
@@ -24,6 +31,24 @@
 		--color-gray-700: #383838;
 		--color-gray-800: #272727;
 		--color-gray-900: #181818;
+
+		--level-beginner: #009E73;
+		--level-advanced: #E69100;
+		--level-expert: #B84145;
+
+		--level-beginner-light: #C6ECE2;
+		--level-advanced-light: #FFE3B3;
+		--level-expert-light: #EBC7C7;
+		--level-beginner-lighter: #E0F5EF;
+		--level-advanced-lighter: #FFF0D6;
+		--level-expert-lighter: #F4E1E1;
+
+		--level-beginner-dark: #094434;
+		--level-advanced-dark: #4D3000;
+		--level-expert-dark: #381414;
+		--level-beginner-darker: #062D23;
+		--level-advanced-darker: #332000;
+		--level-expert-darker: #2A0F0F;
 }
 
 /*
@@ -68,29 +93,50 @@ a[href^="/book-club"] .starlight-sidebar-topics-icon {
 .sl-link-button.primary {
     color: #000;
     background-color: var(--color-accent-100);
-    border-color: #000;
+    border-color: var(--color-accent-100);
 }
 .sl-link-button.primary:hover {
     background-color: var(--color-accent-200);
+    border-color: var(--color-accent-200);
+}
+[data-theme='dark'] .sl-link-button.primary {
+    color: #fff;
+    background-color: var(--color-accent-700);
+    border-color: var(--color-accent-700);
+}
+[data-theme='dark'] .sl-link-button.primary:hover {
+    background-color: var(--color-accent-600);
     border-color: var(--color-accent-600);
 }
+.sl-link-button.secondary {
+    background-color: var(--sl-color-gray-7);
+    border-color: var(--sl-color-gray-7);
+}
 .sl-link-button.secondary:hover {
-	background-color: var(--color-accent-100);
-	border-color: var(--sl-color-accent);
+	background-color: var(--sl-color-gray-6);
+	border-color: var(--sl-color-gray-6);
+}
+[data-theme='dark'] .sl-link-button.secondary {
+    background-color: var(--sl-color-gray-5);
+    border-color: var(--sl-color-gray-5);
 }
 [data-theme='dark'] .sl-link-button.secondary:hover {
-	background-color: var(--color-accent-800);
+    background-color: var(--sl-color-gray-4);
+    border-color: var(--sl-color-gray-4);
 }
 .pagination-links a {
     transition: background-color 0.15s ease, border-color 0.15s ease, opacity 0.15s ease;
     box-shadow: none;
 }
 .pagination-links a:hover {
-    background-color: var(--color-accent-200);
+    background-color: var(--color-gray-200);
+}
+[data-theme='dark'] .pagination-links a {
+    border-color: var(--color-gray-700);
 }
 [data-theme='dark'] .pagination-links a:hover {
-    background-color: var(--color-accent-800);
-    border-color: var(--sl-color-accent);
+    background-color: var(--sl-color-gray-6);
+    border-color: var(--sl-color-gray-5);
 }
 
 a[href^="/information/information"] .starlight-sidebar-topics-icon {

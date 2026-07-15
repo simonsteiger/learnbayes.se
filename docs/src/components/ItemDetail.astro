@@ -1,0 +1,53 @@
+---
+import ItemPanel from '@components/ItemPanel.astro';
+import type { Item } from '@lib/items';
+
+interface Props {
+	item: Item;
+	breadcrumbLabel: string;
+	breadcrumbHref: string;
+	linksLabel: string;
+}
+
+const { item, breadcrumbLabel, breadcrumbHref, linksLabel } = Astro.props;
+---
+
+<nav class="crumb not-content" aria-label="Breadcrumb">
+	<a href={breadcrumbHref}>{breadcrumbLabel}</a>
+	<span class="sep" aria-hidden="true">/</span>
+	<span class="current">{item.title}</span>
+</nav>
+
+{item.description && <p class="lede">{item.description}</p>}
+
+<ItemPanel level={item.level} tags={item.tags} chips={item.chips} linksLabel={linksLabel} />
+
+<slot />
+
+<style lang="scss">
+	.crumb {
+		display: flex;
+		align-items: center;
+		gap: 0.45rem;
+		font-size: 0.8rem;
+		color: var(--sl-color-gray-3);
+		margin-bottom: 0.9rem;
+		a {
+            color: var(--sl-color-text-accent)
+		}
+	}
+
+	.sep {
+		color: var(--sl-color-gray-5);
+	}
+
+	.current {
+		color: var(--sl-color-gray-3);
+	}
+
+	.lede {
+		font-size: 1.05rem;
+		color: var(--sl-color-gray-2);
+		margin: 0;
+	}
+</style>

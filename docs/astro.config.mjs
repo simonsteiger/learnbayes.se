@@ -24,10 +24,12 @@ export default defineConfig({
         SocialIcons: './src/components/SocialIcons.astro',
         ThemeProvider: './src/components/ThemeProvider.astro',
       },
+      routeMiddleware: './src/routeMiddleware.ts',
       plugins: [
         starlightSidebarTopics([
           {
             label: 'Learning',
+            id: 'learn',
             link: '/learn/',
             icon: 'open-book',
             items: [
@@ -56,6 +58,9 @@ export default defineConfig({
             ],
           },
         ], {
+          topics: {
+            learn: ['/learn/examples/**', '/learn/resources/**'],
+          },
           exclude: [
             '/index',
             '/guides/**',

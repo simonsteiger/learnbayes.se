@@ -11,8 +11,15 @@ export interface CollapsibleFacet {
 export interface FacetedBrowserConfig {
 	simple: SimpleFacet[];
 	collapsible: CollapsibleFacet;
+	searchAttr: string; // card dataset key holding the lowercase search blob, e.g. 'text'
 	cardSelector: string; // '.lang-card' for both current browsers
 	itemLabel: string; // singular noun, e.g. 'example' or 'resource'
+}
+
+const WORD_SPLIT = /[^a-z0-9]+/;
+
+function tokenize(value: string): string[] {
+	return value.toLowerCase().split(WORD_SPLIT).filter(Boolean);
 }
 
 export function initFacetedBrowser(root: HTMLElement, config: FacetedBrowserConfig): void {
@@ -23,6 +30,11 @@ export function initFacetedBrowser(root: HTMLElement, config: FacetedBrowserConf
 	facetAttr[config.collapsible.key] = config.collapsible.attr;
 
 	const cards = Array.from(root.querySelectorAll<HTMLElement>(config.cardSelector));
+	// Blobs are static post-load; tokenizing once here avoids redoing it twice per
+	// card (matches + availFor) on every keystroke.
+	const cardWords = new Map<HTMLElement, string[]>(
+		cards.map((card) => [card, tokenize(card.dataset[config.searchAttr] ?? '')])
+	);
 	const facetButtons = Array.from(
 		root.querySelectorAll<HTMLButtonElement>('button[data-facet]')
 	);
@@ -35,7 +47,8 @@ export function initFacetedBrowser(root: HTMLElement, config: FacetedBrowserConf
 			string,
 			Set<string>
 		>,
-		search: '',
+		query: '',
+		search: [] as string[],
 		expanded: false,
 	};
 
@@ -51,14 +64,27 @@ export function initFacetedBrowser(root: HTMLElement, config: FacetedBrowserConf
 		for (const key of facetKeys) {
 			active.facets[key] = new Set(params.getAll(key));
 		}
+		active.query = (params.get('q') ?? '').trim();
+		active.search = tokenize(active.query);
+		if (searchInput) searchInput.value = active.query;
 	}
 
+	// Any pending debounced write is superseded by an immediate one, so state
+	// isn't written to the URL twice (once stale, once current).
+	let searchUrlTimer: ReturnType<typeof setTimeout> | undefined;
+
 	function writeUrl() {
+		if (searchUrlTimer !== undefined) {
+			clearTimeout(searchUrlTimer);
+			searchUrlTimer = undefined;
+		}
 		const params = new URLSearchParams(window.location.search);
 		for (const key of facetKeys) params.delete(key);
 		for (const key of facetKeys) {
 			active.facets[key].forEach((v) => params.append(key, v));
 		}
+		params.delete('q');
+		if (active.query !== '') params.set('q', active.query);
 		const qs = params.toString();
 		history.replaceState(
 			null,
@@ -67,7 +93,33 @@ export function initFacetedBrowser(root: HTMLElement, config: FacetedBrowserConf
 		);
 	}
 
+	// Safari caps history.replaceState at ~100 calls per rolling 30s and throws
+	// SecurityError past that (then keeps refusing calls for a while, even caught).
+	// A deliberate typist alone can clear that limit well before 30s are up, so the
+	// URL write is trailing-debounced at 500ms — worst case ~60 writes per 30s.
+	// The 500ms wait is why this must be called after render(), never before it:
+	// a throw in here must never be able to take card filtering down with it.
+	function writeUrlDebounced() {
+		if (searchUrlTimer !== undefined) clearTimeout(searchUrlTimer);
+		searchUrlTimer = setTimeout(() => {
+			searchUrlTimer = undefined;
+			writeUrl();
+		}, 500);
+	}
+
+	// A token matches a word when it equals it, or — from two characters up — prefixes
+	// it, so "regress" finds "regression" mid-typing. The length floor is what stops the
+	// one-letter language name "r" from matching every word that starts with an r.
+	function matchesSearch(card: HTMLElement) {
+		if (active.search.length === 0) return true;
+		const words = cardWords.get(card) ?? [];
+		return active.search.every((token) =>
+			words.some((w) => w === token || (token.length >= 2 && w.startsWith(token)))
+		);
+	}
+
 	function matches(card: HTMLElement) {
+		if (!matchesSearch(card)) return false;
 		return facetKeys.every((key) => {
 			const values = (card.dataset[facetAttr[key]] ?? '').split(',').filter(Boolean);
 			const set = active.facets[key];
@@ -75,18 +127,34 @@ export function initFacetedBrowser(root: HTMLElement, config: FacetedBrowserConf
 		});
 	}
 
-	// Cards matching every active facet EXCEPT the named one.
+	// Cards matching every active facet EXCEPT the named one, and always the search.
 	// Ignoring a facet's own selection is the faceted-search rule that lets
-	// multiple values in the same facet stay selectable together.
+	// multiple values in the same facet stay selectable together; the search has no
+	// buttons of its own, so it is never ignored.
 	function availFor(ignoreKey: string) {
-		return cards.filter((card) =>
-			facetKeys.every((key) => {
-				if (key === ignoreKey) return true;
-				const values = (card.dataset[facetAttr[key]] ?? '').split(',').filter(Boolean);
-				const set = active.facets[key];
-				return set.size === 0 || values.some((v) => set.has(v));
-			})
+		return cards.filter(
+			(card) =>
+				matchesSearch(card) &&
+				facetKeys.every((key) => {
+					if (key === ignoreKey) return true;
+					const values = (card.dataset[facetAttr[key]] ?? '').split(',').filter(Boolean);
+					const set = active.facets[key];
+					return set.size === 0 || values.some((v) => set.has(v));
+				})
 		);
+	}
+
+	// Starlight renders each TOC entry as <li><a href="#slug">, desktop and mobile
+	// alike, so one lookup keeps both in step with the filtered cards.
+	function syncTocEntry(card: HTMLElement, visible: boolean) {
+		if (!card.id) return;
+		const links = document.querySelectorAll<HTMLAnchorElement>(
+			`a[href="#${CSS.escape(card.id)}"]`
+		);
+		for (const link of links) {
+			const li = link.closest('li');
+			if (li) li.hidden = !visible;
+		}
 	}
 
 	function render() {
@@ -94,6 +162,7 @@ export function initFacetedBrowser(root: HTMLElement, config: FacetedBrowserConf
 		for (const card of cards) {
 			const ok = matches(card);
 			card.hidden = !ok;
+			syncTocEntry(card, ok);
 			if (ok) shown++;
 		}
 		const liveValues = new Set(
@@ -116,11 +185,9 @@ export function initFacetedBrowser(root: HTMLElement, config: FacetedBrowserConf
 				const live = liveValues.has(value);
 				btn.classList.toggle('is-unavailable', !live && !selected);
 				btn.disabled = !live && !selected;
-				const matchesSearch = active.search === '' || value.toLowerCase().includes(active.search);
-				btn.classList.toggle('is-hidden', !matchesSearch);
 			}
 		}
-		const hasFilter = facetKeys.some((key) => active.facets[key].size > 0) || active.search !== '';
+		const hasFilter = facetKeys.some((key) => active.facets[key].size > 0) || active.query !== '';
 		for (const btn of resetButtons) {
 			btn.disabled = !hasFilter;
 			btn.setAttribute('aria-disabled', String(!hasFilter));
@@ -128,7 +195,7 @@ export function initFacetedBrowser(root: HTMLElement, config: FacetedBrowserConf
 		if (empty) empty.hidden = shown > 0;
 		if (status) status.textContent = `${shown} ${config.itemLabel}${shown === 1 ? '' : 's'} shown`;
 		const collapsedCount = applyCollapse();
-		const canToggle = active.search === '' && (active.expanded || collapsedCount > 0);
+		const canToggle = active.expanded || collapsedCount > 0;
 		if (moreBtn) {
 			const showMore = !active.expanded && collapsedCount > 0;
 			moreBtn.hidden = !showMore;
@@ -146,20 +213,19 @@ export function initFacetedBrowser(root: HTMLElement, config: FacetedBrowserConf
 		}
 	}
 
-	// Measures how many buttons overflow past ~2 rows, always (even while expanded
-	// or mid-search), so the toggle button's enabled state stays accurate. Only
-	// actually hides the overflow (adds 'is-collapsed') when collapsed view applies.
+	// Measures how many buttons overflow past ~2 rows, always (even while expanded), so
+	// the toggle button's enabled state stays accurate. Only actually hides the overflow
+	// ('is-collapsed') when the collapsed view applies. The search never hides tag
+	// buttons — unmatched tags are greyed out by render(), not pulled from the layout.
 	function applyCollapse(): number {
 		if (!tagsWrap) return 0;
 		const tagBtns = Array.from(tagsWrap.querySelectorAll<HTMLButtonElement>('.fbtn'));
-		// Clear collapse first so measurement sees the full search-filtered layout.
+		// Clear collapse first so measurement sees the full layout.
 		for (const b of tagBtns) b.classList.remove('is-collapsed');
-		if (active.search !== '') return 0;
-		const visible = tagBtns.filter((b) => !b.classList.contains('is-hidden'));
-		if (visible.length === 0) return 0;
-		const firstTop = visible[0].offsetTop;
+		if (tagBtns.length === 0) return 0;
+		const firstTop = tagBtns[0].offsetTop;
 		let secondRowTop = Infinity;
-		for (const b of visible) {
+		for (const b of tagBtns) {
 			if (b.offsetTop > firstTop) {
 				secondRowTop = Math.min(secondRowTop, b.offsetTop);
 			}
@@ -167,7 +233,7 @@ export function initFacetedBrowser(root: HTMLElement, config: FacetedBrowserConf
 		if (secondRowTop === Infinity) return 0; // everything fits on row 1
 		// Never collapse a selected tag — its active-filter chip must stay visible
 		// (e.g. when reached via a shared ?tag= URL that sorts past row 2).
-		const overflowing = visible.filter(
+		const overflowing = tagBtns.filter(
 			(b) => b.offsetTop > secondRowTop && b.getAttribute('aria-pressed') !== 'true'
 		);
 		if (!active.expanded) {
@@ -189,8 +255,10 @@ export function initFacetedBrowser(root: HTMLElement, config: FacetedBrowserConf
 		btn.addEventListener('click', () => toggle(btn.dataset.facet ?? '', btn.dataset.value ?? ''))
 	);
 	searchInput?.addEventListener('input', () => {
-		active.search = (searchInput.value ?? '').trim().toLowerCase();
+		active.query = (searchInput.value ?? '').trim();
+		active.search = tokenize(active.query);
 		render();
+		writeUrlDebounced();
 	});
 	tagsToggleBtn?.addEventListener('click', () => {
 		active.expanded = !active.expanded;
@@ -200,7 +268,8 @@ export function initFacetedBrowser(root: HTMLElement, config: FacetedBrowserConf
 	resetButtons.forEach((btn) =>
 		btn.addEventListener('click', () => {
 			for (const key of facetKeys) active.facets[key].clear();
-			active.search = '';
+			active.query = '';
+			active.search = [];
 			active.expanded = false;
 			if (searchInput) searchInput.value = '';
 			writeUrl();
@@ -211,25 +280,10 @@ export function initFacetedBrowser(root: HTMLElement, config: FacetedBrowserConf
 	// Clicking the "toggle to show all N tags" hint nudges the actual toggle
 	// button (eye icon) with its own hover styling, without triggering it.
 	moreBtn?.addEventListener('click', () => {
-		if (!tagsToggleBtn) return;
-		tagsToggleBtn.classList.add('console__tags-toggle--nudge');
-		window.setTimeout(() => tagsToggleBtn.classList.remove('console__tags-toggle--nudge'), 600);
+    if (!tagsToggleBtn) return;
+    active.expanded = true;
+    render();
 	});
-
-	// Clicking a card outside its outbound links (.lang-chip) or tag buttons
-	// nudges the clickable links with their own hover styling, so users who
-	// click the card body notice where the actual links are.
-	for (const card of cards) {
-		card.addEventListener('click', (e) => {
-			const target = e.target as HTMLElement;
-			if (target.closest('.lang-chip, .tag')) return;
-			const chips = card.querySelectorAll<HTMLElement>('.lang-chip:not(.lang-chip--disabled)');
-			chips.forEach((chip) => chip.classList.add('lang-chip--nudge'));
-			window.setTimeout(() => {
-				chips.forEach((chip) => chip.classList.remove('lang-chip--nudge'));
-			}, 600);
-		});
-	}
 
 	readUrl();
 	render();
