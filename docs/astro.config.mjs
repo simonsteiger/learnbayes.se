@@ -72,13 +72,13 @@ export default defineConfig({
         }),
       ],
       head: [
-        // Add Plausible Analytics script (GDPR compliant analytics)
+        // Add Umami Analytics script (GDPR compliant analytics)
         {
           tag: 'script',
           attrs: {
             defer: true,
-            'data-domain': 'learnbayes.se',
-            src: 'https://plausible.io/js/script.outbound-links.js',
+            src: 'https://cloud.umami.is/script.js',
+            'data-website-id': '3c1fdd32-4199-4ac2-a805-d6d46ea99cb1',
           },
         },
       ],
