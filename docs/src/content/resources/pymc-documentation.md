@@ -1,0 +1,13 @@
+---
+title: PyMC
+description: "A probabilistic programming language in Python"
+level: advanced
+tags:
+  - Python
+  - Documentation
+  - Tutorial
+links:
+  website: https://www.pymc.io/welcome.html
+  isbn: "9780367894368"
+---
+

@@ -44,14 +44,12 @@ const events = defineCollection({
 });
 
 const examples = defineCollection({
-	loader: glob({ pattern: "**/*.{yml,yaml}", base: "./src/content/examples" }),
+	loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/examples" }),
 	schema: z.object({
 		title: z.string(),
 		description: z.string(),
-		topic: z.string(),
 		level: z.enum(['beginner', 'advanced', 'expert']),
 		tags: z.array(z.string()).default([]),
-		order: z.number().optional(),
 		links: z.object({
 			r: z.string().nullable().optional(),
 			python: z.string().nullable().optional(),
@@ -63,7 +61,7 @@ const examples = defineCollection({
 });
 
 const resources = defineCollection({
-	loader: glob({ pattern: "**/*.{yml,yaml}", base: "./src/content/resources" }),
+	loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/resources" }),
 	schema: z.object({
 		title: z.string(),
 		description: z.string().optional(),
