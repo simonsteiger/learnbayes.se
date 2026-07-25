@@ -72,7 +72,6 @@ export default defineConfig({
         }),
       ],
       head: [
-        // Add Umami Analytics script (GDPR compliant analytics)
         {
           tag: 'script',
           attrs: {
