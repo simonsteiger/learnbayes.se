@@ -1,6 +1,7 @@
 ---
 import ItemPanel from '@components/ItemPanel.astro';
 import type { Item } from '@lib/items';
+import Aside from '@components/Aside.astro';
 
 interface Props {
 	item: Item;
@@ -19,6 +20,10 @@ const { item, breadcrumbLabel, breadcrumbHref, linksLabel } = Astro.props;
 </nav>
 
 {item.description && <p class="lede">{item.description}</p>}
+
+<Aside title="Links">
+Click on one of the available language icons below to see the code.
+</Aside>
 
 <ItemPanel level={item.level} tags={item.tags} chips={item.chips} linksLabel={linksLabel} />
 
