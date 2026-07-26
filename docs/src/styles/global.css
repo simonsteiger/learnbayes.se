@@ -18,6 +18,8 @@
 		--color-accent-900: #003033;
 		--color-accent-950: #002629;
 
+		--sl-color-asides-border: #009095;
+
 		--color-secondary-lightest: #FFE7E3;
 		--color-secondary-light: #FFD0C6;
 		--color-secondary-medium: #FF9F8C;
@@ -49,6 +51,15 @@
 		--level-beginner-darker: #062D23;
 		--level-advanced-darker: #332000;
 		--level-expert-darker: #2A0F0F;
+}
+
+:root {
+  --sl-color-blue: var(--color-secondary-dark);
+  --sl-color-blue-high: var(--color-secondary-dark);
+}
+:root[data-theme='dark'] {
+  --sl-color-blue: var(--color-secondary-light);
+  --sl-color-blue-high: var(--color-secondary-light);
 }
 
 /*
