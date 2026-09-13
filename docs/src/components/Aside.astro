@@ -12,13 +12,6 @@ const icons: Record<AsideVariant, string> = {
 	danger: 'ph:x-circle-duotone',
 };
 
-const defaultTitles: Record<AsideVariant, string> = {
-	note: 'Note',
-	tip: 'Tip',
-	caution: 'Caution',
-	danger: 'Danger',
-};
-
 interface Props {
 	type?: AsideVariant;
 	title?: string;
@@ -34,13 +27,17 @@ if (!asideVariants.includes(type)) {
 	);
 }
 
-const label = title ?? defaultTitles[type];
 ---
 
-<aside aria-label={label} class={`aside aside--${type}`}>
-	<p class="aside__title" aria-hidden="true">
-		<Icon name={icons[type]} class="aside__icon" />{label}
-	</p>
+<aside aria-label={title} class={`aside aside--${type}`}>
+	{
+		title && (
+			<p class="aside__title" aria-hidden="true">
+				<Icon name={icons[type]} class="aside__icon" />
+				{title}
+			</p>
+		)
+	}
 	<div class="aside__content">
 		<slot />
 	</div>
