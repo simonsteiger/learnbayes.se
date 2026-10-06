@@ -43,6 +43,7 @@ export default defineConfig({
             icon: 'comment',
             items: [
               { label: 'About the Book Club', slug: 'book-club' },
+              { label: 'Sessions', slug: 'book-club/sessions' },
             ],
           },
           {

@@ -7,7 +7,7 @@ type AsideVariant = (typeof asideVariants)[number];
 
 const icons: Record<AsideVariant, string> = {
 	note: 'ph:info-duotone',
-	tip: 'ph:rocket-launch-duotone',
+	tip: 'ph:lightbulb-duotone',
 	caution: 'ph:warning-duotone',
 	danger: 'ph:x-circle-duotone',
 };
@@ -48,6 +48,10 @@ if (!asideVariants.includes(type)) {
 		position: relative;
 		padding: 1rem 1rem 1rem 1.25rem;
 		color: var(--sl-color-text);
+		background-color: var(--sl-color-gray-7);
+		border-radius: 0.25rem;
+		border-end-end-radius: 0.6rem;
+		border-start-end-radius: 0.6rem;
 
 		/* The accent bar replaces `border-inline-start` so its ends can be rounded
 		   independently of the box. Only the outer (left) corners are rounded, so the
@@ -58,9 +62,9 @@ if (!asideVariants.includes(type)) {
 			position: absolute;
 			inset-block: 0;
 			inset-inline-start: 0;
-			width: 0.25rem;
-			border-start-start-radius: 0.25rem;
-			border-end-start-radius: 0.25rem;
+			width: 0.3rem;
+			border-start-start-radius: 0.6rem;
+			border-end-start-radius: 0.6rem;
 			background-color: var(--aside-accent);
 		}
 
@@ -70,6 +74,7 @@ if (!asideVariants.includes(type)) {
 		&--danger { --aside-accent: var(--level-expert); }
 
 		:global([data-theme='dark']) & {
+			background-color: var(--sl-color-gray-5);
 			&--note { --aside-accent: var(--color-secondary-light); }
 			&--tip { --aside-accent: var(--color-accent-200); }
 			&--caution { --aside-accent: var(--level-advanced-light); }

@@ -48,6 +48,35 @@ export const getCalendarEventLink = async (event: CollectionEntry<'events'>) => 
     ],
   }
 
+  return toCalendarDataUrl(eventData)
+}
+
+interface BookClubSessionDetails {
+  start: Date;
+  end: Date;
+  place: string;
+  chapters: string;
+  lecture: string;
+  lectureUrl: string;
+}
+
+export const getBookClubCalendarEventLink = (session: BookClubSessionDetails) => {
+  const { start, end, place, chapters, lecture, lectureUrl } = session
+  const url = 'https://learnbayes.se/book-club/sessions'
+  const preparation = `We recommend watching video lecture ${lecture} (${lectureUrl}) and reading chapters ${chapters}.`
+
+  return toCalendarDataUrl({
+    start: start.getTime(),
+    end: end.getTime(),
+    title: 'Learn Bayes: Book Club',
+    description: `Book club on Statistical Rethinking by Richard McElreath\n\n${preparation}\n\n${url}`,
+    location: place,
+    url: url,
+    categories: ['Learn Bayes', 'Book Club'],
+  })
+}
+
+const toCalendarDataUrl = (eventData: ics.EventAttributes) => {
   const { error, value } = ics.createEvent(eventData);
 
   if (error || value === undefined) {
