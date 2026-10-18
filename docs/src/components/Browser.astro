@@ -1,6 +1,6 @@
 ---
 import ItemCard from '@components/ItemCard.astro';
-import { browserConfigs } from '@lib/browserConfigs';
+import { browserConfigs, groupItems, type ItemGroup } from '@lib/browserConfigs';
 import { Icon } from 'astro-icon/components';
 
 interface Props {
@@ -10,6 +10,9 @@ interface Props {
 const { kind } = Astro.props;
 const config = browserConfigs[kind];
 const cards = await config.load();
+const groups: ItemGroup[] = config.groups
+	? groupItems(cards, config.groups)
+	: [{ slug: '', label: '', items: cards }];
 
 const levels = [
 	{ value: 'beginner', label: 'Beginner' },
@@ -70,20 +73,25 @@ const allTags = [...new Set(cards.flatMap((c) => c.tags))].sort();
 
 	<p class="browser__status sr-only" role="status" aria-live="polite" data-status />
 
-	<div class="browser__grid">
-		{cards.map((c) => (
-			<ItemCard
-				id={c.id}
-				href={c.href}
-				title={c.title}
-				description={c.description}
-				level={c.level}
-				tags={c.tags}
-				chips={c.chips}
-				text={c.text}
-			/>
-		))}
-	</div>
+	{groups.map((group) => (
+		<section class="browser__group" data-group={group.slug}>
+			{group.label && <h2 class="browser__group-heading" id={group.slug}>{group.label}</h2>}
+			<div class="browser__grid">
+				{group.items.map((c) => (
+					<ItemCard
+						id={c.id}
+						href={c.href}
+						title={c.title}
+						description={c.description}
+						level={c.level}
+						tags={c.tags}
+						chips={c.chips}
+						text={c.text}
+					/>
+				))}
+			</div>
+		</section>
+	))}
 
 	<div class="browser__empty" data-empty hidden>
 		<p>{config.emptyText}</p>
@@ -402,6 +410,13 @@ const allTags = [...new Set(cards.flatMap((c) => c.tags))].sort();
 				border-color: var(--color-accent-800);
 			}
 		}
+	}
+	.browser__group-heading {
+		font-size: var(--sl-text-h2);
+		font-weight: 600;
+		line-height: var(--sl-line-height-headings);
+		color: var(--sl-color-white);
+		margin: 2.5rem 0 0;
 	}
 	.browser__grid {
 		display: flex;
