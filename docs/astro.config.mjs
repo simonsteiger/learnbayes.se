@@ -64,7 +64,6 @@ export default defineConfig({
           },
           exclude: [
             '/index',
-            '/guides/**',
             '/programming/**',
             '/speakers/**',
             '/information/methods-week',

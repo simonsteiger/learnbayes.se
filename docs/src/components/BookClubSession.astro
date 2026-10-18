@@ -4,6 +4,13 @@ import { Icon } from 'astro-icon/components';
 import IconLine from '@components/IconLine.astro';
 import { formatTime, getBookClubCalendarEventLink, setTime } from 'src/utils';
 
+interface SessionLink {
+	label: string;
+	href: string;
+	/** Iconify name, e.g. `ph:presentation-chart-duotone`. */
+	icon?: string;
+}
+
 interface Props {
 	/** Calendar date of the session as `YYYY-MM-DD`. */
 	date: string;
@@ -15,6 +22,8 @@ interface Props {
 	startTime?: string;
 	stopTime?: string;
 	place?: string;
+	/** Extra buttons shown after "Add to calendar". */
+	links?: SessionLink[];
 }
 
 const {
@@ -25,6 +34,7 @@ const {
 	startTime ='15:00:00',
 	stopTime = '17:00:00',
 	place = 'Widerströmska huset, Room Karolina',
+	links = [],
 } = Astro.props;
 
 if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) {
@@ -67,10 +77,20 @@ const calendarEventLink = getBookClubCalendarEventLink({
 		)
 	}
 
-	<LinkButton href={calendarEventLink} download={`${date} - Learn Bayes - Book Club.ics`}>
-		<Icon name="ph:calendar-plus-duotone" class="session__button-icon" />
-		Add to calendar
-	</LinkButton>
+	<div class="session__buttons">
+		<LinkButton href={calendarEventLink} download={`${date} - Learn Bayes - Book Club.ics`}>
+			<Icon name="ph:calendar-plus-duotone" class="session__button-icon" />
+			Add to calendar
+		</LinkButton>
+		{
+			links.map(({ label, href, icon }) => (
+				<LinkButton href={href}>
+					{icon && <Icon name={icon} class="session__button-icon" />}
+					{label}
+				</LinkButton>
+			))
+		}
+	</div>
 </div>
 
 <style lang="scss">
@@ -88,8 +108,15 @@ const calendarEventLink = getBookClubCalendarEventLink({
 		height: 1em;
 	}
 
-	.session :global(.sl-link-button) {
+	.session__buttons {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.75rem;
 		margin-top: 1.25rem;
+	}
+
+	.session :global(.sl-link-button) {
+		margin: 0;
 		border-radius: 0.6rem;
 	}
 </style>

@@ -35,6 +35,7 @@ export function initFacetedBrowser(root: HTMLElement, config: FacetedBrowserConf
 	const cardWords = new Map<HTMLElement, string[]>(
 		cards.map((card) => [card, tokenize(card.dataset[config.searchAttr] ?? '')])
 	);
+	const groups = Array.from(root.querySelectorAll<HTMLElement>('[data-group]'));
 	const facetButtons = Array.from(
 		root.querySelectorAll<HTMLButtonElement>('button[data-facet]')
 	);
@@ -146,14 +147,21 @@ export function initFacetedBrowser(root: HTMLElement, config: FacetedBrowserConf
 
 	// Starlight renders each TOC entry as <li><a href="#slug">, desktop and mobile
 	// alike, so one lookup keeps both in step with the filtered cards.
-	function syncTocEntry(card: HTMLElement, visible: boolean) {
-		if (!card.id) return;
-		const links = document.querySelectorAll<HTMLAnchorElement>(
-			`a[href="#${CSS.escape(card.id)}"]`
-		);
+	function syncTocEntry(id: string, visible: boolean) {
+		if (!id) return;
+		const links = document.querySelectorAll<HTMLAnchorElement>(`a[href="#${CSS.escape(id)}"]`);
 		for (const link of links) {
 			const li = link.closest('li');
 			if (li) li.hidden = !visible;
+		}
+	}
+
+	function syncGroups() {
+		for (const group of groups) {
+			const groupCards = group.querySelectorAll<HTMLElement>(config.cardSelector);
+			const visible = Array.from(groupCards).some((card) => !card.hidden);
+			group.hidden = !visible;
+			syncTocEntry(group.dataset.group ?? '', visible);
 		}
 	}
 
@@ -162,9 +170,10 @@ export function initFacetedBrowser(root: HTMLElement, config: FacetedBrowserConf
 		for (const card of cards) {
 			const ok = matches(card);
 			card.hidden = !ok;
-			syncTocEntry(card, ok);
+			syncTocEntry(card.id, ok);
 			if (ok) shown++;
 		}
+		syncGroups();
 		const liveValues = new Set(
 			availFor(config.collapsible.key).flatMap((c) =>
 				(c.dataset[config.collapsible.attr] ?? '').split(',').filter(Boolean)

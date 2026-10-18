@@ -1,0 +1,29 @@
+%YAML 1.2
+---
+name: Stan
+file_extensions: [stan]
+scope: source.stan
+contexts:
+  main:
+    - match: '//.*$'
+      scope: comment.line.double-slash.stan
+    - match: '/\*'
+      push: block_comment
+    - match: '"[^"]*"'
+      scope: string.quoted.double.stan
+    - match: '\b(functions|data|transformed|parameters|model|generated|quantities)\b'
+      scope: keyword.control.stan
+    - match: '\b(for|in|while|if|else|return|target)\b'
+      scope: keyword.other.stan
+    - match: '\b(int|real|complex|vector|row_vector|matrix|array|simplex|ordered|positive_ordered|unit_vector|cov_matrix|corr_matrix|cholesky_factor_cov|cholesky_factor_corr|void)\b'
+      scope: storage.type.stan
+    - match: '\b[0-9]+(\.[0-9]+)?([eE][+-]?[0-9]+)?\b'
+      scope: constant.numeric.stan
+    - match: '~'
+      scope: keyword.operator.stan
+    - match: '\b[A-Za-z_][A-Za-z0-9_]*(?=\s*\()'
+      scope: support.function.stan
+  block_comment:
+    - meta_scope: comment.block.stan
+    - match: '\*/'
+      pop: true
