@@ -2,7 +2,7 @@
 import { LinkButton } from '@astrojs/starlight/components';
 import { Icon } from 'astro-icon/components';
 import IconLine from '@components/IconLine.astro';
-import { formatTime, getBookClubCalendarEventLink, setTime } from 'src/utils';
+import { formatList, formatTime, getBookClubCalendarEventLink, pluralise, setTime, type Lecture } from 'src/utils';
 
 interface SessionLink {
 	label: string;
@@ -14,11 +14,10 @@ interface SessionLink {
 interface Props {
 	/** Calendar date of the session as `YYYY-MM-DD`. */
 	date: string;
-	/** Chapter range of Statistical Rethinking, e.g. `1-2`. */
-	chapters: string;
-	/** Label of the accompanying video lecture, e.g. `A01`. */
-	lecture: string;
-	lectureUrl: string;
+	/** Chapters of Statistical Rethinking, e.g. `[1, 2]`. */
+	chapters: number[];
+	/** Accompanying video lectures, e.g. `[{ label: 'A01', url: '…' }]`. */
+	lectures: Lecture[];
 	startTime?: string;
 	stopTime?: string;
 	place?: string;
@@ -29,8 +28,7 @@ interface Props {
 const {
 	date,
 	chapters,
-	lecture,
-	lectureUrl,
+	lectures,
 	startTime ='15:00:00',
 	stopTime = '17:00:00',
 	place = 'Widerströmska huset, Room Karolina',
@@ -40,6 +38,19 @@ const {
 if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) {
 	throw new Error(`BookClubSession: \`date\` must be YYYY-MM-DD, received ${JSON.stringify(date)}`);
 }
+
+if (chapters.length === 0) {
+	throw new Error(`BookClubSession: \`chapters\` must not be empty (session on ${date})`);
+}
+
+if (lectures.length === 0) {
+	throw new Error(`BookClubSession: \`lectures\` must not be empty (session on ${date})`);
+}
+
+const remainingLectures = [...lectures];
+const lectureListParts = new Intl.ListFormat('en')
+	.formatToParts(lectures.map(({ label }) => label))
+	.map(({ type, value }) => (type === 'element' ? remainingLectures.shift()! : value));
 
 const day = new Date(date);
 const longDate = day.toLocaleDateString('en-GB', {
@@ -55,8 +66,7 @@ const calendarEventLink = getBookClubCalendarEventLink({
 	end: setTime(day, stopTime),
 	place,
 	chapters,
-	lecture,
-	lectureUrl,
+	lectures,
 });
 ---
 
@@ -66,7 +76,8 @@ const calendarEventLink = getBookClubCalendarEventLink({
 	</IconLine>
 	<IconLine icon="ph:map-pin-duotone">{place}</IconLine>
 	<IconLine icon="ph:books-duotone">
-		Chapters {chapters}, <a href={lectureUrl}>video lecture {lecture}</a> 
+		{`${pluralise('Chapter', chapters.length)} ${formatList(chapters)}, video ${pluralise('lecture', lectures.length)} `}
+		{lectureListParts.map((part) => (typeof part === 'string' ? part : <a href={part.url}>{part.label}</a>))}
 	</IconLine>
 
 	{

@@ -51,19 +51,29 @@ export const getCalendarEventLink = async (event: CollectionEntry<'events'>) => 
   return toCalendarDataUrl(eventData)
 }
 
+export interface Lecture {
+  /** Lecture label, e.g. `A01`. */
+  label: string;
+  url: string;
+}
+
 interface BookClubSessionDetails {
   start: Date;
   end: Date;
   place: string;
-  chapters: string;
-  lecture: string;
-  lectureUrl: string;
+  chapters: number[];
+  lectures: Lecture[];
 }
 
+export const formatList = (items: (string | number)[]) => new Intl.ListFormat('en').format(items.map(String))
+
+export const pluralise = (noun: string, count: number) => (count === 1 ? noun : `${noun}s`)
+
 export const getBookClubCalendarEventLink = (session: BookClubSessionDetails) => {
-  const { start, end, place, chapters, lecture, lectureUrl } = session
+  const { start, end, place, chapters, lectures } = session
   const url = 'https://learnbayes.se/book-club/sessions'
-  const preparation = `We recommend watching video lecture ${lecture} (${lectureUrl}) and reading chapters ${chapters}.`
+  const lectureList = formatList(lectures.map(({ label, url }) => `${label} (${url})`))
+  const preparation = `We recommend watching video ${pluralise('lecture', lectures.length)} ${lectureList} and reading ${pluralise('chapter', chapters.length)} ${formatList(chapters)}.`
 
   return toCalendarDataUrl({
     start: start.getTime(),
