@@ -1,4 +1,4 @@
-// Fonts and colours shared by distributions.typ and relationships.typ.
+// Fonts and colours shared by the cheatsheets in this directory.
 
 #let body-font = "Avenir Next"
 #let title-font = "Iowan Old Style"
@@ -29,13 +29,19 @@
 
 // Makie's tab20b palette has five hues with four shades each. `dark` and `mid`
 // are its first and second shades; `background` is its fourth shade mixed with
-// 70% white, as computed by `lighten` in distributions.jl.
+// 70% white, as computed by `lighten` in plotting.jl.
 #let tab20b = (
   indigo: (dark: rgb("#393B79"), mid: rgb("#5254A3"), background: rgb("#E1E2F5")),
   olive: (dark: rgb("#637939"), mid: rgb("#8CA252"), background: rgb("#F0F4E1")),
   ochre: (dark: rgb("#8C6D31"), mid: rgb("#BD9E39"), background: rgb("#F8EFDF")),
   red: (dark: rgb("#843C39"), mid: rgb("#AD494A"), background: rgb("#F8E0E1")),
   magenta: (dark: rgb("#7B4173"), mid: rgb("#A55194"), background: rgb("#F5E2F3")),
+)
+
+// Hues from Makie's tab20c palette, with shades chosen as for `tab20b`.
+#let tab20c = (
+  blue: (dark: rgb("#3182BD"), mid: rgb("#6BAED6"), background: rgb("#EEF4FA")),
+  orange: (dark: rgb("#E6550D"), mid: rgb("#FD8D3C"), background: rgb("#FEF1E3")),
 )
 
 #let ink = site.gray-800
