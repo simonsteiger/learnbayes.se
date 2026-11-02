@@ -1,7 +1,7 @@
 ---
 title: "Cheatsheet for advanced distributions"
 description: "An overview of more advanced probability distributions and extensions."
-level: advanced
+level: intermediate
 tags:
   - Cheatsheet
 links:

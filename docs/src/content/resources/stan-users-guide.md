@@ -1,7 +1,7 @@
 ---
 title: The Stan language
 description: "Learn about the most established probabilistic programming language nowadays."
-level: advanced
+level: intermediate
 tags:
   - Stan
   - Documentation

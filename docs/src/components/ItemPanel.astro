@@ -10,7 +10,7 @@ interface Props {
 }
 
 const { level, tags, chips, linksLabel } = Astro.props;
-const levelLabel = level ? { beginner: 'Beginner', advanced: 'Advanced', expert: 'Expert' }[level] : undefined;
+const levelLabel = level ? { beginner: 'Beginner', intermediate: 'Intermediate', advanced: 'Advanced' }[level] : undefined;
 ---
 
 <div class="panel not-content">
@@ -93,8 +93,8 @@ const levelLabel = level ? { beginner: 'Beginner', advanced: 'Advanced', expert:
 		letter-spacing: 0.08em;
 
 		&--beginner { color: var(--level-beginner); }
+		&--intermediate { color: var(--level-intermediate); }
 		&--advanced { color: var(--level-advanced); }
-		&--expert { color: var(--level-expert); }
 	}
 
 	.dot {

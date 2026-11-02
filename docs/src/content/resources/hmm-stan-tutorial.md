@@ -1,7 +1,7 @@
 ---
 title: A Tutorial on Hidden Markov Models using Stan
 description: Tutorial written by Luis Damiano (2017).
-level: advanced
+level: intermediate
 tags:
   - Tutorial
   - Stan

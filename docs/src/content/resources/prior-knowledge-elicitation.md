@@ -1,7 +1,7 @@
 ---
 title: "Prior Knowledge Elicitation: The Past, Present, and Future"
 description: Mikkola et al. (2024), Bayesian Analysis.
-level: advanced
+level: intermediate
 tags:
   - Guidelines
   - Workflow

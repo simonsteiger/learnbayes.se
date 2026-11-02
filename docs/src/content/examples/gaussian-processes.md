@@ -1,7 +1,7 @@
 ---
 title: Introduction to Gaussian Processes
 description: An introduction to GPs, ending with PPL implementations.
-level: expert
+level: advanced
 tags:
   - Introduction
   - Nonparametric

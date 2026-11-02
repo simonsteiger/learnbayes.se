@@ -1,7 +1,7 @@
 ---
 title: "Statistical Thinking"
 description: "Frank Harrell's blog about statistics."
-level: advanced
+level: intermediate
 tags:
   - Blog
 links:

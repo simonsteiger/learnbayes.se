@@ -14,7 +14,7 @@ export interface Props {
 }
 
 const { id, href, title, description, level, tags, chips, text } = Astro.props;
-const levelLabel = level ? { beginner: 'Beginner', advanced: 'Advanced', expert: 'Expert' }[level] : undefined;
+const levelLabel = level ? { beginner: 'Beginner', intermediate: 'Intermediate', advanced: 'Advanced' }[level] : undefined;
 ---
 
 <article class="lang-card not-content" id={id} data-level={level ?? ''} data-tags={tags.join(',')} data-text={text}>
@@ -137,8 +137,8 @@ const levelLabel = level ? { beginner: 'Beginner', advanced: 'Advanced', expert:
 			white-space: nowrap;
 
 			&--beginner { color: var(--level-beginner); }
+			&--intermediate { color: var(--level-intermediate); }
 			&--advanced { color: var(--level-advanced); }
-			&--expert { color: var(--level-expert); }
 		}
 
 		.dot {

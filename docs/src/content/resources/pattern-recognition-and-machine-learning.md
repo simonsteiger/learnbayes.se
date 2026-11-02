@@ -1,7 +1,7 @@
 ---
 title: Pattern Recognition and Machine Learning
 description: "An in-depth textbook discussing many advanced Bayesian algorithms."
-level: expert
+level: advanced
 tags:
   - Math-heavy
 links:

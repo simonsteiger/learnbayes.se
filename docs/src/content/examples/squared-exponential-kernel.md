@@ -1,7 +1,7 @@
 ---
 title: Squared Exponential Kernel
 description: Learn about hyperparameters and covariograms.
-level: expert
+level: advanced
 tags:
   - Nonparametric
 links:

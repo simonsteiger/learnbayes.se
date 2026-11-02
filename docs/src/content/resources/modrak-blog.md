@@ -1,7 +1,7 @@
 ---
 title: Martin Modrák's blog
 description: "My favorite post is Thank you: Statistics as a journey."
-level: advanced
+level: intermediate
 tags:
   - Stan
   - R

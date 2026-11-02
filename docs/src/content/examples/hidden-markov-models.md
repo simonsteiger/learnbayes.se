@@ -1,7 +1,7 @@
 ---
 title: Introduction to Hidden Markov models
 description: Learn about a powerful technique to model longitudinal data.
-level: expert
+level: advanced
 tags:
   - Introduction
   - Multistate

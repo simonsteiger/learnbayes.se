@@ -48,7 +48,7 @@ const examples = defineCollection({
 	schema: z.object({
 		title: z.string(),
 		description: z.string(),
-		level: z.enum(['beginner', 'advanced', 'expert']),
+		level: z.enum(['beginner', 'intermediate', 'advanced']),
 		tags: z.array(z.string()).default([]),
 		links: z.object({
 			r: z.string().nullable().optional(),
@@ -65,7 +65,7 @@ const resources = defineCollection({
 	schema: z.object({
 		title: z.string(),
 		description: z.string().optional(),
-		level: z.enum(['beginner', 'advanced', 'expert']).optional(),
+		level: z.enum(['beginner', 'intermediate', 'advanced']).optional(),
 		tags: z.array(z.string()).default([]),
 		links: z.object({
 			isbn: z.string().optional(),

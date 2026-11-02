@@ -1,6 +1,6 @@
 import type { CollectionEntry } from 'astro:content';
 
-export interface LevelCounts { beginner: number; advanced: number; expert: number }
+export interface LevelCounts { beginner: number; intermediate: number; advanced: number }
 export interface ChipCount { key: string; count: number }
 
 export interface ExampleStats {
@@ -24,10 +24,10 @@ const TYPE_KEYS = ['website', 'article', 'book', 'code'] as const;
 const TYPE_LINK = { website: 'website', article: 'doi', book: 'isbn', code: 'code' } as const;
 
 function emptyLevels(): LevelCounts {
-	return { beginner: 0, advanced: 0, expert: 0 };
+	return { beginner: 0, intermediate: 0, advanced: 0 };
 }
 
-function countLevels<T extends { data: { level?: 'beginner' | 'advanced' | 'expert' } }>(
+function countLevels<T extends { data: { level?: 'beginner' | 'intermediate' | 'advanced' } }>(
 	entries: T[],
 ): LevelCounts {
 	const levels = emptyLevels();

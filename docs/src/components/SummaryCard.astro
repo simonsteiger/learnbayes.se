@@ -9,7 +9,7 @@ interface Props {
 	description: string;
 	chipLabel: string;
 	chips: Chip[];
-	levels: { beginner: number; advanced: number; expert: number };
+	levels: { beginner: number; intermediate: number; advanced: number };
 	browseLabel: string;
 }
 
@@ -17,8 +17,8 @@ const { title, href, description, chipLabel, chips, levels, browseLabel } = Astr
 
 const levelRow = [
 	{ key: 'beginner', count: levels.beginner },
+	{ key: 'intermediate', count: levels.intermediate },
 	{ key: 'advanced', count: levels.advanced },
-	{ key: 'expert', count: levels.expert },
 ] as const;
 ---
 
@@ -257,7 +257,7 @@ const levelRow = [
 		}
 
 		&--beginner { color: var(--level-beginner); }
+		&--intermediate { color: var(--level-intermediate); }
 		&--advanced { color: var(--level-advanced); }
-		&--expert   { color: var(--level-expert); }
 	}
 </style>

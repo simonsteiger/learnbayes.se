@@ -1,7 +1,7 @@
 ---
 title: Bayesian Workflow
 description: Gelman et al. (2020), arXiv.
-level: advanced
+level: intermediate
 tags:
   - Guidelines
   - Workflow

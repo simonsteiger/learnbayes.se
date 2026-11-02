@@ -16,8 +16,8 @@ const groups: ItemGroup[] = config.groups
 
 const levels = [
 	{ value: 'beginner', label: 'Beginner' },
+	{ value: 'intermediate', label: 'Intermediate' },
 	{ value: 'advanced', label: 'Advanced' },
-	{ value: 'expert', label: 'Expert' },
 ] as const;
 
 const allTags = [...new Set(cards.flatMap((c) => c.tags))].sort();
@@ -321,7 +321,28 @@ const allTags = [...new Set(cards.flatMap((c) => c.tags))].sort();
 				}
 			}
 		}
-		&--advanced {
+		&--intermediate {
+		    color: var(--level-intermediate);
+			&:hover {
+				background-color: var(--level-intermediate-lighter);
+				border-color: var(--level-intermediate-lighter);
+			}
+			&[aria-pressed='true'] {
+			    background-color: var(--level-intermediate-light);
+				border-color: var(--level-intermediate-light);
+			}
+			:global([data-theme='dark']) & {
+                &:hover {
+                    background-color: var(--level-intermediate-darker);
+				    border-color: var(--level-intermediate-darker);
+			    }
+				&[aria-pressed='true'] {
+				    background-color: var(--level-intermediate-dark);
+					border-color: var(--level-intermediate-darker);
+				}
+			}
+		}
+		&--advanced   {
 		    color: var(--level-advanced);
 			&:hover {
 				background-color: var(--level-advanced-lighter);
@@ -338,28 +359,7 @@ const allTags = [...new Set(cards.flatMap((c) => c.tags))].sort();
 			    }
 				&[aria-pressed='true'] {
 				    background-color: var(--level-advanced-dark);
-					border-color: var(--level-advanced-darker);
-				}
-			}
-		}
-		&--expert   {
-		    color: var(--level-expert);
-			&:hover {
-				background-color: var(--level-expert-lighter);
-				border-color: var(--level-expert-lighter);
-			}
-			&[aria-pressed='true'] {
-			    background-color: var(--level-expert-light);
-				border-color: var(--level-expert-light);
-			}
-			:global([data-theme='dark']) & {
-                &:hover {
-                    background-color: var(--level-expert-darker);
-				    border-color: var(--level-expert-darker);
-			    }
-				&[aria-pressed='true'] {
-				    background-color: var(--level-expert-dark);
-					border-color: var(--level-expert-dark);
+					border-color: var(--level-advanced-dark);
 				}
 			}
 		}

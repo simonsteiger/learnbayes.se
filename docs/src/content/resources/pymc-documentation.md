@@ -1,7 +1,7 @@
 ---
 title: PyMC
 description: "A probabilistic programming language in Python"
-level: advanced
+level: intermediate
 tags:
   - Python
   - Documentation

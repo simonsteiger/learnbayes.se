@@ -1,7 +1,7 @@
 ---
 title: Turing.jl
 description: "Probably the most established way to write probabilistic models in Julia."
-level: advanced
+level: intermediate
 tags:
   - Julia
   - Documentation

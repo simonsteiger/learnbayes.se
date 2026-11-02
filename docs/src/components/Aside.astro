@@ -70,15 +70,15 @@ if (!asideVariants.includes(type)) {
 
 		&--note { --aside-accent: var(--color-secondary-dark); }
 		&--tip { --aside-accent: var(--color-accent-500); }
-		&--caution { --aside-accent: var(--level-advanced); }
-		&--danger { --aside-accent: var(--level-expert); }
+		&--caution { --aside-accent: var(--level-intermediate); }
+		&--danger { --aside-accent: var(--level-advanced); }
 
 		:global([data-theme='dark']) & {
 			background-color: var(--sl-color-gray-5);
 			&--note { --aside-accent: var(--color-secondary-light); }
 			&--tip { --aside-accent: var(--color-accent-200); }
-			&--caution { --aside-accent: var(--level-advanced-light); }
-			&--danger { --aside-accent: var(--level-expert-light); }
+			&--caution { --aside-accent: var(--level-intermediate-light); }
+			&--danger { --aside-accent: var(--level-advanced-light); }
 		}
 	}
 

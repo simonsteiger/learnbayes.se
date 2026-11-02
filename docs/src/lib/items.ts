@@ -3,7 +3,7 @@ import { resolveIconUrl, greyVariant } from '@lib/icons';
 import removeMarkdown from 'remove-markdown';
 
 export type Kind = 'examples' | 'resources';
-export type Level = 'beginner' | 'advanced' | 'expert';
+export type Level = 'beginner' | 'intermediate' | 'advanced';
 
 export interface ItemChip {
 	key: string;
@@ -41,7 +41,7 @@ const media = [
 	{ key: 'code', label: 'Code', icon: 'ph:code', href: (v: string) => v },
 ] as const;
 
-const levelRank = { beginner: 0, advanced: 1, expert: 2 } as const;
+const levelRank = { beginner: 0, intermediate: 1, advanced: 2 } as const;
 
 const isVisible = (e: { data: { draft?: boolean } }) => (import.meta.env.PROD ? !e.data.draft : true);
 
@@ -49,7 +49,7 @@ function byLevelThenTitle(
 	a: { data: { level?: Level; title: string } },
 	b: { data: { level?: Level; title: string } },
 ): number {
-	const diff = levelRank[a.data.level ?? 'expert'] - levelRank[b.data.level ?? 'expert'];
+	const diff = levelRank[a.data.level ?? 'advanced'] - levelRank[b.data.level ?? 'advanced'];
 	return diff !== 0 ? diff : a.data.title.localeCompare(b.data.title);
 }
 

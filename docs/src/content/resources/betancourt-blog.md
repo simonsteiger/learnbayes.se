@@ -1,7 +1,7 @@
 ---
 title: "Michael Betancourt's resources"
 description: "In-depth writing about statistical modelling in Stan."
-level: expert
+level: advanced
 tags:
   - Stan
   - R
