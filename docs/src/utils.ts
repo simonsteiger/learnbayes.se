@@ -86,7 +86,29 @@ export const getBookClubCalendarEventLink = (session: BookClubSessionDetails) =>
   })
 }
 
-const toCalendarDataUrl = (eventData: ics.EventAttributes) => {
+interface WorkshopModuleDetails {
+  start: Date;
+  end: Date;
+  place: string;
+  module: string;
+}
+
+export const getWorkflowWorkshopCalendarEventLink = (session: WorkshopModuleDetails) => {
+  const { start, end, place, module } = session
+  const url = 'https://learnbayes.se/information/workflow-workshop'
+
+  return toCalendarDataUrl({
+    start: start.getTime(),
+    end: end.getTime(),
+    title: `Learn Bayes: Bayesian Workflow workshop – ${module}`,
+    description: `Bayesian Workflow workshop, module: ${module}\n\n${url}`,
+    location: place,
+    url: url,
+    categories: ['Learn Bayes', 'Workshop'],
+  })
+}
+
+const toCalendarDataUrl =(eventData: ics.EventAttributes) => {
   const { error, value } = ics.createEvent(eventData);
 
   if (error || value === undefined) {

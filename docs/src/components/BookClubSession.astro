@@ -2,6 +2,7 @@
 import { LinkButton } from '@astrojs/starlight/components';
 import { Icon } from 'astro-icon/components';
 import IconLine from '@components/IconLine.astro';
+import CalendarButton from '@components/CalendarButton.astro';
 import { formatList, formatTime, getBookClubCalendarEventLink, pluralise, setTime, type Lecture } from 'src/utils';
 
 interface SessionLink {
@@ -89,10 +90,7 @@ const calendarEventLink = getBookClubCalendarEventLink({
 	}
 
 	<div class="session__buttons">
-		<LinkButton href={calendarEventLink} download={`${date} - Learn Bayes - Book Club.ics`}>
-			<Icon name="ph:calendar-plus-duotone" class="session__button-icon" />
-			Add to calendar
-		</LinkButton>
+		<CalendarButton href={calendarEventLink} filename={`${date} - Learn Bayes - Book Club.ics`} />
 		{
 			links.map(({ label, href, icon }) => (
 				<LinkButton href={href}>

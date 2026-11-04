@@ -52,10 +52,22 @@ export default defineConfig({
             icon: 'information',
             items: [
               { label: 'About Learn Bayes', slug: 'information/information' },
-              { label: 'Seminar Series', autogenerate: { directory: 'events/seminar-series' } },
-              { label: 'Methods Week', autogenerate: { directory: 'events/methods-week' } },
-              { label: 'Networking Event', slug: 'information/networking-event' },
-              { label: 'Speakers', slug: 'information/speakers' },
+              {
+                label: 'Events in 2026',
+                items: [
+                  { label: 'Bayesian Workflow workshop', slug: 'information/workflow-workshop' },
+                ],
+              },
+              {
+                label: 'Events in 2025',
+                collapsed: true,
+                items: [
+                  { label: 'Seminar Series', autogenerate: { directory: 'events/seminar-series' } },
+                  { label: 'Methods Week', autogenerate: { directory: 'events/methods-week' } },
+                  { label: 'Networking Event', slug: 'information/networking-event' },
+                  { label: 'Speakers', slug: 'information/speakers' },
+                ],
+              },
             ],
           },
         ], {

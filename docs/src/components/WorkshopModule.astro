@@ -1,0 +1,51 @@
+---
+import CalendarButton from '@components/CalendarButton.astro';
+import IconLine from '@components/IconLine.astro';
+import { formatTime, getWorkflowWorkshopCalendarEventLink, setTime } from 'src/utils';
+
+interface Props {
+	/** Calendar date of the module as `YYYY-MM-DD`. */
+	date: string;
+	startTime: string;
+	stopTime: string;
+	title: string;
+	place?: string;
+}
+
+const {
+	date,
+	startTime,
+	stopTime,
+	title,
+	place = 'Widerströmska huset, ARC conference room (floor 10)',
+} = Astro.props;
+
+if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) {
+	throw new Error(`WorkshopModule: \`date\` must be YYYY-MM-DD, received ${JSON.stringify(date)}`);
+}
+
+const day = new Date(date);
+const shortDate = day.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', timeZone: 'UTC' });
+
+const calendarEventLink = getWorkflowWorkshopCalendarEventLink({
+	start: setTime(day, startTime),
+	end: setTime(day, stopTime),
+	place,
+	module: title,
+});
+---
+
+<div class="workshop-module">
+	<IconLine icon="ph:calendar-dots-duotone">
+		{shortDate}, {formatTime(startTime)}–{formatTime(stopTime)}
+	</IconLine>
+	<div class="workshop-module__buttons">
+		<CalendarButton href={calendarEventLink} filename={`${date} - Learn Bayes - ${title}.ics`} />
+	</div>
+</div>
+
+<style lang="scss">
+	.workshop-module__buttons {
+		margin-top: 1.25rem;
+	}
+</style>

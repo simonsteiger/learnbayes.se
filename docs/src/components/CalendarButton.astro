@@ -1,0 +1,37 @@
+---
+import { LinkButton } from '@astrojs/starlight/components';
+import { Icon } from 'astro-icon/components';
+
+interface Props {
+	/** `data:text/calendar` URL holding the ICS event. */
+	href: string;
+	/** Name of the downloaded `.ics` file. */
+	filename: string;
+}
+
+const { href, filename } = Astro.props;
+---
+
+<span class="calendar-button">
+	<LinkButton href={href} download={filename}>
+		<Icon name="ph:calendar-plus-duotone" class="calendar-button__icon" />
+		Add to calendar
+	</LinkButton>
+</span>
+
+<style lang="scss">
+	.calendar-button {
+		display: contents;
+	}
+
+	.calendar-button__icon {
+		font-size: 1.25em;
+		width: 1em;
+		height: 1em;
+	}
+
+	.calendar-button :global(.sl-link-button) {
+		margin: 0;
+		border-radius: 0.6rem;
+	}
+</style>
