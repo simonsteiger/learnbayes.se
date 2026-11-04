@@ -95,7 +95,7 @@ interface WorkshopModuleDetails {
 
 export const getWorkflowWorkshopCalendarEventLink = (session: WorkshopModuleDetails) => {
   const { start, end, place, module } = session
-  const url = 'https://learnbayes.se/information/workflow-workshop'
+  const url = 'https://learnbayes.se/events/workflow-workshop'
 
   return toCalendarDataUrl({
     start: start.getTime(),

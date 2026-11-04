@@ -17,7 +17,7 @@ const speakers = defineCollection({
 });
 
 const events = defineCollection({
-	loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/docs/events" }),
+	loader: glob({ pattern: "{seminar-series,methods-week}/**/*.{md,mdx}", base: "./src/content/docs/events" }),
 	schema: z.object({
 		title: z.string(),
 		speaker: z.union([reference('speakers'), z.array(reference('speakers'))]).transform(

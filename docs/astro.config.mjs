@@ -48,14 +48,14 @@ export default defineConfig({
           },
           {
             label: 'Events',
-            link: '/information/information',
+            link: '/events/',
             icon: 'information',
             items: [
-              { label: 'About Learn Bayes', slug: 'information/information' },
+              { label: 'About Learn Bayes', slug: 'events' },
               {
                 label: 'Events in 2026',
                 items: [
-                  { label: 'Bayesian Workflow workshop', slug: 'information/workflow-workshop' },
+                  { label: 'Bayesian Workflow workshop', slug: 'events/workflow-workshop' },
                 ],
               },
               {
@@ -64,8 +64,8 @@ export default defineConfig({
                 items: [
                   { label: 'Seminar Series', autogenerate: { directory: 'events/seminar-series' } },
                   { label: 'Methods Week', autogenerate: { directory: 'events/methods-week' } },
-                  { label: 'Networking Event', slug: 'information/networking-event' },
-                  { label: 'Speakers', slug: 'information/speakers' },
+                  { label: 'Networking Event', slug: 'events/networking-event' },
+                  { label: 'Speakers', slug: 'events/speakers' },
                 ],
               },
             ],
@@ -78,8 +78,8 @@ export default defineConfig({
             '/index',
             '/programming/**',
             '/speakers/**',
-            '/information/methods-week',
-            '/information/seminar-series',
+            '/events/methods-week',
+            '/events/seminar-series',
           ],
         }),
       ],
