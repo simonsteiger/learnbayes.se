@@ -1,6 +1,6 @@
 using AbstractGPs, CairoMakie, Random
 
-const TEMPLATE_DIR = joinpath(@__DIR__, "template")
+const TEMPLATE_DIR = joinpath(@__DIR__, "..", "template")
 const TYRIAN_PURPLE = colorant"#870052"
 const SLIDE_WIDTH = 16
 const SLIDE_HEIGHT = 9
@@ -62,7 +62,12 @@ function corner_lines_figure(;
         for (path_number, path) in enumerate(eachcol(paths))
             points =
                 path_on_slide(xs, path; edge_crossings, x_centre, slide_units_per_gp_unit)
-            lines!(ax, points; color=(TYRIAN_PURPLE, path_number / (n_samples * 1.5)), linewidth=1)
+            lines!(
+                ax,
+                points;
+                color=(TYRIAN_PURPLE, path_number / (n_samples * 1.5)),
+                linewidth=1,
+            )
         end
     end
     hidedecorations!(ax)
